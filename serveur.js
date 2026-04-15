@@ -1,12 +1,10 @@
 const express = require("express");
 const path = require("path");
-const contratRoutes = require("./module/mod_contrat/route_contrat");
 
 const app = express();
 
 app.use(express.json());
 app.use(express.static("public"));
-app.use("/", contratRoutes);
 
 // page par défaut(connexion)
 app.get("/", (req, res) => {
