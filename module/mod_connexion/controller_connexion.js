@@ -13,7 +13,7 @@ exports.inscription = async (req, res) => {
 
         const hash = await bcrypt.hash(mdp, 10);
 
-        await modele.createUser(nom, prenom, email, hash);
+        await modele.creerUtilisateur(nom, prenom, email, hash);
 
         res.send("Inscription réussie !");
     } catch (err) {

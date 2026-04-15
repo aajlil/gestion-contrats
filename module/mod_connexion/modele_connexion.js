@@ -8,7 +8,7 @@ exports.getUserByEmail = async (email) => {
     return result.rows[0];
 };
 
-exports.createUser = async (nom, prenom, email, mdp) => {
+exports.creerUtilisateur = async (nom, prenom, email, mdp) => {
     await pool.query(
         "INSERT INTO utilisateur (nom, prenom, email, mdp, role_id) VALUES ($1, $2, $3, $4, 2)",
         [nom, prenom, email, mdp]
