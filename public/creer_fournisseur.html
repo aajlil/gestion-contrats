@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter un fournisseur</title>
+</head>
+<body>
+
+<h1>Ajouter un fournisseur</h1>
+
+<p id="message"></p>
+
+<label>Nom</label>
+<input id="nom" placeholder="Nom">
+<br><br>
+
+<label>Email</label>
+<input id="email" placeholder="Email">
+<br><br>
+
+<label>Téléphone</label>
+<input id="telephone" placeholder="Téléphone">
+<br><br>
+
+<button onclick="ajouterFournisseur()">Ajouter</button>
+
+<br><br>
+
+<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+
+<script>
+    async function ajouterFournisseur() {
+        const nom = document.getElementById("nom").value;
+        const email = document.getElementById("email").value;
+        const telephone = document.getElementById("telephone").value;
+
+        const res = await fetch("http://localhost:3000/fournisseurs", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({nom, email, telephone})
+        });
+
+        const data = await res.json();
+        const message = document.getElementById("message");
+        message.textContent = data.message;
+    }
+</script>
+
+</body>
+</html>

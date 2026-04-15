@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard Utilisateur</title>
+</head>
+<body>
+
+<h1>Dashboard Utilisateur</h1>
+
+<p id="welcome"></p>
+
+<button>Voir mes contrats</button>
+
+<br><br>
+
+<button onclick="logout()">Se déconnecter</button>
+
+<script>
+    async function chargerUser() {
+        const res = await fetch("http://localhost:3000/me");
+        const user = await res.json();
+
+        if (!user) {
+            window.location.href = "/connexion.html";
+        } else {
+            document.getElementById("welcome").textContent =
+                "Bienvenue " + user.identifiant;
+        }
+    }
+
+    function logout() {
+        fetch("http://localhost:3000/logout")
+            .then(() => {
+                window.location.href = "/connexion.html";
+            });
+    }
+
+    chargerUser();
+</script>
+
+</body>
+</html>

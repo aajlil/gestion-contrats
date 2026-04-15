@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ajouter un type de contrat</title>
+</head>
+<body>
+
+<h1>Ajouter un type de contrat</h1>
+
+<p id="message"></p>
+
+<label>Nom du type</label>
+<input id="nom" placeholder="Ex: Maintenance">
+<br><br>
+
+<button onclick="ajouterType()">Ajouter</button>
+
+<br><br>
+
+<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+
+<script>
+    async function ajouterType() {
+        const nom = document.getElementById("nom").value;
+        const res = await fetch("http://localhost:3000/types", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({nom})
+        });
+
+        const data = await res.json();
+        const message = document.getElementById("message");
+        message.textContent = data.message;
+    }
+</script>
+
+</body>
+</html>

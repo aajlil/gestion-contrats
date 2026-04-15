@@ -4,7 +4,7 @@ if (loginForm) {
     loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const email = document.getElementById("email_login").value;
+        const login = document.getElementById("login").value;
         const mdp = document.getElementById("mdp").value;
 
         const res = await fetch("http://localhost:3000/login", {
@@ -12,16 +12,20 @@ if (loginForm) {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({email, mdp})
+            body: JSON.stringify({login, mdp})
         });
 
-        const data = await res.text();
+        const data = await res.json();
 
         const message = document.getElementById("message");
-        message.textContent = data;
+        message.textContent = data.message;
 
-        if (data.includes("réussie")) {
-            window.location.href = "dashboard.html";
+        if (data.message.includes("réussie")) {
+            if (data.role == 1) {
+                window.location.href = "dashboard_admin.html";
+            } else {
+                window.location.href = "dashboard_utilisateur.html";
+            }
         }
     });
 }
