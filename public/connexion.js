@@ -16,12 +16,11 @@ if (loginForm) {
         });
 
         const data = await res.json();
-
         const message = document.getElementById("message");
         message.textContent = data.message;
 
         if (data.message.includes("réussie")) {
-            if (data.role == 1) {
+            if (data.role === 1) {
                 window.location.href = "dashboard_admin.html";
             } else {
                 window.location.href = "dashboard_utilisateur.html";
