@@ -15,3 +15,11 @@ exports.createFournisseur = async (nom, email, telephone) => {
 exports.createType = async (nom) => {
     await pool.query("INSERT INTO type_contrat (nom) VALUES ($1)", [nom]);
 };
+
+exports.updateContrat = async (
+    id, nom, date_debut, date_fin, montant, description, statut) => {
+    await pool.query(
+        "UPDATE contrat SET nom=$1, date_debut=$2, date_fin=$3, montant=$4, description=$5, statut=$6 WHERE id_contrat=$7",
+        [nom, date_debut, date_fin, montant, description, statut, id]
+    );
+};

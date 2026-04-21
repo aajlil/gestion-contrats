@@ -2,26 +2,72 @@ const express = require("express");
 const router = express.Router();
 const pool = require("../../db");
 const controller = require("./controller_contrat");
+const {isAuthenticated, isAdmin} = require("../../auth");
 
 // fournisseurs
-router.get("/fournisseurs", async (req, res) => {
-    const result = await pool.query("SELECT * FROM fournisseur");
-    res.json(result.rows);
+router.get("/fournisseurs", isAuthenticated, async (req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM fournisseur");
+        return res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur récupération fournisseurs"});
+    }
 });
 
 // types
-router.get("/types", async (req, res) => {
-    const result = await pool.query("SELECT * FROM type_contrat");
-    res.json(result.rows);
+router.get("/types", isAuthenticated, async (req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM type_contrat");
+        return res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur récupération types"});
+    }
 });
 
 // utilisateurs
-router.get("/utilisateurs", async (req, res) => {
-    const result = await pool.query("SELECT * FROM utilisateur");
-    res.json(result.rows);
+router.get("/utilisateurs", isAdmin, async (req, res) => {
+    try {
+        const result = await pool.query("SELECT id_utilisateur, nom, prenom, identifiant, email, role_id FROM utilisateur");
+        return res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur récupération utilisateurs"});
+    }
 });
 
-router.post("/contrats", controller.create);
-router.post("/fournisseurs", controller.createFournisseur);
-router.post("/types", controller.createType);
+// récupérer les contrats
+router.get("/contrats", isAuthenticated, async (req, res) => {
+    try {
+        const result = await pool.query("SELECT * FROM contrat");
+        return res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur récupération contrats"});
+    }
+});
+
+// supprimer plusieurs contrats
+router.delete("/contrats", isAdmin, async (req, res) => {
+    try {
+        const {ids} = req.body;
+
+        if (!ids || ids.length === 0) {
+            return res.json({message:"Aucun contrat sélectionné"});
+        } else {
+            await pool.query("DELETE FROM contrat WHERE id_contrat = ANY($1)", [ids]);
+            return res.json({message:"Contrat(s) supprimé(s)"});
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur suppression"});
+    }
+});
+
+router.post("/contrats", isAdmin, controller.create);
+router.post("/fournisseurs", isAdmin, controller.createFournisseur);
+router.post("/types", isAdmin, controller.createType);
+router.put("/contrats", isAdmin, controller.update);
+
 module.exports = router;

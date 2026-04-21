@@ -13,7 +13,7 @@ exports.create = async (req, res) => {
 };
 
 exports.createFournisseur = async (req, res) => {
-    const { nom, email, telephone } = req.body;
+    const {nom, email, telephone} = req.body;
     try {
         await modele.createFournisseur(nom, email, telephone);
         res.json({message:"Fournisseur ajouté avec succès"});
@@ -31,5 +31,19 @@ exports.createType = async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({message:"Erreur ajout type"});
+    }
+};
+
+
+exports.update = async (req, res) => {
+    const {id, nom, date_debut, date_fin, montant, description, statut} = req.body;
+
+    try {
+        await modele.updateContrat(id, nom, date_debut, date_fin, montant, description, statut);
+        res.json({ message: "Contrat modifié avec succès" });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message:"Erreur modification contrat"});
     }
 };

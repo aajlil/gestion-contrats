@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier un contrat</title>
+</head>
+<body>
+
+<h1>Modifier un contrat</h1>
+
+<select id="contrat_select"></select>
+
+<br><br>
+
+<label>Nom</label>
+<input id="nom">
+
+<br><br>
+
+<label>Date de début</label>
+<input id="date_debut" type="date">
+
+<br><br>
+
+<label>Date de fin</label>
+<input id="date_fin" type="date">
+
+<br><br>
+
+<label>Montant</label>
+<input id="montant" type="number">
+
+<br><br>
+
+<label>Description</label>
+<textarea id="description"></textarea>
+
+<br><br>
+
+<label>Statut</label>
+<select id="statut">
+    <option value="actif">Actif</option>
+    <option value="bientot_expire">Bientôt Expiré</option>
+    <option value="expire">Expiré</option>
+</select>
+
+<br><br>
+
+<button onclick="chargerContrat()">Charger</button>
+<button onclick="modifier()">Modifier</button>
+
+<p id="message"></p>
+
+<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+
+<script src="modifier_contrat.js"></script>
+
+</body>
+</html>
