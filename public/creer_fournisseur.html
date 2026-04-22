@@ -22,31 +22,12 @@
 <input id="telephone" placeholder="Téléphone">
 <br><br>
 
-<button onclick="ajouterFournisseur()">Ajouter</button>
-
+<button id="btnAjouterFournisseur">Ajouter</button>
 <br><br>
 
 <button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
 
-<script>
-    async function ajouterFournisseur() {
-        const nom = document.getElementById("nom").value;
-        const email = document.getElementById("email").value;
-        const telephone = document.getElementById("telephone").value;
-
-        const res = await fetch("http://localhost:3000/fournisseurs", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({nom, email, telephone})
-        });
-
-        const data = await res.json();
-        const message = document.getElementById("message");
-        message.textContent = data.message;
-    }
-</script>
+<script src="/creer_fournisseur.js"></script>
 
 </body>
 </html>

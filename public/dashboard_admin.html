@@ -28,34 +28,12 @@
 <button onclick="window.location.href='/creer_type.html'">Gérer les types de contrat</button>
 <br><br>
 
-<button onclick="window.location.href='/gerer_utilisateur.html'">Gérer les utilisateurs</button>
+<button onclick="window.location.href='/gerer_utilisateurs.html'">Gérer les utilisateurs</button>
 <br><br>
 
-<button onclick="logout()">Se déconnecter</button>
+<button id="btnLogout">Se déconnecter</button>
 
-<script>
-    async function chargerUser() {
-        const res = await fetch("http://localhost:3000/me");
-        const user = await res.json();
-
-        if (!user) {
-            window.location.href = "/connexion.html";
-        } else if (user.role !== 1) {
-            window.location.href = "/dashboard_utilisateur.html";
-        } else {
-            document.getElementById("welcome").textContent = "Bienvenue " + user.identifiant;
-        }
-    }
-
-    function logout() {
-        fetch("http://localhost:3000/logout")
-            .then(() => {
-                window.location.href = "/connexion.html";
-            });
-    }
-
-    chargerUser();
-</script>
+<script src="dashboard_admin.js"></script>
 
 </body>
 </html>
