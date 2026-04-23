@@ -47,3 +47,23 @@ exports.update = async (req, res) => {
         res.status(500).json({message:"Erreur modification contrat"});
     }
 };
+
+exports.getAll = async (req, res) => {
+    try {
+        const contrats = await modele.getAllContrats();
+        res.json(contrats);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message:"Erreur récupération contrats"});
+    }
+};
+
+exports.getMesContrats = async (req, res) => {
+    try {
+        const contrats = await modele.getMesContrats(req.session.user.id);
+        res.json(contrats);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message: "Erreur récupération de vos contrats"});
+    }
+};

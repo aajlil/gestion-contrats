@@ -37,16 +37,12 @@ router.get("/utilisateurs", isAdmin, async (req, res) => {
     }
 });
 
-// récupérer les contrats
-router.get("/contrats", isAuthenticated, async (req, res) => {
-    try {
-        const result = await pool.query("SELECT * FROM contrat");
-        return res.json(result.rows);
-    } catch (err) {
-        console.error(err);
-        return res.status(500).json({message:"Erreur récupération contrats"});
-    }
-});
+
+// contrats admin
+router.get("/contrats", isAdmin, controller.getAll);
+
+// contrats utilisateur
+router.get("/mes-contrats", isAuthenticated, controller.getMesContrats);
 
 // supprimer plusieurs contrats
 router.delete("/contrats", isAdmin, async (req, res) => {
