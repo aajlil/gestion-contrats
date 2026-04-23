@@ -9,6 +9,18 @@ async function verifierAdmin() {
     }
 }
 
+function afficherStatut(statut) {
+    if (statut === "actif") {
+        return "Actif";
+    } else if (statut === "expire") {
+        return "Expiré";
+    } else if (statut === "bientot_expire") {
+        return "Bientôt expiré";
+    } else {
+        return "Non renseigné";
+    }
+}
+
 async function chargerContrats() {
     const res = await fetch("http://localhost:3000/contrats");
     const contrats = await res.json();
@@ -27,7 +39,7 @@ async function chargerContrats() {
             c.date_fin.split("T")[0] + " | " +
             c.montant + " EUR | " +
             c.responsable_nom + " " + c.responsable_prenom + " | " +
-            c.statut;
+            afficherStatut(c.statut);
 
         div.appendChild(ligne);
         div.appendChild(document.createElement("br"));

@@ -25,7 +25,6 @@ async function chargerContrat() {
     document.getElementById("date_fin").value = contrat.date_fin.split("T")[0];
     document.getElementById("montant").value = contrat.montant;
     document.getElementById("description").value = contrat.description;
-    document.getElementById("statut").value = contrat.statut;
 }
 
 async function modifier() {
@@ -35,7 +34,6 @@ async function modifier() {
     const date_fin = document.getElementById("date_fin").value;
     const montant = document.getElementById("montant").value;
     const description = document.getElementById("description").value;
-    const statut = document.getElementById("statut").value;
 
     const res = await fetch("http://localhost:3000/contrats", {
         method: "PUT",
@@ -43,7 +41,7 @@ async function modifier() {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            id, nom, date_debut, date_fin, montant, description, statut
+            id, nom, date_debut, date_fin, montant, description
         })
     });
 
