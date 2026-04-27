@@ -3,6 +3,8 @@ const path = require("path");
 const session = require("express-session");
 const contratRoutes = require("./module/mod_contrat/route_contrat");
 const utilisateurRoutes = require("./module/mod_utilisateur/route_utilisateur");
+const historiqueRoutes = require("./module/mod_historique/route_historique");
+
 
 
 
@@ -13,6 +15,8 @@ app.use(express.static("public"));
 app.use(session({secret: "mon_secret", resave: false, saveUninitialized: false}));
 app.use("/", contratRoutes);
 app.use("/", utilisateurRoutes);
+app.use("/", historiqueRoutes);
+
 
 
 // page par défaut(connexion)

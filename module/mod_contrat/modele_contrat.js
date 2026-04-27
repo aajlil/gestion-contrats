@@ -25,6 +25,7 @@ exports.updateContrat = async (
     );
 };
 
+
 exports.getAllContrats = async () => {
     const result = await pool.query(`
         SELECT
@@ -70,3 +71,9 @@ exports.getMesContrats = async (responsable_id) => {
 
     return result.rows;
 };
+
+exports.getContratById = async (id) => {
+    const result = await pool.query("SELECT * FROM contrat WHERE id_contrat = $1", [id]);
+    return result.rows[0];
+};
+
