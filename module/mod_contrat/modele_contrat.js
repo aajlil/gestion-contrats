@@ -77,3 +77,29 @@ exports.getContratById = async (id) => {
     return result.rows[0];
 };
 
+
+exports.getContratsCalendrier = async () => {
+    const result = await pool.query(
+        "SELECT c.id_contrat, c.nom, c.date_fin, c.statut, f.nom AS fournisseur " +
+        "FROM contrat c " +
+        "LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur " +
+        "WHERE c.date_fin IS NOT NULL " +
+        "ORDER BY c.date_fin ASC"
+    );
+
+    return result.rows;
+};
+
+exports.getMesContratsCalendrier = async (responsable_id) => {
+    const result = await pool.query(
+        "SELECT c.id_contrat, c.nom, c.date_fin, c.statut, f.nom AS fournisseur " +
+        "FROM contrat c " +
+        "LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur " +
+        "WHERE c.date_fin IS NOT NULL AND c.responsable_id = $1 " +
+        "ORDER BY c.date_fin ASC",
+        [responsable_id]
+    );
+
+    return result.rows;
+};
+

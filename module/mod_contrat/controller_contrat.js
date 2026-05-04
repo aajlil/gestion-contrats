@@ -146,4 +146,24 @@ function formaterDate(date) {
 }
 
 
+exports.getCalendrier = async (req, res) => {
+    try {
+        let contrats;
+
+        if (!req.session.user) {
+            return res.status(401).json({message:"Non authentifié"});
+        } else if (req.session.user.role === 1) {
+            contrats = await modele.getContratsCalendrier();
+        } else {
+            contrats = await modele.getMesContratsCalendrier(req.session.user.id);
+        }
+
+        return res.json(contrats);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur récupération calendrier"});
+    }
+};
+
+
 
