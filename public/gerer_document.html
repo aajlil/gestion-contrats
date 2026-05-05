@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des documents</title>
+</head>
+<body>
+
+<h1>Gestion des documents</h1>
+
+<p id="message"></p>
+
+<label>Choisir un contrat</label>
+<select id="contrat_id"></select>
+
+<br><br>
+
+<label>Choisir un fichier</label>
+<input type="file" id="document">
+
+<p>Formats autorisés : PDF, DOC, DOCX, JPG, JPEG, PNG</p>
+
+<br><br>
+
+<button id="btnUpload">Uploader</button>
+<button id="btnAfficher">Afficher les documents</button>
+
+<br><br>
+
+<div id="liste"></div>
+
+<br>
+
+<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+
+<script src="gerer_document.js"></script>
+
+</body>
+</html>

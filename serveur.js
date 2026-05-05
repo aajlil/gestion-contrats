@@ -4,10 +4,7 @@ const session = require("express-session");
 const contratRoutes = require("./module/mod_contrat/route_contrat");
 const utilisateurRoutes = require("./module/mod_utilisateur/route_utilisateur");
 const historiqueRoutes = require("./module/mod_historique/route_historique");
-
-
-
-
+const documentRoutes = require("./module/mod_document/route_document");
 const app = express();
 
 app.use(express.json());
@@ -16,7 +13,7 @@ app.use(session({secret: "mon_secret", resave: false, saveUninitialized: false})
 app.use("/", contratRoutes);
 app.use("/", utilisateurRoutes);
 app.use("/", historiqueRoutes);
-
+app.use("/", documentRoutes);
 
 
 // page par défaut(connexion)
