@@ -54,7 +54,6 @@ function getContratsDuJour(annee, mois, jour) {
 function afficherCalendrier() {
     const calendrier = document.getElementById("calendrier");
     calendrier.innerHTML = "";
-
     const annee = dateCourante.getFullYear();
     const mois = dateCourante.getMonth();
 
@@ -69,7 +68,6 @@ function afficherCalendrier() {
     }
 
     const joursMois = dernierJour.getDate();
-
     const nomsJours = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
     const ligneJours = document.createElement("div");
 
@@ -86,7 +84,7 @@ function afficherCalendrier() {
 
     for (let i = 1; i < debutSemaine; i++) {
         const caseVide = document.createElement("span");
-        caseVide.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
+        caseVide.textContent = "";
         ligne.appendChild(caseVide);
     }
 
@@ -99,11 +97,7 @@ function afficherCalendrier() {
         contratsDuJour.forEach(function(c) {
             const contrat = document.createElement("div");
             contrat.textContent =
-                c.nom + " - " +
-                (c.fournisseur || "Sans fournisseur") + " - " +
-                formaterStatut(c.statut);
-
-            blocJour.appendChild(document.createElement("br"));
+                c.nom + " - " + (c.fournisseur || "Sans fournisseur") + " - " + formaterStatut(c.statut);
             blocJour.appendChild(contrat);
         });
 
