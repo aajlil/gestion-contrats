@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const modele = require("./modele_document");
+const historiqueModele = require("../mod_historique/modele_historique");
 
 exports.upload = async (req, res) => {
     const {contrat_id} = req.body;
@@ -14,6 +15,12 @@ exports.upload = async (req, res) => {
             const chemin = req.file.path;
             const type = req.file.mimetype;
             await modele.ajouterDocument(nom_fichier, chemin, type, contrat_id);
+            await historiqueModele.ajouterHistorique(
+                "upload",
+                "Document ajouté : " + nom_fichier,
+                contrat_id,
+                req.session.user.id
+            );
             return res.json({message:"Document ajouté avec succès"});
         }
     } catch (err) {
@@ -37,6 +44,7 @@ exports.telecharger = async (req, res) => {
     const {id} = req.params;
     try {
         const document = await modele.getDocumentById(id);
+
         if (!document) {
             return res.json({message:"Document introuvable"});
         } else {
@@ -58,8 +66,13 @@ exports.supprimer = async (req, res) => {
             if (fs.existsSync(document.chemin)) {
                 fs.unlinkSync(document.chemin);
             }
-
             await modele.supprimerDocument(id);
+            await historiqueModele.ajouterHistorique(
+                "suppression_document",
+                "Document supprimé : " + document.nom_fichier,
+                document.contrat_id,
+                req.session.user.id
+            );
             return res.json({message:"Document supprimé avec succès"});
         }
     } catch (err) {
