@@ -165,5 +165,36 @@ exports.getCalendrier = async (req, res) => {
     }
 };
 
+exports.rechercher = async (req, res) => {
+    const {recherche} = req.query;
+    try {
+        if (!recherche) {
+            return res.json([]);
+        } else {
+            const contrats = await modele.rechercherContrats(recherche);
+            return res.json(contrats);
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur recherche contrats"});
+    }
+};
+
+exports.rechercherMesContrats = async (req, res) => {
+    const {recherche} = req.query;
+    try {
+        if (!recherche) {
+            return res.json([]);
+        } else {
+            const contrats = await modele.rechercherMesContrats(recherche, req.session.user.id);
+            return res.json(contrats);
+        }
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur recherche mes contrats"});
+    }
+};
+
+
 
 

@@ -45,6 +45,9 @@ router.get("/contrats", isAdmin, controller.getAll);
 router.get("/mes-contrats", isAuthenticated, controller.getMesContrats);
 
 router.get("/calendrier-contrats", isAuthenticated, controller.getCalendrier);
+router.get("/recherche-contrats", isAdmin, controller.rechercher);
+router.get("/recherche-mes-contrats", isAuthenticated, controller.rechercherMesContrats);
+
 
 
 // supprimer plusieurs contrats
