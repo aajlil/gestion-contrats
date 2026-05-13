@@ -15,6 +15,38 @@
 
 <br><br>
 
+<h2>Filtres avancés</h2>
+
+<label>Fournisseur</label>
+<input type="text" id="filtre_fournisseur">
+
+<br><br>
+
+<label>Type de contrat</label>
+<input type="text" id="filtre_type">
+
+<br><br>
+
+<label>Statut</label>
+<select id="filtre_statut">
+    <option value="">-- Choisir --</option>
+    <option value="actif">Actif</option>
+    <option value="bientot_expire">Bientôt expiré</option>
+    <option value="expire">Expiré</option>
+</select>
+
+<br><br>
+
+<label>Date de fin</label>
+<input type="date" id="filtre_date_fin">
+
+<br><br>
+
+<button id="btnFiltrer">Filtrer</button>
+<button id="btnResetFiltres">Réinitialiser les filtres</button>
+
+<br><br>
+
 <p id="message"></p>
 
 <div id="liste"></div>

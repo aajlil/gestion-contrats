@@ -195,6 +195,38 @@ exports.rechercherMesContrats = async (req, res) => {
     }
 };
 
+exports.filtrer = async (req, res) => {
+    const fournisseur = req.query.fournisseur || "";
+    const type = req.query.type || "";
+    const statut = req.query.statut || "";
+    const date_fin = req.query.date_fin || "";
+    try {
+        const contrats = await modele.filtrerContrats(fournisseur, type, statut, date_fin);
+        return res.json(contrats);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur filtres contrats"});
+    }
+};
+
+
+exports.filtrerMesContrats = async (req, res) => {
+    const fournisseur = req.query.fournisseur || "";
+    const type = req.query.type || "";
+    const statut = req.query.statut || "";
+    const date_fin = req.query.date_fin || "";
+    try {
+        const contrats = await modele.filtrerMesContrats(
+            req.session.user.id, fournisseur, type, statut, date_fin
+        );
+        return res.json(contrats);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur filtres mes contrats"});
+    }
+};
+
+
 
 
 

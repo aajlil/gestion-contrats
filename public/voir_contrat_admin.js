@@ -1,5 +1,7 @@
 document.getElementById("btnRecherche").addEventListener("click", rechercherContrats);
 document.getElementById("btnReset").addEventListener("click", chargerContrats);
+document.getElementById("btnFiltrer").addEventListener("click", filtrerContrats);
+document.getElementById("btnResetFiltres").addEventListener("click", reinitialiserFiltres);
 
 async function verifierAdmin() {
     const res = await fetch("http://localhost:3000/me");
@@ -38,7 +40,6 @@ function afficherListe(contrats) {
             formaterDate(c.date_debut) + " | " + formaterDate(c.date_fin) + " | " +
             c.montant + " EUR | " + c.responsable_nom + " " + c.responsable_prenom + " | " +
             afficherStatut(c.statut);
-
         div.appendChild(ligne);
         div.appendChild(document.createElement("br"));
     });
@@ -67,6 +68,36 @@ async function rechercherContrats() {
             afficherListe(contrats);
         }
     }
+}
+
+async function filtrerContrats() {
+    const fournisseur = document.getElementById("filtre_fournisseur").value;
+    const type = document.getElementById("filtre_type").value;
+    const statut = document.getElementById("filtre_statut").value;
+    const date_fin = document.getElementById("filtre_date_fin").value;
+    const url =
+        "http://localhost:3000/filtres-contrats?fournisseur=" + encodeURIComponent(fournisseur) +
+        "&type=" + encodeURIComponent(type) + "&statut=" + encodeURIComponent(statut) +
+        "&date_fin=" + encodeURIComponent(date_fin);
+
+    const res = await fetch(url);
+    const contrats = await res.json();
+    if (contrats.length === 0) {
+        document.getElementById("liste").innerHTML = "";
+        document.getElementById("message").textContent ="Aucun contrat trouvé";
+    } else {
+        document.getElementById("message").textContent = "";
+        afficherListe(contrats);
+    }
+}
+
+function reinitialiserFiltres() {
+    document.getElementById("filtre_fournisseur").value = "";
+    document.getElementById("filtre_type").value = "";
+    document.getElementById("filtre_statut").value = "";
+    document.getElementById("filtre_date_fin").value = "";
+    document.getElementById("message").textContent = "";
+    chargerContrats();
 }
 
 verifierAdmin();

@@ -132,4 +132,39 @@ exports.rechercherMesContrats = async (recherche, utilisateur_id) => {
     return result.rows;
 };
 
+exports.filtrerContrats = async (fournisseur, type, statut, date_fin) => {
+    const result = await pool.query(
+        `SELECT
+             c.id_contrat, c.nom, c.date_debut, c.date_fin, c.montant, c.description, c.statut,
+             f.nom AS fournisseur, t.nom AS type_contrat, u.nom AS responsable_nom, u.prenom AS responsable_prenom
+         FROM contrat c
+                  LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
+                  LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat
+                  LEFT JOIN utilisateur u ON c.responsable_id = u.id_utilisateur
+         WHERE ($1 = '' OR f.nom ILIKE $1)
+           AND ($2 = '' OR t.nom ILIKE $2) AND ($3 = '' OR c.statut = $3) AND ($4 = '' OR c.date_fin = $4::date)
+         ORDER BY c.id_contrat DESC`, [`%${fournisseur}%`, `%${type}%`, statut, date_fin]
+    );
+    return result.rows;
+};
+
+
+exports.filtrerMesContrats = async (utilisateur_id, fournisseur, type, statut, date_fin) => {
+    const result = await pool.query(
+        `SELECT
+             c.id_contrat, c.nom, c.date_debut, c.date_fin, c.montant, c.description, c.statut,
+             f.nom AS fournisseur, t.nom AS type_contrat, u.nom AS responsable_nom, u.prenom AS responsable_prenom
+         FROM contrat c
+                  LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
+                  LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat
+                  LEFT JOIN utilisateur u ON c.responsable_id = u.id_utilisateur
+         WHERE c.responsable_id = $1
+           AND ($2 = '' OR f.nom ILIKE $2) AND ($3 = '' OR t.nom ILIKE $3)
+           AND ($4 = '' OR c.statut = $4) AND ($5 = '' OR c.date_fin = $5::date)
+         ORDER BY c.id_contrat DESC`, [utilisateur_id, `%${fournisseur}%`, `%${type}%`, statut, date_fin]
+    );
+    return result.rows;
+};
+
+
 
