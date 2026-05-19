@@ -1,0 +1,68 @@
+const modele = require("./modele_notification");
+const mailService = require("./service_mail");
+
+function calculerJoursRestants(date_fin) {
+    const aujourdHui = new Date();
+    const dateFin = new Date(date_fin);
+    const differenceTemps = dateFin.getTime() - aujourdHui.getTime();
+    const differenceJours = Math.ceil(differenceTemps / (1000 * 60 * 60 * 24));
+    return differenceJours;
+}
+
+function formaterDate(date) {
+    return new Date(date).toLocaleDateString("fr-FR");
+}
+
+exports.verifierNotifications = async () => {
+    try {
+        const contrats = await modele.getContratsAvecResponsable();
+        for (const contrat of contrats) {
+            if (!contrat.email) {
+                console.log("Aucun email pour le contrat " + contrat.nom);
+            } else {
+                const joursRestants = calculerJoursRestants(contrat.date_fin);
+                if (joursRestants < 0) {
+                    await mailService.envoyerMail(
+                        contrat.email,
+                        "Contrat expiré",
+                        "Bonjour " + contrat.prenom + ",\n\n" +
+                        "Le contrat \"" + contrat.nom + "\" est expiré.\n" +
+                        "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
+                        "Merci de vérifier son renouvellement."
+                    );
+                } else if (joursRestants <= 30) {
+                    await mailService.envoyerMail(
+                        contrat.email,
+                        "Contrat bientôt expiré - alerte 30 jours",
+                        "Bonjour " + contrat.prenom + ",\n\n" +
+                        "Le contrat \"" + contrat.nom + "\" arrive à échéance dans moins de 30 jours.\n" +
+                        "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
+                        "Merci de vérifier son renouvellement."
+                    );
+                } else if (joursRestants <= 90) {
+                    await mailService.envoyerMail(
+                        contrat.email,
+                        "Contrat arrivant à échéance - alerte 90 jours",
+                        "Bonjour " + contrat.prenom + ",\n\n" +
+                        "Le contrat \"" + contrat.nom + "\" arrive à échéance dans moins de 90 jours.\n" +
+                        "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
+                        "Merci de vérifier son renouvellement."
+                    );
+                }
+            }
+        }
+        console.log("Verification des notifications terminee");
+    } catch (err) {
+        console.error("Erreur notifications email :", err);
+    }
+};
+
+exports.testerNotifications = async (req, res) => {
+    try {
+        await exports.verifierNotifications();
+        return res.json({message:"Test notifications terminé"});
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur test notifications"});
+    }
+};
