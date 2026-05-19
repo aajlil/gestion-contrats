@@ -18,15 +18,15 @@ exports.verifierNotifications = async () => {
         const contrats = await modele.getContratsAvecResponsable();
         for (const contrat of contrats) {
             if (!contrat.email) {
-                console.log("Aucun email pour le contrat " + contrat.nom);
+                console.log("Aucun email pour le contrat " + contrat.contrat_nom);
             } else {
                 const joursRestants = calculerJoursRestants(contrat.date_fin);
                 if (joursRestants < 0) {
                     await mailService.envoyerMail(
                         contrat.email,
                         "Contrat expiré",
-                        "Bonjour " + contrat.prenom + ",\n\n" +
-                        "Le contrat \"" + contrat.nom + "\" est expiré.\n" +
+                        "Bonjour " + contrat.identifiant + ",\n\n" +
+                        "Le contrat \"" + contrat.contrat_nom + "\" est expiré.\n" +
                         "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
                         "Merci de vérifier son renouvellement."
                     );
@@ -34,8 +34,8 @@ exports.verifierNotifications = async () => {
                     await mailService.envoyerMail(
                         contrat.email,
                         "Contrat bientôt expiré - alerte 30 jours",
-                        "Bonjour " + contrat.prenom + ",\n\n" +
-                        "Le contrat \"" + contrat.nom + "\" arrive à échéance dans moins de 30 jours.\n" +
+                        "Bonjour " + contrat.identifiant + ",\n\n" +
+                        "Le contrat \"" + contrat.contrat_nom + "\" arrive à échéance dans moins de 30 jours.\n" +
                         "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
                         "Merci de vérifier son renouvellement."
                     );
@@ -43,8 +43,8 @@ exports.verifierNotifications = async () => {
                     await mailService.envoyerMail(
                         contrat.email,
                         "Contrat arrivant à échéance - alerte 90 jours",
-                        "Bonjour " + contrat.prenom + ",\n\n" +
-                        "Le contrat \"" + contrat.nom + "\" arrive à échéance dans moins de 90 jours.\n" +
+                        "Bonjour " + contrat.identifiant + ",\n\n" +
+                        "Le contrat \"" + contrat.contrat_nom + "\" arrive à échéance dans moins de 90 jours.\n" +
                         "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
                         "Merci de vérifier son renouvellement."
                     );
