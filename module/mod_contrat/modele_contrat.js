@@ -166,5 +166,47 @@ exports.filtrerMesContrats = async (utilisateur_id, fournisseur, type, statut, d
     return result.rows;
 };
 
+exports.getDashboardData = async () => {
+    const totalResult = await pool.query(
+        "SELECT COUNT(*) AS total FROM contrat"
+    );
+    const actifsResult = await pool.query(
+        "SELECT COUNT(*) AS actifs FROM contrat WHERE statut = 'actif'"
+    );
+    const expiresResult = await pool.query(
+        "SELECT COUNT(*) AS expires FROM contrat WHERE statut = 'expire'"
+    );
+    const echeanceResult = await pool.query(
+        "SELECT COUNT(*) AS echeance FROM contrat WHERE statut = 'bientot_expire'"
+    );
+    return {
+        total: Number(totalResult.rows[0].total),
+        actifs: Number(actifsResult.rows[0].actifs),
+        expires: Number(expiresResult.rows[0].expires),
+        echeance: Number(echeanceResult.rows[0].echeance)
+    };
+};
+
+exports.getDashboardUtilisateurData = async (utilisateur_id) => {
+    const totalResult = await pool.query(
+        "SELECT COUNT(*) AS total FROM contrat WHERE responsable_id = $1", [utilisateur_id]
+    );
+    const actifsResult = await pool.query(
+        "SELECT COUNT(*) AS actifs FROM contrat WHERE responsable_id = $1 AND statut = 'actif'", [utilisateur_id]
+    );
+    const expiresResult = await pool.query(
+        "SELECT COUNT(*) AS expires FROM contrat WHERE responsable_id = $1 AND statut = 'expire'", [utilisateur_id]
+    );
+    const echeanceResult = await pool.query(
+        "SELECT COUNT(*) AS echeance FROM contrat WHERE responsable_id = $1 AND statut = 'bientot_expire'", [utilisateur_id]
+    );
+    return {
+        total: Number(totalResult.rows[0].total),
+        actifs: Number(actifsResult.rows[0].actifs),
+        expires: Number(expiresResult.rows[0].expires),
+        echeance: Number(echeanceResult.rows[0].echeance)
+    };
+};
+
 
 

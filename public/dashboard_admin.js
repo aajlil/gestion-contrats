@@ -20,8 +20,39 @@ function logout() {
         });
 }
 
+async function chargerDashboard() {
+    const res = await fetch("http://localhost:3000/dashboard-data");
+    const data = await res.json();
+    document.getElementById("totalContrats").textContent = data.total;
+    document.getElementById("contratsActifs").textContent = data.actifs;
+    document.getElementById("contratsExpires").textContent = data.expires;
+    document.getElementById("contratsEcheance").textContent = data.echeance;
+    const ctx = document.getElementById("graphiqueContrats");
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: ["Total", "Actifs", "Expirés", "Arrivant à échéance"],
+            datasets: [{
+                label: "Contrats",
+                data: [data.total, data.actifs, data.expires, data.echeance]
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+}
+
 if (btnLogout) {
     btnLogout.addEventListener("click", logout);
 }
 
 chargerUser();
+chargerDashboard();

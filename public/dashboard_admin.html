@@ -10,6 +10,17 @@
 
 <p id="welcome"></p>
 
+<h2>Vue d'ensemble</h2>
+
+<p><strong>Nombre total de contrats :</strong> <span id="totalContrats">0</span></p>
+<p><strong>Contrats actifs :</strong> <span id="contratsActifs">0</span></p>
+<p><strong>Contrats expirés :</strong> <span id="contratsExpires">0</span></p>
+<p><strong>Contrats arrivant à échéance :</strong> <span id="contratsEcheance">0</span></p>
+
+<canvas id="graphiqueContrats"></canvas>
+
+<br><br>
+
 <button onclick="window.location.href='/creer_contrat.html'">Créer un contrat</button>
 <br><br>
 
@@ -28,24 +39,22 @@
 <button onclick="window.location.href='/creer_type.html'">Gérer les types de contrat</button>
 <br><br>
 
-<button onclick="window.location.href='/gerer_utilisateur.html'">Gérer les utilisateurs</button>
+<button onclick="window.location.href='/gerer_utilisateurs.html'">Gérer les utilisateurs</button>
 <br><br>
 
-<button onclick="window.location.href='/historique_contrat.html'">Consulter l'historique</button>
+<button onclick="window.location.href='/historique_contrat.html'">Voir l'historique</button>
 <br><br>
 
-<button onclick="window.location.href='/calendrier_contrat.html'">Voir le calendrier des échéances</button>
+<button onclick="window.location.href='/gerer_documents.html'">Gérer les documents</button>
 <br><br>
 
-<button onclick="window.location.href='/gerer_document.html'">Gérer les documents</button>
+<button onclick="window.location.href='/calendrier_contrats.html'">Voir le calendrier des échéances</button>
 <br><br>
-
-
-
 
 <button id="btnLogout">Se déconnecter</button>
 
-<script src="dashboard_admin.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/dashboard_admin.js"></script>
 
 </body>
 </html>

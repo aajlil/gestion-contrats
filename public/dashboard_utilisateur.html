@@ -10,17 +10,29 @@
 
 <p id="welcome"></p>
 
+<h2>Vue d'ensemble</h2>
+
+<p><strong>Nombre total de mes contrats :</strong> <span id="totalContrats">0</span></p>
+<p><strong>Mes contrats actifs :</strong> <span id="contratsActifs">0</span></p>
+<p><strong>Mes contrats expirés :</strong> <span id="contratsExpires">0</span></p>
+<p><strong>Mes contrats arrivant à échéance :</strong> <span id="contratsEcheance">0</span></p>
+
+<canvas id="graphiqueContrats"></canvas>
+
+<br><br>
+
 <button onclick="window.location.href='/voir_contrat_utilisateur.html'">Voir mes contrats</button>
 <br><br>
 
-<button onclick="window.location.href='/calendrier_contrat.html'">Voir le calendrier des échéances</button>
+<button onclick="window.location.href='/mes_documents.html'">Mes documents</button>
 <br><br>
 
-<button onclick="window.location.href='/mes_document.html'">Mes documents</button>
+<button onclick="window.location.href='/calendrier_contrats.html'">Voir le calendrier des échéances</button>
 <br><br>
 
 <button id="btnLogout">Se déconnecter</button>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/dashboard_utilisateur.js"></script>
 
 </body>

@@ -226,6 +226,26 @@ exports.filtrerMesContrats = async (req, res) => {
     }
 };
 
+exports.getDashboard = async (req, res) => {
+    try {
+        const dashboard = await modele.getDashboardData();
+        return res.json(dashboard);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur récupération dashboard"});
+    }
+};
+
+exports.getDashboardUtilisateur = async (req, res) => {
+    try {
+        const dashboard = await modele.getDashboardUtilisateurData(req.session.user.id);
+        return res.json(dashboard);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur récupération dashboard utilisateur"});
+    }
+};
+
 
 
 
