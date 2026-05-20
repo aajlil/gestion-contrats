@@ -48,9 +48,63 @@ async function chargerDashboardUtilisateur() {
     });
 }
 
+async function chargerStatistiquesUtilisateur() {
+    const res = await fetch("http://localhost:3000/statistiques-utilisateur-data");
+    const data = await res.json();
+    document.getElementById("montantTotal").textContent = data.montantTotal;
+    const labelsFournisseurs = [];
+    const valeursFournisseurs = [];
+    data.contratsParFournisseur.forEach(function(item) {
+        labelsFournisseurs.push(item.fournisseur || "Non renseigné");
+        valeursFournisseurs.push(Number(item.total));
+    });
+
+    const labelsTypes = [];
+    const valeursTypes = [];
+    data.contratsParType.forEach(function(item) {
+        labelsTypes.push(item.type_contrat || "Non renseigné");
+        valeursTypes.push(Number(item.total));
+    });
+
+    const ctxFournisseurs = document.getElementById("graphiqueFournisseurs");
+    const ctxTypes = document.getElementById("graphiqueTypes");
+    new Chart(ctxFournisseurs, {
+        type: "bar",
+        data: {
+            labels: labelsFournisseurs,
+            datasets: [{
+                label: "Mes contrats par fournisseur",
+                data: valeursFournisseurs
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0
+                    }
+                }
+            }
+        }
+    });
+
+    new Chart(ctxTypes, {
+        type: "pie",
+        data: {
+            labels: labelsTypes,
+            datasets: [{
+                label: "Mes contrats par type",
+                data: valeursTypes
+            }]
+        }
+    });
+}
+
 if (btnLogoutUtilisateur) {
     btnLogoutUtilisateur.addEventListener("click", logout);
 }
 
 chargerUser();
 chargerDashboardUtilisateur();
+chargerStatistiquesUtilisateur();

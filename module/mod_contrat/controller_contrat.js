@@ -246,6 +246,38 @@ exports.getDashboardUtilisateur = async (req, res) => {
     }
 };
 
+exports.getStatistiques = async (req, res) => {
+    try {
+        const montantTotal = await modele.getMontantTotalContrats();
+        const contratsParFournisseur = await modele.getContratsParFournisseur();
+        const contratsParType = await modele.getContratsParType();
+        return res.json({
+            montantTotal: montantTotal,
+            contratsParFournisseur: contratsParFournisseur,
+            contratsParType: contratsParType
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur récupération statistiques admin"});
+    }
+};
+
+exports.getStatistiquesUtilisateur = async (req, res) => {
+    try {
+        const montantTotal = await modele.getMontantTotalMesContrats(req.session.user.id);
+        const contratsParFournisseur = await modele.getMesContratsParFournisseur(req.session.user.id);
+        const contratsParType = await modele.getMesContratsParType(req.session.user.id);
+        return res.json({
+            montantTotal: montantTotal,
+            contratsParFournisseur: contratsParFournisseur,
+            contratsParType: contratsParType
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur récupération statistiques utilisateur"});
+    }
+};
+
 
 
 

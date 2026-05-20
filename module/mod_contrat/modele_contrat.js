@@ -208,5 +208,53 @@ exports.getDashboardUtilisateurData = async (utilisateur_id) => {
     };
 };
 
+exports.getMontantTotalContrats = async () => {
+    const result = await pool.query(
+        "SELECT COALESCE(SUM(montant), 0) AS total FROM contrat"
+    );
+    return Number(result.rows[0].total);
+};
+
+exports.getContratsParFournisseur = async () => {
+    const result = await pool.query(
+        `SELECT f.nom AS fournisseur, COUNT(c.id_contrat) AS total FROM contrat c
+        LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur GROUP BY f.nom ORDER BY total DESC`
+    );
+    return result.rows;
+};
+
+exports.getContratsParType = async () => {
+    const result = await pool.query(
+        `SELECT t.nom AS type_contrat, COUNT(c.id_contrat) AS total
+        FROM contrat c LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat GROUP BY t.nom ORDER BY total DESC`
+    );
+    return result.rows;
+};
+
+exports.getMontantTotalMesContrats = async (utilisateur_id) => {
+    const result = await pool.query(
+        `SELECT COALESCE(SUM(montant), 0) AS total FROM contrat WHERE responsable_id = $1`, [utilisateur_id]
+    );
+    return Number(result.rows[0].total);
+};
+
+exports.getMesContratsParFournisseur = async (utilisateur_id) => {
+    const result = await pool.query(
+        `SELECT f.nom AS fournisseur, COUNT(c.id_contrat) AS total
+        FROM contrat c LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur WHERE c.responsable_id = $1
+        GROUP BY f.nom ORDER BY total DESC`, [utilisateur_id]
+    );
+    return result.rows;
+};
+
+exports.getMesContratsParType = async (utilisateur_id) => {
+    const result = await pool.query(
+        `SELECT t.nom AS type_contrat, COUNT(c.id_contrat) AS total
+        FROM contrat c LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat
+        WHERE c.responsable_id = $1 GROUP BY t.nom ORDER BY total DESC`, [utilisateur_id]
+    );
+    return result.rows;
+};
+
 
 

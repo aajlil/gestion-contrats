@@ -51,6 +51,8 @@ router.get("/filtres-contrats", isAdmin, controller.filtrer);
 router.get("/filtres-mes-contrats", isAuthenticated, controller.filtrerMesContrats);
 router.get("/dashboard-data", isAdmin, controller.getDashboard);
 router.get("/dashboard-utilisateur-data", isAuthenticated, controller.getDashboardUtilisateur);
+router.get("/statistiques-data", isAdmin, controller.getStatistiques);
+router.get("/statistiques-utilisateur-data", isAuthenticated, controller.getStatistiquesUtilisateur);
 
 
 
