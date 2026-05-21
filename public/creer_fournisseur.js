@@ -13,15 +13,13 @@ async function verifierAdmin() {
 
 async function ajouterFournisseur() {
     const nom = document.getElementById("nom").value;
-    const email = document.getElementById("email").value;
-    const telephone = document.getElementById("telephone").value;
 
     const res = await fetch("http://localhost:3000/fournisseurs", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify({ nom, email, telephone })
+        body: JSON.stringify({nom})
     });
 
     const data = await res.json();

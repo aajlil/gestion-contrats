@@ -10,7 +10,7 @@ exports.createContrat = async (
 
 
 exports.createFournisseur = async (nom, email, telephone) => {
-    await pool.query("INSERT INTO fournisseur (nom, email, telephone) VALUES ($1,$2,$3)", [nom, email, telephone]);
+    await pool.query("INSERT INTO fournisseur (nom) VALUES ($1)", [nom]);
 };
 
 exports.createType = async (nom) => {

@@ -18,9 +18,9 @@ exports.create = async (req, res) => {
 
 
 exports.createFournisseur = async (req, res) => {
-    const {nom, email, telephone} = req.body;
+    const {nom} = req.body;
     try {
-        await modele.createFournisseur(nom, email, telephone);
+        await modele.createFournisseur(nom);
         res.json({message:"Fournisseur ajouté avec succès"});
     } catch (err) {
         console.error(err);
