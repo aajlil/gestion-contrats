@@ -1,14 +1,6 @@
 (function () {
-    var DUREE_AUTO_FERMETURE = 8000;
+    var DUREE_AUTO_FERMETURE = 5000;
     var timerFermeture = null;
-    var panel = document.getElementById("alertes-panel");
-
-    panel.addEventListener("mouseenter", function () {
-        clearTimeout(timerFermeture);
-    });
-    panel.addEventListener("mouseleave", function () {
-        timerFermeture = setTimeout(fermerAlertes, DUREE_AUTO_FERMETURE);
-    });
 
     function construireLibelle(contrat) {
         var jours = contrat.jours_restants;
@@ -80,7 +72,10 @@
         var overlay = document.getElementById("alertes-overlay");
         overlay.classList.remove("fermeture");
         overlay.style.display = "flex";
-        timerFermeture = setTimeout(fermerAlertes, DUREE_AUTO_FERMETURE);
+        clearTimeout(timerFermeture);
+        timerFermeture = setTimeout(function () {
+            fermerAlertes();
+        }, DUREE_AUTO_FERMETURE);
     }
 
     window.fermerAlertes = function () {
@@ -105,8 +100,21 @@
         afficherAlertes(contrats);
     }
 
-    document.addEventListener("DOMContentLoaded", function () {
+    window.ouvrirAlertes = function () {
         chargerAlertes();
+        var overlay = document.getElementById("alertes-overlay");
+        overlay.style.display = "flex";
+    };
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var dejaVu = sessionStorage.getItem("alertes_deja_affichees");
+        if (!dejaVu) {
+            chargerAlertes();
+            setTimeout(function () {
+                sessionStorage.setItem("alertes_deja_affichees", "1");
+            }, 1000);
+        }
+
     });
 
 })();

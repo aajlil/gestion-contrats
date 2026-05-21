@@ -14,6 +14,7 @@ async function chargerUser() {
 }
 
 function logout() {
+    sessionStorage.removeItem("alertes_deja_affichees");
     fetch("http://localhost:3000/logout")
         .then(() => {
             window.location.href = "/connexion.html";

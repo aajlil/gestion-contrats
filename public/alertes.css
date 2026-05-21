@@ -213,3 +213,19 @@
     from {opacity: 0; transform: translateX(-10px);}
     to   {opacity: 1; transform: translateX(0);}
 }
+
+
+/*CLOCHE NOTIFICATION EN HAUT A DROITE */
+.cloche-notif {
+    position: fixed;
+    top: 15px;
+    right: 20px;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 9999;
+    transition: transform 0.2s ease;
+}
+
+.cloche-notif:hover {
+    transform: scale(1.1);
+}

@@ -20,6 +20,7 @@ if (loginForm) {
         message.textContent = data.message;
 
         if (data.message.includes("réussie")) {
+            sessionStorage.removeItem("alertes_deja_affichees");
             if (data.role === 1) {
                 window.location.href = "dashboard_admin.html";
             } else {
