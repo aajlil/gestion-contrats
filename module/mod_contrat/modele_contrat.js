@@ -284,5 +284,30 @@ exports.getMesContratsByIds = async (ids, utilisateur_id) => {
     return result.rows;
 };
 
+exports.getAlertesExpiration = async () => {
+    const result = await pool.query(`
+        SELECT
+            c.id_contrat, c.nom, c.date_fin, c.statut, f.nom AS fournisseur,
+            CAST(c.date_fin - CURRENT_DATE AS INTEGER) AS jours_restants
+        FROM contrat c
+        LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur 
+        WHERE c.statut IN ('expire', 'bientot_expire')
+        ORDER BY c.date_fin ASC
+    `);
+    return result.rows;
+};
+
+exports.getAlertesExpirationUtilisateur = async (utilisateur_id) => {
+    const result = await pool.query(`
+        SELECT
+            c.id_contrat, c.nom, c.date_fin, c.statut, f.nom AS fournisseur,
+            CAST(c.date_fin - CURRENT_DATE AS INTEGER) AS jours_restants
+        FROM contrat c
+        LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
+        WHERE c.responsable_id = $1 AND c.statut IN ('expire', 'bientot_expire')
+        ORDER BY c.date_fin ASC`, [utilisateur_id]);
+    return result.rows;
+};
+
 
 

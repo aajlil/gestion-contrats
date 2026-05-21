@@ -278,6 +278,26 @@ exports.getStatistiquesUtilisateur = async (req, res) => {
     }
 };
 
+exports.getAlertes = async (req, res) => {
+    try {
+        const contrats = await modele.getAlertesExpiration();
+        return res.json(contrats);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur récupération alertes"});
+    }
+};
+
+exports.getAlertesUtilisateur = async (req, res) => {
+    try {
+        const contrats = await modele.getAlertesExpirationUtilisateur(req.session.user.id);
+        return res.json(contrats);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur récupération alertes utilisateur"});
+    }
+};
+
 
 
 

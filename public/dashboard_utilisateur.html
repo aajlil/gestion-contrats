@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard Utilisateur</title>
+    <link rel="stylesheet" href="/alertes.css">
 </head>
 <body>
+<div id="alertes-overlay" class="alertes-overlay" style="display:none;">
+    <div id="alertes-panel" class="alertes-panel">
+        <div class="alertes-header">
+            <span class="alertes-icon">🔔</span>
+            <h2 class="alertes-titre">Alertes d'expiration</h2>
+            <button class="alertes-close" onclick="fermerAlertes()">✕</button>
+        </div>
+        <div id="alertes-liste" class="alertes-liste"></div>
+    </div>
+</div>
 
 <h1>Dashboard Utilisateur</h1>
 
@@ -47,6 +58,7 @@
 <button id="btnLogout">Se déconnecter</button>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/alertes.js"></script>
 <script src="/dashboard_utilisateur.js"></script>
 
 </body>
