@@ -2,6 +2,8 @@ document.getElementById("btnRecherche").addEventListener("click", rechercherCont
 document.getElementById("btnReset").addEventListener("click", chargerContrats);
 document.getElementById("btnFiltrer").addEventListener("click", filtrerContrats);
 document.getElementById("btnResetFiltres").addEventListener("click", reinitialiserFiltres);
+document.getElementById("btnExportExcel").addEventListener("click", exporterExcel);
+document.getElementById("btnExportPdf").addEventListener("click", exporterPdf);
 
 async function verifierAdmin() {
     const res = await fetch("http://localhost:3000/me");
@@ -32,14 +34,25 @@ function formaterDate(date) {
 function afficherListe(contrats) {
     const div = document.getElementById("liste");
     div.innerHTML = "";
+    const entete = document.createElement("div");
+    entete.textContent =
+        "Nom | Fournisseur | Type | Description | Date début | Date fin | Montant | Responsable | Statut";
+    div.appendChild(entete);
+    div.appendChild(document.createElement("br"));
     contrats.forEach(function(c) {
         const ligne = document.createElement("div");
-        ligne.textContent =
-            c.nom + " | " + c.fournisseur + " | " + c.type_contrat + " | " +
-            (c.description || "Sans description") + " | " +
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = c.id_contrat;
+
+        const texte = document.createElement("span");
+        texte.textContent =
+            c.nom + " | " + c.fournisseur + " | " + c.type_contrat + " | " + (c.description || "Sans description") + " | " +
             formaterDate(c.date_debut) + " | " + formaterDate(c.date_fin) + " | " +
             c.montant + " EUR | " + c.responsable_nom + " " + c.responsable_prenom + " | " +
             afficherStatut(c.statut);
+        ligne.appendChild(checkbox);
+        ligne.appendChild(texte);
         div.appendChild(ligne);
         div.appendChild(document.createElement("br"));
     });
@@ -98,6 +111,59 @@ function reinitialiserFiltres() {
     document.getElementById("filtre_date_fin").value = "";
     document.getElementById("message").textContent = "";
     chargerContrats();
+}
+
+function recupererIdsSelectionnes() {
+    const checkboxes = document.querySelectorAll("input[type='checkbox']");
+    const ids = [];
+    checkboxes.forEach(function(cb) {
+        if (cb.checked) {
+            ids.push(cb.value);
+        }
+    });
+    return ids;
+}
+
+async function exporterExcel() {
+    const ids = recupererIdsSelectionnes();
+    if (ids.length === 0) {
+        document.getElementById("message").textContent = "Sélectionne au moins un contrat";
+    } else {
+        const res = await fetch("http://localhost:3000/export/excel", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ids: ids})
+        });
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "contrats.xlsx";
+        a.click();
+    }
+}
+
+async function exporterPdf() {
+    const ids = recupererIdsSelectionnes();
+    if (ids.length === 0) {
+        document.getElementById("message").textContent = "Sélectionne au moins un contrat";
+    } else {
+        const res = await fetch("http://localhost:3000/export/pdf", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ids: ids})
+        });
+        const blob = await res.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "contrats.pdf";
+        a.click();
+    }
 }
 
 verifierAdmin();

@@ -9,6 +9,7 @@ const utilisateurRoutes = require("./module/mod_utilisateur/route_utilisateur");
 const historiqueRoutes = require("./module/mod_historique/route_historique");
 const documentRoutes = require("./module/mod_document/route_document");
 const notificationRoutes = require("./module/mod_notification/route_notification");
+const exportRoutes = require("./module/mod_export/route_export");
 const notificationController = require("./module/mod_notification/controller_notification");
 const app = express();
 
@@ -20,6 +21,7 @@ app.use("/", utilisateurRoutes);
 app.use("/", historiqueRoutes);
 app.use("/", documentRoutes);
 app.use("/", notificationRoutes);
+app.use("/", exportRoutes);
 
 // page par défaut(connexion)
 app.get("/", (req, res) => {
