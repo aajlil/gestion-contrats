@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <title>Dashboard Admin</title>
     <link rel="stylesheet" href="/alertes.css">
+    <link rel="stylesheet" href="/dashboard.css">
 </head>
 <body>
+
 <div id="cloche-notif" onclick="ouvrirAlertes()" class="cloche-notif">
     🔔
 </div>
+
 <div id="alertes-overlay" class="alertes-overlay" style="display:none;">
     <div id="alertes-panel" class="alertes-panel">
         <div class="alertes-header">
@@ -20,66 +23,84 @@
     </div>
 </div>
 
-<h1>Dashboard Administrateur</h1>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div>
+            <p class="dashboard-label">Espace administrateur</p>
+            <h1>Dashboard Administrateur</h1>
+            <p id="welcome" class="dashboard-welcome"></p>
+        </div>
+    </div>
 
-<p id="welcome"></p>
+    <section class="dashboard-section">
+        <h2>Vue d'ensemble</h2>
 
-<h2>Vue d'ensemble</h2>
+        <div class="dashboard-stats">
+            <div class="dashboard-card">
+                <span>Nombre total de contrats</span>
+                <strong id="totalContrats">0</strong>
+            </div>
 
-<p><strong>Nombre total de contrats :</strong> <span id="totalContrats">0</span></p>
-<p><strong>Contrats actifs :</strong> <span id="contratsActifs">0</span></p>
-<p><strong>Contrats expirés :</strong> <span id="contratsExpires">0</span></p>
-<p><strong>Contrats arrivant à échéance :</strong> <span id="contratsEcheance">0</span></p>
+            <div class="dashboard-card">
+                <span>Contrats actifs</span>
+                <strong id="contratsActifs">0</strong>
+            </div>
 
-<canvas id="graphiqueContrats"></canvas>
+            <div class="dashboard-card">
+                <span>Contrats expirés</span>
+                <strong id="contratsExpires">0</strong>
+            </div>
 
-<br><br>
+            <div class="dashboard-card">
+                <span>Contrats arrivant à échéance</span>
+                <strong id="contratsEcheance">0</strong>
+            </div>
+        </div>
 
-<h2>Statistiques</h2>
+        <div class="graphique-box">
+            <canvas id="graphiqueContrats"></canvas>
+        </div>
+    </section>
 
-<p><strong>Montant total des contrats :</strong> <span id="montantTotal">0</span> EUR</p>
+    <section class="dashboard-section">
+        <h2>Statistiques</h2>
 
-<h3>Contrats par fournisseur</h3>
-<canvas id="graphiqueFournisseurs"></canvas>
+        <div class="dashboard-card montant-card">
+            <span>Montant total des contrats</span>
+            <strong><span id="montantTotal">0</span> EUR</strong>
+        </div>
 
-<br><br>
+        <div class="dashboard-graph-grid">
+            <div class="graphique-box">
+                <h3>Contrats par fournisseur</h3>
+                <canvas id="graphiqueFournisseurs"></canvas>
+            </div>
 
-<h3>Contrats par type</h3>
-<canvas id="graphiqueTypes"></canvas>
+            <div class="graphique-box graphique-petit">
+                <h3>Contrats par type</h3>
+                <canvas id="graphiqueTypes"></canvas>
+            </div>
+        </div>
+    </section>
 
-<br><br>
+    <section class="dashboard-section">
+        <h2>Actions</h2>
+        <div class="dashboard-actions">
+            <button onclick="window.location.href='/creer_contrat.html'">Créer un contrat</button>
+            <button onclick="window.location.href='/voir_contrat_admin.html'">Voir tous les contrats</button>
+            <button onclick="window.location.href='/modifier_contrat.html'">Modifier un contrat</button>
+            <button onclick="window.location.href='/supprimer_contrat.html'">Supprimer un contrat</button>
+            <button onclick="window.location.href='/creer_fournisseur.html'">Gérer les fournisseurs</button>
+            <button onclick="window.location.href='/creer_type.html'">Gérer les types de contrat</button>
+            <button onclick="window.location.href='/gerer_utilisateur.html'">Gérer les utilisateurs</button>
+            <button onclick="window.location.href='/historique_contrat.html'">Voir l'historique</button>
+            <button onclick="window.location.href='/gerer_document.html'">Gérer les documents</button>
+            <button onclick="window.location.href='/calendrier_contrat.html'">Voir le calendrier des échéances</button>
+        </div>
+    </section>
 
-<button onclick="window.location.href='/creer_contrat.html'">Créer un contrat</button>
-<br><br>
-
-<button onclick="window.location.href='/voir_contrat_admin.html'">Voir tous les contrats</button>
-<br><br>
-
-<button onclick="window.location.href='/modifier_contrat.html'">Modifier un contrat</button>
-<br><br>
-
-<button onclick="window.location.href='/supprimer_contrat.html'">Supprimer un contrat</button>
-<br><br>
-
-<button onclick="window.location.href='/creer_fournisseur.html'">Gérer les fournisseurs</button>
-<br><br>
-
-<button onclick="window.location.href='/creer_type.html'">Gérer les types de contrat</button>
-<br><br>
-
-<button onclick="window.location.href='/gerer_utilisateur.html'">Gérer les utilisateurs</button>
-<br><br>
-
-<button onclick="window.location.href='/historique_contrat.html'">Voir l'historique</button>
-<br><br>
-
-<button onclick="window.location.href='/gerer_document.html'">Gérer les documents</button>
-<br><br>
-
-<button onclick="window.location.href='/calendrier_contrat.html'">Voir le calendrier des échéances</button>
-<br><br>
-
-<button id="btnLogout">Se déconnecter</button>
+    <button id="btnLogout" class="btn-logout">Se déconnecter</button>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/alertes.js"></script>

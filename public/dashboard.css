@@ -1,0 +1,297 @@
+/*VARIABLES*/
+:root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface-soft: #eef4f8;
+    --text: #17202a;
+    --muted: #687384;
+    --line: #dce3ea;
+    --primary: #0f766e;
+    --primary-dark: #115e59;
+    --danger: #b42318;
+    --danger-dark: #8f1d14;
+    --shadow: 0 18px 45px rgba(23, 32, 42, 0.12);
+}
+
+/*PARAMETRES GENERAUX*/
+* {
+    box-sizing: border-box;
+}
+
+/*CORPS DE LA PAGE*/
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    color: var(--text);
+    background:
+            linear-gradient(135deg, rgba(15, 118, 110, 0.10), transparent 36%),
+            linear-gradient(315deg, rgba(217, 119, 6, 0.10), transparent 34%),
+            var(--bg);
+}
+
+/*CONTENEUR PRINCIPAL*/
+.dashboard-container {
+    width: min(1120px, calc(100% - 36px));
+    margin: 0 auto;
+    padding: 34px 0;
+}
+
+/*ENTETE DU DASHBOARD*/
+.dashboard-header {
+    padding: 26px 30px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+/*TEXTE ESPACE ADMIN OU UTILISATEUR*/
+.dashboard-label {
+    margin: 0 0 8px;
+    color: var(--primary-dark);
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/*TITRE PRINCIPAL*/
+.dashboard-header h1 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    line-height: 1.1;
+}
+
+/*MESSAGE DE BIENVENUE*/
+.dashboard-welcome {
+    margin: 10px 0 0;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+/*SECTIONS DU DASHBOARD*/
+.dashboard-section {
+    margin-top: 24px;
+    padding: 26px 30px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(23, 32, 42, 0.08);
+}
+
+/*TITRES DES SECTIONS*/
+.dashboard-section h2 {
+    margin: 0 0 18px;
+    font-size: 1.25rem;
+}
+
+/*SOUS-TITRES DES GRAPHIQUES*/
+.dashboard-section h3 {
+    margin: 0 0 12px;
+    font-size: 1rem;
+    color: var(--muted);
+}
+
+/*CARTES DE LA VUE D'ENSEMBLE*/
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+/*CARTE*/
+.dashboard-card {
+    padding: 16px;
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+}
+
+/*TEXTE DES CARTES*/
+.dashboard-card span {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/*VALEURS DES CARTES*/
+.dashboard-card strong {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+/*MONTANT TOTAL DES CONTRATS*/
+.montant-card {
+    margin-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+/*TEXTE DU MONTANT TOTAL*/
+.montant-card span {
+    font-size: 1rem;
+}
+
+/*VALEUR DU MONTANT TOTAL*/
+.montant-card strong {
+    display: block;
+    margin-top: 8px;
+    font-size: 1.5rem;
+    color: var(--primary-dark);
+}
+
+/*CHIFFRE DU MONTANT TOTAL*/
+#montantTotal {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+}
+
+/*BLOC DES GRAPHIQUES*/
+.graphique-box {
+    margin: 18px auto 0;
+    max-width: 560px;
+}
+
+/*CANVAS DES GRAPHIQUES*/
+.graphique-box canvas {
+    max-width: 100%;
+    max-height: 380px;
+}
+
+/*GRILLE DES GRAPHIQUES STATISTIQUES*/
+.dashboard-graph-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+/*GRAPHIQUE PLUS PETIT*/
+.graphique-petit {
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*CANVAS DU GRAPHIQUE PLUS PETIT*/
+.graphique-petit canvas {
+    max-height: 320px;
+}
+
+/*BOUTONS D'ACTION*/
+.dashboard-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+/*BOUTONS*/
+button {
+    min-height: 44px;
+    padding: 11px 16px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface-soft);
+    color: var(--text);
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(23, 32, 42, 0.12);
+    background: #ffffff;
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/*BOUTON DECONNEXION*/
+#btnLogout {
+    margin-top: 24px;
+    border-color: var(--danger);
+    background: var(--danger);
+    color: #ffffff;
+}
+
+#btnLogout:hover {
+    background: var(--danger-dark);
+}
+
+/*RESPONSIVE TABLETTE*/
+@media (max-width: 900px) {
+    .dashboard-graph-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .graphique-box {
+        max-width: 100%;
+    }
+
+    .graphique-petit {
+        max-width: 320px;
+    }
+}
+
+/*RESPONSIVE PETIT ECRAN*/
+@media (max-width: 680px) {
+    .dashboard-container {
+        width: min(100% - 24px, 1120px);
+        padding: 20px 0;
+    }
+
+    .dashboard-header {
+        padding: 22px;
+    }
+
+    .dashboard-section {
+        padding: 22px;
+    }
+
+    .dashboard-actions {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*RESPONSIVE MOBILE*/
+@media (max-width: 520px) {
+    .dashboard-container {
+        width: min(100% - 18px, 1120px);
+        padding: 14px 0;
+    }
+
+    .dashboard-section {
+        margin-top: 16px;
+        padding: 18px;
+    }
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .dashboard-card strong {
+        font-size: 1.5rem;
+    }
+
+    .graphique-box,
+    .graphique-petit {
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .graphique-box canvas,
+    .graphique-petit canvas {
+        max-height: 220px;
+    }
+
+    button {
+        width: 100%;
+    }
+}

@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <title>Dashboard Utilisateur</title>
     <link rel="stylesheet" href="/alertes.css">
+    <link rel="stylesheet" href="/dashboard.css">
 </head>
 <body>
+
 <div id="cloche-notif" onclick="ouvrirAlertes()" class="cloche-notif">
     🔔
 </div>
+
 <div id="alertes-overlay" class="alertes-overlay" style="display:none;">
     <div id="alertes-panel" class="alertes-panel">
         <div class="alertes-header">
@@ -20,45 +23,78 @@
     </div>
 </div>
 
-<h1>Dashboard Utilisateur</h1>
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <div>
+            <p class="dashboard-label">Espace utilisateur</p>
+            <h1>Dashboard Utilisateur</h1>
+            <p id="welcome" class="dashboard-welcome"></p>
+        </div>
+    </div>
 
-<p id="welcome"></p>
+    <section class="dashboard-section">
+        <h2>Vue d'ensemble</h2>
 
-<h2>Vue d'ensemble</h2>
+        <div class="dashboard-stats">
+            <div class="dashboard-card">
+                <span>Nombre total de mes contrats</span>
+                <strong id="totalContrats">0</strong>
+            </div>
 
-<p><strong>Nombre total de mes contrats :</strong> <span id="totalContrats">0</span></p>
-<p><strong>Mes contrats actifs :</strong> <span id="contratsActifs">0</span></p>
-<p><strong>Mes contrats expirés :</strong> <span id="contratsExpires">0</span></p>
-<p><strong>Mes contrats arrivant à échéance :</strong> <span id="contratsEcheance">0</span></p>
+            <div class="dashboard-card">
+                <span>Mes contrats actifs</span>
+                <strong id="contratsActifs">0</strong>
+            </div>
 
-<canvas id="graphiqueContrats"></canvas>
+            <div class="dashboard-card">
+                <span>Mes contrats expirés</span>
+                <strong id="contratsExpires">0</strong>
+            </div>
 
-<br><br>
+            <div class="dashboard-card">
+                <span>Mes contrats arrivant à échéance</span>
+                <strong id="contratsEcheance">0</strong>
+            </div>
+        </div>
 
-<h2>Statistiques</h2>
+        <div class="graphique-box">
+            <canvas id="graphiqueContrats"></canvas>
+        </div>
+    </section>
 
-<p><strong>Montant total de mes contrats :</strong> <span id="montantTotal">0</span> EUR</p>
+    <section class="dashboard-section">
+        <h2>Statistiques</h2>
 
-<h3>Mes contrats par fournisseur</h3>
-<canvas id="graphiqueFournisseurs"></canvas>
+        <div class="dashboard-card montant-card">
+            <span>Montant total de mes contrats</span>
+            <strong><span id="montantTotal">0</span> EUR</strong>
+        </div>
 
-<br><br>
+        <div class="dashboard-graph-grid">
+            <div class="graphique-box">
+                <h3>Mes contrats par fournisseur</h3>
+                <canvas id="graphiqueFournisseurs"></canvas>
+            </div>
 
-<h3>Mes contrats par type</h3>
-<canvas id="graphiqueTypes"></canvas>
+            <div class="graphique-box graphique-petit">
+                <h3>Mes contrats par type</h3>
+                <canvas id="graphiqueTypes"></canvas>
+            </div>
+        </div>
+    </section>
 
-<br><br>
+    <section class="dashboard-section">
+        <h2>Actions</h2>
 
-<button onclick="window.location.href='/voir_contrat_utilisateur.html'">Voir mes contrats</button>
-<br><br>
+        <div class="dashboard-actions">
+            <button onclick="window.location.href='/voir_contrat_utilisateur.html'">Voir mes contrats</button>
+            <button onclick="window.location.href='/mes_document.html'">Mes documents</button>
+            <button onclick="window.location.href='/calendrier_contrat.html'">Voir le calendrier des échéances</button>
+        </div>
+    </section>
 
-<button onclick="window.location.href='/mes_document.html'">Mes documents</button>
-<br><br>
-
-<button onclick="window.location.href='/calendrier_contrat.html'">Voir le calendrier des échéances</button>
-<br><br>
-
-<button id="btnLogout">Se déconnecter</button>
+    <button id="btnLogout" class="btn-logout">Se déconnecter</button>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/alertes.js"></script>
