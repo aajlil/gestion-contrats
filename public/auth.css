@@ -1,0 +1,154 @@
+/*VARIABLES*/
+:root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface-soft: #eef4f8;
+    --text: #17202a;
+    --muted: #687384;
+    --line: #dce3ea;
+    --primary: #0f766e;
+    --primary-dark: #115e59;
+    --accent: #d97706;
+    --shadow: 0 18px 45px rgba(23, 32, 42, 0.14);
+}
+
+/*PARAMETRES GENERAUX*/
+* {
+    box-sizing: border-box;
+}
+
+/*CORPS DE LA PAGE*/
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    color: var(--text);
+    background:
+            radial-gradient(circle at top left, rgba(15, 118, 110, 0.18), transparent 34%),
+            radial-gradient(circle at bottom right, rgba(217, 119, 6, 0.16), transparent 32%),
+            var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+/*CARTE CONNEXION INSCRIPTION*/
+.container {
+    width: min(430px, 100%);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 34px;
+}
+
+/*TITRE*/
+.container h2 {
+    margin: 0 0 24px;
+    color: var(--primary-dark);
+    font-size: 2rem;
+    text-align: center;
+}
+
+/*FORMULAIRE*/
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/*LABELS*/
+label {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+/*CHAMPS*/
+input {
+    min-height: 44px;
+    padding: 11px 13px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface-soft);
+    color: var(--text);
+    font: inherit;
+    outline: none;
+    transition: border 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+/*CHAMPS AU FOCUS*/
+input:focus {
+    border-color: var(--primary);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+}
+
+/*BOUTON*/
+button {
+    min-height: 46px;
+    margin-top: 12px;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary);
+    color: white;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(23, 32, 42, 0.14);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/*MESSAGE*/
+#message {
+    min-height: 22px;
+    margin: 18px 0 0;
+    text-align: center;
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/*LIEN CONNEXION INSCRIPTION*/
+.container p:last-child {
+    margin: 18px 0 0;
+    text-align: center;
+    color: var(--muted);
+}
+
+/*LIENS*/
+a {
+    color: var(--primary-dark);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/*RESPONSIVE MOBILE*/
+@media (max-width: 520px) {
+    body {
+        padding: 16px;
+        align-items: flex-start;
+    }
+
+    .container {
+        margin-top: 32px;
+        padding: 26px 22px;
+    }
+
+    .container h2 {
+        font-size: 1.7rem;
+    }
+}
