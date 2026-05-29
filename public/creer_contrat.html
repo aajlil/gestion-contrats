@@ -3,55 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Créer un contrat</title>
+    <link rel="stylesheet" href="/creer_contrat.css">
 </head>
 <body>
 
-<h1>Créer un contrat</h1>
+<div class="page-container">
 
-<p id="message"></p>
+    <div class="form-card">
+        <div class="form-header">
+            <p class="form-label">Gestion des contrats</p>
+            <h1>Créer un contrat</h1>
+        </div>
 
-<label>Nom</label>
-<input id="nom" placeholder="Nom du contrat" required>
-<br><br>
+        <p id="message"></p>
 
-<label>Date de début</label>
-<input id="date_debut" type="date">
-<br><br>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Nom</label>
+                <input id="nom" placeholder="Nom du contrat" required>
+            </div>
 
-<label>Date de fin</label>
-<input id="date_fin" type="date">
-<br><br>
+            <div class="form-group">
+                <label>Montant</label>
+                <input id="montant" type="number" placeholder="Montant">
+            </div>
 
-<label>Montant</label>
-<input id="montant" type="number" placeholder="Montant">
-<br><br>
+            <div class="form-group">
+                <label>Date de début</label>
+                <input id="date_debut" type="date">
+            </div>
 
-<label>Description</label>
-<textarea id="description" placeholder="Description" rows="4" cols="50"></textarea>
-<br><br>
+            <div class="form-group">
+                <label>Date de fin</label>
+                <input id="date_fin" type="date">
+            </div>
 
-<label>Fournisseur</label>
-<select id="fournisseur_id">
-    <option value="">-- Choisir --</option>
-</select>
-<br><br>
+            <div class="form-group">
+                <label>Fournisseur</label>
+                <select id="fournisseur_id">
+                    <option value="">-- Choisir --</option>
+                </select>
+            </div>
 
-<label>Type de contrat</label>
-<select id="type_id">
-    <option value="">-- Choisir --</option>
-</select>
-<br><br>
+            <div class="form-group">
+                <label>Type de contrat</label>
+                <select id="type_id">
+                    <option value="">-- Choisir --</option>
+                </select>
+            </div>
 
-<label>Responsable</label>
-<select id="responsable_id">
-    <option value="">-- Choisir --</option>
-</select>
-<br><br>
+            <div class="form-group form-large">
+                <label>Responsable</label>
+                <select id="responsable_id">
+                    <option value="">-- Choisir --</option>
+                </select>
+            </div>
 
-<button id="btnCreerContrat">Créer</button>
-<br><br>
+            <div class="form-group form-large">
+                <label>Description</label>
+                <textarea id="description" placeholder="Description" rows="4"></textarea>
+            </div>
+        </div>
 
-<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+        <div class="form-actions">
+            <button id="btnCreerContrat">Créer</button>
+            <button class="btn-secondary" onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+        </div>
+    </div>
+
+</div>
 
 <script src="/creer_contrat.js"></script>
 
