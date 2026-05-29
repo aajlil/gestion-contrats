@@ -3,62 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <title>Voir mes contrats</title>
+    <link rel="stylesheet" href="/voir_contrat.css">
 </head>
 <body>
 
-<h1>Mes contrats</h1>
+<div class="page-container">
+    <div class="page-header">
+        <p class="page-label">Mes contrats</p>
+        <h1>Mes contrats</h1>
+    </div>
 
-<label>Recherche rapide</label>
-<input type="text" id="recherche" placeholder="Nom, fournisseur ou mot clé">
-<button id="btnRecherche">Rechercher</button>
-<button id="btnReset">Réinitialiser</button>
+    <section class="bloc-section">
+        <h2>Recherche rapide</h2>
+        <div class="ligne-formulaire">
+            <div class="champ-large">
+                <label>Recherche rapide</label>
+                <input type="text" id="recherche" placeholder="Nom, fournisseur ou mot clé">
+            </div>
 
-<br><br>
+            <button id="btnRecherche">Rechercher</button>
+            <button id="btnReset" class="btn-secondary">Réinitialiser</button>
+        </div>
+    </section>
 
-<h2>Filtres avancés</h2>
+    <section class="bloc-section">
+        <h2>Filtres avancés</h2>
+        <div class="filtres-grid">
+            <div class="form-group">
+                <label>Fournisseur</label>
+                <input type="text" id="filtre_fournisseur">
+            </div>
 
-<label>Fournisseur</label>
-<input type="text" id="filtre_fournisseur">
+            <div class="form-group">
+                <label>Type de contrat</label>
+                <input type="text" id="filtre_type">
+            </div>
 
-<br><br>
+            <div class="form-group">
+                <label>Statut</label>
+                <select id="filtre_statut">
+                    <option value="">-- Choisir --</option>
+                    <option value="actif">Actif</option>
+                    <option value="bientot_expire">Bientôt expiré</option>
+                    <option value="expire">Expiré</option>
+                </select>
+            </div>
 
-<label>Type de contrat</label>
-<input type="text" id="filtre_type">
+            <div class="form-group">
+                <label>Date de fin</label>
+                <input type="date" id="filtre_date_fin">
+            </div>
+        </div>
 
-<br><br>
+        <div class="actions-ligne">
+            <button id="btnFiltrer">Filtrer</button>
+            <button id="btnResetFiltres" class="btn-secondary">Réinitialiser les filtres</button>
+        </div>
+    </section>
 
-<label>Statut</label>
-<select id="filtre_statut">
-    <option value="">-- Choisir --</option>
-    <option value="actif">Actif</option>
-    <option value="bientot_expire">Bientôt expiré</option>
-    <option value="expire">Expiré</option>
-</select>
+    <p id="message"></p>
 
-<br><br>
+    <section class="bloc-section">
+        <h2>Résultats</h2>
+        <div id="liste"></div>
+    </section>
 
-<label>Date de fin</label>
-<input type="date" id="filtre_date_fin">
+    <section class="bloc-section">
+        <h2>Export</h2>
+        <div class="actions-ligne">
+            <button id="btnExportExcel">Exporter en Excel</button>
+            <button id="btnExportPdf">Exporter en PDF</button>
+        </div>
+    </section>
 
-<br><br>
-
-<button id="btnFiltrer">Filtrer</button>
-<button id="btnResetFiltres">Réinitialiser les filtres</button>
-
-<br><br>
-
-<p id="message"></p>
-
-<div id="liste"></div>
-
-<br>
-
-<button id="btnExportExcel">Exporter en Excel</button>
-<button id="btnExportPdf">Exporter en PDF</button>
-
-<br><br>
-
-<button onclick="window.location.href='/dashboard_utilisateur.html'">Retour</button>
+    <button class="btn-retour" onclick="window.location.href='/dashboard_utilisateur.html'">Retour</button>
+</div>
 
 <script src="voir_contrat_utilisateur.js"></script>
 
