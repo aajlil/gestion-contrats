@@ -3,47 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Modifier un contrat</title>
+    <link rel="stylesheet" href="/modifier_contrat.css">
 </head>
 <body>
 
-<h1>Modifier un contrat</h1>
+<div class="page-container">
+    <div class="form-card">
+        <div class="form-header">
+            <p class="form-label">Gestion des contrats</p>
+            <h1>Modifier un contrat</h1>
+        </div>
 
-<select id="contrat_select"></select>
+        <div class="bloc-selection">
+            <div class="form-group">
+                <label>Contrat à modifier</label>
+                <select id="contrat_select"></select>
+            </div>
+            <button onclick="chargerContrat()">Charger</button>
+        </div>
 
-<br><br>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Nom</label>
+                <input id="nom">
+            </div>
 
-<label>Nom</label>
-<input id="nom">
+            <div class="form-group">
+                <label>Montant</label>
+                <input id="montant" type="number">
+            </div>
 
-<br><br>
+            <div class="form-group">
+                <label>Date de début</label>
+                <input id="date_debut" type="date">
+            </div>
 
-<label>Date de début</label>
-<input id="date_debut" type="date">
+            <div class="form-group">
+                <label>Date de fin</label>
+                <input id="date_fin" type="date">
+            </div>
 
-<br><br>
+            <div class="form-group form-large">
+                <label>Description</label>
+                <textarea id="description"></textarea>
+            </div>
+        </div>
 
-<label>Date de fin</label>
-<input id="date_fin" type="date">
+        <div class="form-actions">
+            <button onclick="modifier()">Modifier</button>
+            <button class="btn-secondary" onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+        </div>
 
-<br><br>
-
-<label>Montant</label>
-<input id="montant" type="number">
-
-<br><br>
-
-<label>Description</label>
-<textarea id="description"></textarea>
-
-<br><br>
-
-
-<button onclick="chargerContrat()">Charger</button>
-<button onclick="modifier()">Modifier</button>
-
-<p id="message"></p>
-
-<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+        <p id="message"></p>
+    </div>
+</div>
 
 <script src="modifier_contrat.js"></script>
 
