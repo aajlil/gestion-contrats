@@ -3,41 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <title>Supprimer des contrats</title>
+    <link rel="stylesheet" href="/supprimer_contrat.css">
 </head>
 <body>
 
-<h1>Supprimer des contrats</h1>
+<div class="page-container">
+    <div class="page-header">
+        <p class="page-label">Gestion des contrats</p>
+        <h1>Supprimer des contrats</h1>
+    </div>
 
-<label>Recherche</label>
-<input type="text" id="recherche" placeholder="Nom, montant ou description">
-<button id="btnRechercher">Rechercher</button>
-<button id="btnReset">Réinitialiser</button>
+    <section class="bloc-section">
+        <h2>Recherche</h2>
+        <div class="ligne-formulaire">
+            <div class="champ-large">
+                <label>Recherche</label>
+                <input type="text" id="recherche" placeholder="Nom, montant ou description">
+            </div>
 
-<br><br>
+            <button id="btnRechercher">Rechercher</button>
+            <button id="btnReset" class="btn-secondary">Réinitialiser</button>
+        </div>
+    </section>
 
-<p id="message"></p>
+    <p id="message"></p>
 
-<h2>Résultats</h2>
-<div id="liste"></div>
+    <section class="bloc-section">
+        <h2>Résultats</h2>
+        <div id="liste"></div>
+    </section>
 
-<br>
+    <section class="bloc-section">
+        <h2>Contrats sélectionnés</h2>
+        <div id="selection"></div>
+    </section>
 
-<h2>Contrats sélectionnés</h2>
-<div id="selection"></div>
+    <div class="actions-bas">
+        <button id="btnSupprimer" class="btn-danger">Supprimer les contrats sélectionnés</button>
+        <button class="btn-retour" onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+    </div>
 
-<br>
-
-<button id="btnSupprimer">Supprimer les contrats sélectionnés</button>
-
-<div id="confirmationBox" hidden>
-    <p>Confirmer la suppression ?</p>
-    <button id="btnOui">Oui</button>
-    <button id="btnNon">Non</button>
 </div>
 
-<br><br>
+<div id="confirmationBox" class="confirmation-overlay" hidden>
+    <div class="confirmation-panel">
+        <div class="confirmation-header">
+            <h2>Confirmation</h2>
+        </div>
 
-<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+        <div class="confirmation-content">
+            <p>Confirmer la suppression ?</p>
+        </div>
+
+        <div class="confirmation-actions">
+            <button id="btnOui" class="btn-danger">Oui</button>
+            <button id="btnNon" class="btn-secondary">Non</button>
+        </div>
+    </div>
+</div>
 
 <script src="/supprimer_contrat.js"></script>
 
