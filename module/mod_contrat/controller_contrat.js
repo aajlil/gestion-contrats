@@ -50,6 +50,17 @@ exports.createType = async (req, res) => {
     }
 };
 
+exports.supprimerType = async (req, res) => {
+    const {id} = req.params;
+    try {
+        await modele.supprimerType(id);
+        return res.json({message:"Type de contrat supprimé avec succès"});
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur suppression type de contrat"});
+    }
+};
+
 
 exports.update = async (req, res) => {
     const {id, nom, date_debut, date_fin, montant, description} = req.body;

@@ -21,6 +21,10 @@ exports.createType = async (nom) => {
     await pool.query("INSERT INTO type_contrat (nom) VALUES ($1)", [nom]);
 };
 
+exports.supprimerType = async (id) => {
+    await pool.query("DELETE FROM type_contrat WHERE id_type_contrat = $1", [id]);
+};
+
 exports.updateContrat = async (
     id, nom, date_debut, date_fin, montant, description, statut) => {
     await pool.query(

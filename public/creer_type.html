@@ -2,22 +2,52 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Ajouter un type de contrat</title>
+    <title>Gérer les types de contrat</title>
+    <link rel="stylesheet" href="/creer_type.css">
 </head>
 <body>
 
-<h1>Ajouter un type de contrat</h1>
+<div class="page-container">
+    <div class="form-card">
+        <div class="form-header">
+            <p class="form-label">Gestion des types</p>
+            <h1>Gérer les types de contrat</h1>
+        </div>
 
-<p id="message"></p>
+        <p id="message"></p>
+        <div class="form-group">
+            <label>Nom du type</label>
+            <input id="nom" placeholder="Ex: Maintenance">
+        </div>
 
-<label>Nom du type</label>
-<input id="nom" placeholder="Ex: Maintenance">
-<br><br>
+        <div class="form-actions">
+            <button id="btnAjouterType">Ajouter</button>
+            <button class="btn-secondary" onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+        </div>
+    </div>
 
-<button id="btnAjouterType">Ajouter</button>
-<br><br>
+    <div class="form-card liste-card">
+        <h2>Liste des types de contrat</h2>
+        <div id="listeTypes"></div>
+    </div>
+</div>
 
-<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+<div id="confirmationBox" class="confirmation-overlay" hidden>
+    <div class="confirmation-panel">
+        <div class="confirmation-header">
+            <h2>Confirmation</h2>
+        </div>
+
+        <div class="confirmation-content">
+            <p>Confirmer la suppression du type de contrat ?</p>
+        </div>
+
+        <div class="confirmation-actions">
+            <button id="btnOui" class="btn-danger">Oui</button>
+            <button id="btnNon" class="btn-secondary">Non</button>
+        </div>
+    </div>
+</div>
 
 <script src="/creer_type.js"></script>
 

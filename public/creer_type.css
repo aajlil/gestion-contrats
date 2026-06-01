@@ -1,0 +1,271 @@
+/*VARIABLES*/
+:root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface-soft: #eef4f8;
+    --text: #17202a;
+    --muted: #687384;
+    --line: #dce3ea;
+    --primary: #0f766e;
+    --primary-dark: #115e59;
+    --accent: #d97706;
+    --danger: #b42318;
+    --danger-dark: #8f1d14;
+    --shadow: 0 18px 45px rgba(23, 32, 42, 0.12);
+}
+
+/*PARAMETRES GENERAUX*/
+* {
+    box-sizing: border-box;
+}
+
+/*CORPS DE LA PAGE*/
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    color: var(--text);
+    background:
+            linear-gradient(135deg, rgba(15, 118, 110, 0.10), transparent 36%),
+            linear-gradient(315deg, rgba(217, 119, 6, 0.10), transparent 34%),
+            var(--bg);
+}
+
+/*CONTENEUR PRINCIPAL*/
+.page-container {
+    width: min(620px, calc(100% - 36px));
+    margin: 0 auto;
+    padding: 70px 0;
+}
+
+/*CARTE DU FORMULAIRE*/
+.form-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 30px;
+}
+
+/*ENTETE DU FORMULAIRE*/
+.form-header {
+    margin-bottom: 24px;
+}
+
+/*LABEL AU-DESSUS DU TITRE*/
+.form-label {
+    margin: 0 0 8px;
+    color: var(--primary-dark);
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/*TITRE*/
+h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.3rem);
+    line-height: 1.1;
+}
+
+/*MESSAGE*/
+#message {
+    min-height: 22px;
+    margin: 0 0 18px;
+    color: var(--accent);
+    font-weight: 800;
+}
+
+/*GROUPE DE CHAMP*/
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/*LABELS*/
+label {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+/*CHAMP*/
+input {
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 13px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface-soft);
+    color: var(--text);
+    font: inherit;
+    outline: none;
+    transition: border 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+/*CHAMP AU FOCUS*/
+input:focus {
+    border-color: var(--primary);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+}
+
+/*ZONE DES BOUTONS*/
+.form-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/*BOUTONS*/
+button {
+    min-height: 44px;
+    padding: 11px 18px;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    background: var(--primary);
+    color: #ffffff;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(23, 32, 42, 0.14);
+    background: var(--primary-dark);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    border-color: var(--line);
+    background: var(--surface-soft);
+    color: var(--text);
+}
+
+.btn-secondary:hover {
+    background: #ffffff;
+}
+
+/*CARTE LISTE TYPES*/
+.liste-card {
+    margin-top: 24px;
+}
+
+/*TITRE LISTE*/
+.liste-card h2 {
+    margin: 0 0 18px;
+    font-size: 1.25rem;
+}
+
+/*LISTE TYPES*/
+#listeTypes {
+    max-height: 260px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+/*LIGNE TYPE*/
+.type-ligne {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+/*NOM TYPE*/
+.type-nom {
+    flex: 1;
+    font-weight: 700;
+}
+
+/*BOUTON DANGER*/
+.btn-danger {
+    border-color: var(--danger);
+    background: var(--danger);
+    color: #ffffff;
+}
+
+.btn-danger:hover {
+    background: var(--danger-dark);
+}
+
+/*CACHE LA CONFIRMATION*/
+.confirmation-overlay[hidden] {
+    display: none;
+}
+
+/*FOND DE CONFIRMATION*/
+.confirmation-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(23, 32, 42, 0.45);
+    z-index: 9000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 70px;
+}
+
+/*PANNEAU DE CONFIRMATION*/
+.confirmation-panel {
+    width: min(420px, calc(100% - 32px));
+    background: var(--surface);
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(23, 32, 42, 0.30);
+    overflow: hidden;
+}
+
+/*ENTETE CONFIRMATION*/
+.confirmation-header {
+    padding: 18px 22px;
+    background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+    color: #ffffff;
+}
+
+/*TITRE CONFIRMATION*/
+.confirmation-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/*CONTENU CONFIRMATION*/
+.confirmation-content {
+    padding: 22px;
+    font-weight: 700;
+}
+
+/*ACTIONS CONFIRMATION*/
+.confirmation-actions {
+    display: flex;
+    gap: 12px;
+    padding: 0 22px 22px;
+}
+
+/*RESPONSIVE MOBILE*/
+@media (max-width: 520px) {
+    .page-container {
+        width: min(100% - 18px, 620px);
+        padding: 24px 0;
+    }
+
+    .form-card {
+        padding: 22px;
+    }
+
+    .form-actions,
+    .confirmation-actions {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+}
