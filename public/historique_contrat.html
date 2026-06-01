@@ -3,25 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Historique des modifications</title>
+    <link rel="stylesheet" href="/historique_contrat.css">
 </head>
 <body>
 
-<h1>Historique des modifications</h1>
+<div class="page-container">
+    <div class="page-header">
+        <p class="page-label">Historique</p>
+        <h1>Historique des modifications</h1>
+    </div>
 
-<label>Choisir un contrat</label>
-<select id="contrat_select"></select>
+    <section class="bloc-section">
+        <h2>Choisir un contrat</h2>
+        <div class="ligne-formulaire">
+            <div class="champ-large">
+                <label>Contrat</label>
+                <select id="contrat_select"></select>
+            </div>
 
-<br><br>
+            <button onclick="chargerHistorique()">Afficher l'historique</button>
+        </div>
+    </section>
 
-<button onclick="chargerHistorique()">Afficher l'historique</button>
+    <section class="bloc-section">
+        <h2>Modifications</h2>
+        <div id="liste"></div>
+    </section>
 
-<br><br>
-
-<div id="liste"></div>
-
-<br>
-
-<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+    <button class="btn-retour" onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+</div>
 
 <script src="historique_contrat.js"></script>
 
