@@ -3,23 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Calendrier des échéances</title>
+    <link rel="stylesheet" href="/calendrier_contrat.css">
 </head>
 <body>
 
-<h1>Calendrier des échéances</h1>
+<div class="page-container">
+    <div class="page-header">
+        <p class="page-label">Échéances</p>
+        <h1>Calendrier des échéances</h1>
+    </div>
 
-<p id="titreMois"></p>
+    <section class="bloc-section">
+        <div class="calendrier-header">
+            <button id="btnPrecedent" class="btn-secondary">Mois précédent</button>
+            <p id="titreMois"></p>
+            <button id="btnSuivant">Mois suivant</button>
+        </div>
+        <div id="calendrier"></div>
+    </section>
 
-<button id="btnPrecedent">Mois précédent</button>
-<button id="btnSuivant">Mois suivant</button>
+    <button id="btnRetour" class="btn-retour">Retour</button>
 
-<br><br>
-
-<div id="calendrier"></div>
-
-<br>
-
-<button id="btnRetour">Retour</button>
+</div>
 
 <script src="calendrier_contrat.js"></script>
 
