@@ -3,19 +3,31 @@
     var timerFermeture = null;
 
     function construireLibelle(contrat) {
-        var jours = contrat.jours_restants;
+        var jours = Number(contrat.jours_restants);
         var classe = "";
         var badge = "";
         var label = "";
-        if (contrat.statut === "expire") {
+        if (jours < 0) {
             var depuisJours = Math.abs(jours);
             classe = "expire";
             badge = "🔴";
-            label = "Expiré depuis " + depuisJours + " jour(s)";
+            if (depuisJours === 1) {
+                label = "Contrat expiré depuis 1 jour";
+            } else {
+                label = "Contrat expiré depuis " + depuisJours + " jours";
+            }
+        } else if (jours === 0) {
+            classe = "expire";
+            badge = "🔴";
+            label = "Contrat expiré aujourd'hui";
         } else if (jours <= 30) {
             classe = "bientot_expire_30";
             badge = "🟠";
-            label = jours + " jour(s) restant(s)";
+            if (jours === 1) {
+                label = "1 jour restant";
+            } else {
+                label = jours + " jours restants";
+            }
         } else {
             classe = "bientot_expire_90";
             badge = "🟡";
