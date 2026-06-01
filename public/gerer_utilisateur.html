@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Gérer les utilisateurs</title>
+    <link rel="stylesheet" href="/gerer_utilisateur.css">
 </head>
 <body>
 
-<h1>Gérer les utilisateurs</h1>
+<div class="page-container">
+    <div class="page-header">
+        <p class="page-label">Administration</p>
+        <h1>Gérer les utilisateurs</h1>
+    </div>
 
-<p id="message"></p>
+    <p id="message"></p>
 
-<div id="liste"></div>
+    <section class="bloc-section">
+        <h2>Liste des utilisateurs</h2>
+        <div id="liste"></div>
+    </section>
 
-<br>
-
-<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+    <button class="btn-retour" onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+</div>
 
 <script src="/gerer_utilisateur.js"></script>
 
