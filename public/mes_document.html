@@ -3,18 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Mes documents</title>
+    <link rel="stylesheet" href="/mes_document.css">
 </head>
 <body>
 
-<h1>Mes documents</h1>
+<div class="page-container">
+    <div class="page-header">
+        <p class="page-label">Documents</p>
+        <h1>Mes documents</h1>
+    </div>
 
-<p id="message"></p>
+    <p id="message"></p>
 
-<div id="liste"></div>
+    <section class="bloc-section">
+        <h2>Documents disponibles</h2>
+        <div id="liste"></div>
+    </section>
 
-<br>
-
-<button onclick="window.location.href='/dashboard_utilisateur.html'">Retour</button>
+    <button class="btn-retour" onclick="window.location.href='/dashboard_utilisateur.html'">Retour</button>
+</div>
 
 <script src="mes_document.js"></script>
 
