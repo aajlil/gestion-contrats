@@ -136,6 +136,11 @@ a:hover {
     text-decoration: underline;
 }
 
+/*LIENS EN BAS DU FORMULAIRE*/
+.container p {
+    text-align: center;
+}
+
 /*RESPONSIVE MOBILE*/
 @media (max-width: 520px) {
     body {
