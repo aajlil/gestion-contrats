@@ -8,14 +8,31 @@
 </head>
 <body>
 
+<button id="btnMenu" class="btn-menu">☰</button>
+
+<div id="menuOverlay" class="menu-overlay"></div>
+
+<nav id="menuLateral" class="menu-lateral">
+    <div class="menu-header">
+        <h2>Menu</h2>
+        <button id="btnFermerMenu" class="btn-fermer-menu">✕</button>
+    </div>
+
+    <button onclick="window.location.href='/profil.html'">Profil</button>
+    <button onclick="window.location.href='/parametres.html'">Paramètres</button>
+    <button id="btnLogoutMenu" class="btn-menu-danger">Se déconnecter</button>
+</nav>
+
 <div id="cloche-notif" onclick="ouvrirAlertes()" class="cloche-notif">
-    🔔
+    <img src="/images/cloche.png" alt="Notifications">
 </div>
 
 <div id="alertes-overlay" class="alertes-overlay" style="display:none;">
     <div id="alertes-panel" class="alertes-panel">
         <div class="alertes-header">
-            <span class="alertes-icon">🔔</span>
+            <span class="alertes-icon">
+                <img src="/images/cloche.png" alt="Alertes">
+            </span>
             <h2 class="alertes-titre">Alertes d'expiration</h2>
             <button class="alertes-close" onclick="fermerAlertes()">✕</button>
         </div>
@@ -71,7 +88,7 @@
         </div>
 
         <div class="dashboard-graph-grid">
-            <div class="graphique-box">
+            <div class="graphique-box graphique-fournisseurs">
                 <h3>Mes contrats par fournisseur</h3>
                 <canvas id="graphiqueFournisseurs"></canvas>
             </div>

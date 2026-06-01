@@ -10,3 +10,16 @@ exports.getContratsAvecResponsable = async () => {
     );
     return result.rows;
 };
+
+exports.verifierDejaEnvoye = async (contrat_id, seuil) => {
+    const result = await pool.query(
+        "SELECT id FROM notification_envoyee WHERE contrat_id = $1 AND seuil = $2", [contrat_id, seuil]
+    );
+    return result.rows.length > 0;
+};
+
+exports.marquerEnvoye = async (contrat_id, seuil) => {
+    await pool.query(
+        "INSERT INTO notification_envoyee (contrat_id, seuil) VALUES ($1, $2)", [contrat_id, seuil]
+    );
+};

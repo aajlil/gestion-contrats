@@ -12,7 +12,7 @@ exports.demandeReset = async (req, res) => {
         } else {
             const token = crypto.randomBytes(32).toString("hex");
             await modele.enregistrerToken(user.id_utilisateur, token);
-            const lien = process.env.APP_URL + /reset_mdp.html?token=" + token;
+            const lien = process.env.APP_URL + "/reset_mdp.html?token=" + token;
             await mailService.envoyerMail(
                 user.email,
                 "Réinitialisation du mot de passe",

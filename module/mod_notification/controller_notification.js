@@ -21,33 +21,48 @@ exports.verifierNotifications = async () => {
                 console.log("Aucun email pour le contrat " + contrat.contrat_nom);
             } else {
                 const joursRestants = calculerJoursRestants(contrat.date_fin);
+                let seuil = null;
                 if (joursRestants < 0) {
-                    await mailService.envoyerMail(
-                        contrat.email,
-                        "Contrat expiré",
-                        "Bonjour " + contrat.identifiant + ",\n\n" +
-                        "Le contrat \"" + contrat.contrat_nom + "\" est expiré.\n" +
-                        "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
-                        "Merci de vérifier son renouvellement."
-                    );
+                    seuil = "expire";
                 } else if (joursRestants <= 30) {
-                    await mailService.envoyerMail(
-                        contrat.email,
-                        "Contrat bientôt expiré - alerte 30 jours",
-                        "Bonjour " + contrat.identifiant + ",\n\n" +
-                        "Le contrat \"" + contrat.contrat_nom + "\" arrive à échéance dans moins de 30 jours.\n" +
-                        "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
-                        "Merci de vérifier son renouvellement."
-                    );
+                    seuil = "30";
                 } else if (joursRestants <= 90) {
-                    await mailService.envoyerMail(
-                        contrat.email,
-                        "Contrat arrivant à échéance - alerte 90 jours",
-                        "Bonjour " + contrat.identifiant + ",\n\n" +
-                        "Le contrat \"" + contrat.contrat_nom + "\" arrive à échéance dans moins de 90 jours.\n" +
-                        "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
-                        "Merci de vérifier son renouvellement."
-                    );
+                    seuil = "90";
+                }
+                if (seuil !== null) {
+                    const dejaEnvoye = await modele.verifierDejaEnvoye(contrat.id_contrat, seuil);
+                    if (!dejaEnvoye) {
+                        if (seuil === "expire") {
+                            await mailService.envoyerMail(
+                                contrat.email,
+                                "Contrat expiré",
+                                "Bonjour " + contrat.identifiant + ",\n\n" +
+                                "Le contrat \"" + contrat.contrat_nom + "\" est expiré.\n" +
+                                "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
+                                "Merci de vérifier son renouvellement."
+                            );
+                        } else if (seuil === "30") {
+                            await mailService.envoyerMail(
+                                contrat.email,
+                                "Contrat bientôt expiré - alerte 30 jours",
+                                "Bonjour " + contrat.identifiant + ",\n\n" +
+                                "Le contrat \"" + contrat.contrat_nom + "\" arrive à échéance dans moins de 30 jours.\n" +
+                                "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
+                                "Merci de vérifier son renouvellement."
+                            );
+                        } else if (seuil === "90") {
+                            await mailService.envoyerMail(
+                                contrat.email,
+                                "Contrat arrivant à échéance - alerte 90 jours",
+                                "Bonjour " + contrat.identifiant + ",\n\n" +
+                                "Le contrat \"" + contrat.contrat_nom + "\" arrive à échéance dans moins de 90 jours.\n" +
+                                "Date de fin : " + formaterDate(contrat.date_fin) + ".\n\n" +
+                                "Merci de vérifier son renouvellement."
+                            );
+                        }
+                        await modele.marquerEnvoye(contrat.id_contrat, seuil);
+                        console.log("Mail envoyé pour " + contrat.contrat_nom + " - seuil " + seuil);
+                    }
                 }
             }
         }

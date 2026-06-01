@@ -166,7 +166,7 @@ body {
 /*GRILLE DES GRAPHIQUES STATISTIQUES*/
 .dashboard-graph-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.4fr 1fr;
     gap: 18px;
 }
 
@@ -223,6 +223,120 @@ button:active {
 
 #btnLogout:hover {
     background: var(--danger-dark);
+}
+
+/*BOUTON MENU*/
+.btn-menu {
+    position: fixed;
+    top: 18px;
+    left: 20px;
+    z-index: 8000;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border-radius: 8px;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 1.4rem;
+}
+
+/*FOND SOMBRE MENU*/
+.menu-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(23, 32, 42, 0.35);
+    z-index: 7000;
+}
+
+/*MENU LATERAL*/
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 285px;
+    height: 100vh;
+    padding: 24px 18px;
+    background: var(--surface);
+    border-right: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    z-index: 8001;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+}
+
+/*MENU OUVERT*/
+.menu-lateral.ouvert {
+    transform: translateX(0);
+}
+
+/*OVERLAY OUVERT*/
+.menu-overlay.ouvert {
+    display: block;
+}
+
+/*ENTETE MENU*/
+.menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+/*TITRE MENU*/
+.menu-header h2 {
+    margin: 0;
+    color: var(--primary-dark);
+}
+
+/*BOUTON FERMER MENU*/
+.btn-fermer-menu {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    padding: 0;
+    border-radius: 50%;
+    background: rgba(15, 118, 110, 0.12);
+    border: none;
+    color: var(--primary-dark);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.btn-fermer-menu:hover {
+    background: rgba(15, 118, 110, 0.22);
+    border-radius: 50%;
+    transform: none;
+}
+
+/*BOUTONS MENU*/
+.menu-lateral > button {
+    width: 100%;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.btn-menu-danger {
+    border-color: var(--danger);
+    background: var(--danger);
+    color: #ffffff;
+}
+
+.btn-menu-danger:hover {
+    background: var(--danger-dark);
+}
+
+/*RESPONSIVE MENU*/
+@media (max-width: 520px) {
+    .menu-lateral {
+        width: 260px;
+    }
 }
 
 /*RESPONSIVE TABLETTE*/
@@ -294,4 +408,14 @@ button:active {
     button {
         width: 100%;
     }
+}
+
+/*GRAPHIQUE CONTRATS PAR FOURNISSEUR*/
+.graphique-box.graphique-fournisseurs {
+    max-width: 100%;
+    width: 100%;
+}
+
+.graphique-box.graphique-fournisseurs canvas {
+    max-height: 520px;
 }

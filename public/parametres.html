@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Paramètres</title>
+    <link rel="stylesheet" href="/parametres.css">
+</head>
+<body>
+
+<div class="page-container">
+    <div class="page-header">
+        <p class="page-label">Compte utilisateur</p>
+        <h1>Paramètres</h1>
+    </div>
+
+    <p id="message"></p>
+
+    <section class="bloc-section">
+        <h2>Modifier mes informations</h2>
+        <div class="form-group">
+            <label>Nom</label>
+            <input type="text" id="nom">
+        </div>
+
+        <div class="form-group">
+            <label>Prénom</label>
+            <input type="text" id="prenom">
+        </div>
+
+        <div class="form-group">
+            <label>Identifiant</label>
+            <input type="text" id="identifiant">
+        </div>
+
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="email">
+        </div>
+        <button id="btnModifierProfil">Modifier mes informations</button>
+    </section>
+
+    <section class="bloc-section">
+        <h2>Modifier le mot de passe</h2>
+        <div class="form-group">
+            <label>Ancien mot de passe</label>
+            <input type="password" id="ancien_mdp">
+        </div>
+
+        <div class="form-group">
+            <label>Nouveau mot de passe</label>
+            <input type="password" id="nouveau_mdp">
+        </div>
+
+        <div class="form-group">
+            <label>Confirmer le nouveau mot de passe</label>
+            <input type="password" id="confirmation_mdp">
+        </div>
+
+        <div class="actions-ligne">
+            <button id="btnModifierMdp">Modifier le mot de passe</button>
+            <button id="btnRetour" class="btn-secondary">Retour</button>
+        </div>
+    </section>
+</div>
+
+<script src="/parametres.js"></script>
+
+</body>
+</html>

@@ -102,6 +102,38 @@ async function chargerStatistiquesUtilisateur() {
     });
 }
 
+const btnMenu = document.getElementById("btnMenu");
+const btnFermerMenu = document.getElementById("btnFermerMenu");
+const menuLateral = document.getElementById("menuLateral");
+const menuOverlay = document.getElementById("menuOverlay");
+const btnLogoutMenu = document.getElementById("btnLogoutMenu");
+
+function ouvrirMenu() {
+    menuLateral.classList.add("ouvert");
+    menuOverlay.classList.add("ouvert");
+}
+
+function fermerMenu() {
+    menuLateral.classList.remove("ouvert");
+    menuOverlay.classList.remove("ouvert");
+}
+
+if (btnMenu) {
+    btnMenu.addEventListener("click", ouvrirMenu);
+}
+
+if (btnFermerMenu) {
+    btnFermerMenu.addEventListener("click", fermerMenu);
+}
+
+if (menuOverlay) {
+    menuOverlay.addEventListener("click", fermerMenu);
+}
+
+if (btnLogoutMenu) {
+    btnLogoutMenu.addEventListener("click", logout);
+}
+
 if (btnLogoutUtilisateur) {
     btnLogoutUtilisateur.addEventListener("click", logout);
 }
