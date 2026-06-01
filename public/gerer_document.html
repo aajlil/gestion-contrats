@@ -3,35 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestion des documents</title>
+    <link rel="stylesheet" href="/gerer_document.css">
 </head>
 <body>
 
-<h1>Gestion des documents</h1>
+<div class="page-container">
+    <div class="page-header">
+        <p class="page-label">Documents</p>
+        <h1>Gestion des documents</h1>
+    </div>
 
-<p id="message"></p>
+    <p id="message"></p>
 
-<label>Choisir un contrat</label>
-<select id="contrat_id"></select>
+    <section class="bloc-section">
+        <h2>Ajouter un document</h2>
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Choisir un contrat</label>
+                <select id="contrat_id"></select>
+            </div>
 
-<br><br>
+            <div class="form-group">
+                <label>Choisir un fichier</label>
+                <input type="file" id="document">
+            </div>
+        </div>
 
-<label>Choisir un fichier</label>
-<input type="file" id="document">
+        <p class="format-info">Formats autorisés : PDF, DOC, DOCX, JPG, JPEG, PNG</p>
+        <div class="actions-ligne">
+            <button id="btnUpload">Uploader</button>
+            <button id="btnAfficher" class="btn-secondary">Afficher les documents</button>
+        </div>
+    </section>
 
-<p>Formats autorisés : PDF, DOC, DOCX, JPG, JPEG, PNG</p>
+    <section class="bloc-section">
+        <h2>Documents du contrat</h2>
+        <div id="liste"></div>
+    </section>
 
-<br><br>
-
-<button id="btnUpload">Uploader</button>
-<button id="btnAfficher">Afficher les documents</button>
-
-<br><br>
-
-<div id="liste"></div>
-
-<br>
-
-<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+    <button class="btn-retour" onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+</div>
 
 <script src="gerer_document.js"></script>
 

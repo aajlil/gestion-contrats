@@ -1,0 +1,254 @@
+/*VARIABLES*/
+:root {
+    --bg: #f5f7fb;
+    --surface: #ffffff;
+    --surface-soft: #eef4f8;
+    --text: #17202a;
+    --muted: #687384;
+    --line: #dce3ea;
+    --primary: #0f766e;
+    --primary-dark: #115e59;
+    --accent: #d97706;
+    --danger: #b42318;
+    --shadow: 0 18px 45px rgba(23, 32, 42, 0.12);
+}
+
+/*PARAMETRES GENERAUX*/
+* {
+    box-sizing: border-box;
+}
+
+/*CORPS DE LA PAGE*/
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Segoe UI", Tahoma, sans-serif;
+    color: var(--text);
+    background:
+            linear-gradient(135deg, rgba(15, 118, 110, 0.10), transparent 36%),
+            linear-gradient(315deg, rgba(217, 119, 6, 0.10), transparent 34%),
+            var(--bg);
+}
+
+/*CONTENEUR PRINCIPAL*/
+.page-container {
+    width: min(980px, calc(100% - 36px));
+    margin: 0 auto;
+    padding: 34px 0;
+}
+
+/*ENTETE DE PAGE*/
+.page-header {
+    padding: 26px 30px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+/*PETIT LABEL AU-DESSUS DU TITRE*/
+.page-label {
+    margin: 0 0 8px;
+    color: var(--primary-dark);
+    font-size: 0.85rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/*TITRE PRINCIPAL*/
+h1 {
+    margin: 0;
+    font-size: clamp(1.7rem, 3vw, 2.4rem);
+    line-height: 1.1;
+}
+
+/*MESSAGE*/
+#message {
+    min-height: 22px;
+    margin: 18px 0 0;
+    color: var(--accent);
+    font-weight: 800;
+}
+
+/*BLOCS DE PAGE*/
+.bloc-section {
+    margin-top: 24px;
+    padding: 24px 28px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    box-shadow: 0 12px 30px rgba(23, 32, 42, 0.08);
+}
+
+/*TITRES DES BLOCS*/
+.bloc-section h2 {
+    margin: 0 0 18px;
+    font-size: 1.25rem;
+}
+
+/*GRILLE FORMULAIRE*/
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+/*GROUPE DE CHAMP*/
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/*LABELS*/
+label {
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 800;
+}
+
+/*CHAMPS*/
+select,
+input {
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 13px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface-soft);
+    color: var(--text);
+    font: inherit;
+    outline: none;
+    transition: border 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+/*CHAMPS AU FOCUS*/
+select:focus,
+input:focus {
+    border-color: var(--primary);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);
+}
+
+/*INFO FORMAT*/
+.format-info {
+    margin: 14px 0 0;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+/*LIGNE DES BOUTONS*/
+.actions-ligne {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+/*BOUTONS*/
+button {
+    min-height: 44px;
+    padding: 11px 18px;
+    border: 1px solid var(--primary);
+    border-radius: 6px;
+    background: var(--primary);
+    color: #ffffff;
+    font: inherit;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px rgba(23, 32, 42, 0.14);
+    background: var(--primary-dark);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    border-color: var(--line);
+    background: var(--surface-soft);
+    color: var(--text);
+}
+
+.btn-secondary:hover {
+    background: #ffffff;
+}
+
+/*BOUTON RETOUR*/
+.btn-retour {
+    margin-top: 24px;
+}
+
+/*LISTE DES DOCUMENTS*/
+#liste {
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 10px;
+    line-height: 1.6;
+}
+
+/*BARRE DE DEFILEMENT*/
+#liste::-webkit-scrollbar {
+    width: 8px;
+}
+
+/*FOND BARRE DE DEFILEMENT*/
+#liste::-webkit-scrollbar-track {
+    background: var(--surface-soft);
+    border-radius: 8px;
+}
+
+/*CURSEUR BARRE DE DEFILEMENT*/
+#liste::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 8px;
+}
+
+/*CURSEUR AU SURVOL*/
+#liste::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
+}
+
+/*ELEMENT DOCUMENT*/
+#liste div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+/*RESPONSIVE TABLETTE*/
+@media (max-width: 760px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*RESPONSIVE MOBILE*/
+@media (max-width: 520px) {
+    .page-container {
+        width: min(100% - 18px, 980px);
+        padding: 18px 0;
+    }
+
+    .page-header,
+    .bloc-section {
+        padding: 20px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    #liste div {
+        align-items: stretch;
+        flex-direction: column;
+    }
+}
