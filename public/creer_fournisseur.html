@@ -2,22 +2,52 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Ajouter un fournisseur</title>
+    <title>Gérer les fournisseurs</title>
+    <link rel="stylesheet" href="/creer_fournisseur.css">
 </head>
 <body>
 
-<h1>Ajouter un fournisseur</h1>
+<div class="page-container">
+    <div class="form-card">
+        <div class="form-header">
+            <p class="form-label">Gestion des fournisseurs</p>
+            <h1>Gérer les fournisseurs</h1>
+        </div>
+        <p id="message"></p>
 
-<p id="message"></p>
+        <div class="form-group">
+            <label>Nom</label>
+            <input id="nom" placeholder="Nom du fournisseur">
+        </div>
 
-<label>Nom</label>
-<input id="nom" placeholder="Nom">
-<br><br>
+        <div class="form-actions">
+            <button id="btnAjouterFournisseur">Ajouter</button>
+            <button class="btn-secondary" onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+        </div>
+    </div>
 
-<button id="btnAjouterFournisseur">Ajouter</button>
-<br><br>
+    <div class="form-card liste-card">
+        <h2>Liste des fournisseurs</h2>
+        <div id="listeFournisseurs"></div>
+    </div>
+</div>
 
-<button onclick="window.location.href='/dashboard_admin.html'">Retour</button>
+<div id="confirmationBox" class="confirmation-overlay" hidden>
+    <div class="confirmation-panel">
+        <div class="confirmation-header">
+            <h2>Confirmation</h2>
+        </div>
+
+        <div class="confirmation-content">
+            <p>Confirmer la suppression du fournisseur ?</p>
+        </div>
+
+        <div class="confirmation-actions">
+            <button id="btnOui" class="btn-danger">Oui</button>
+            <button id="btnNon" class="btn-secondary">Non</button>
+        </div>
+    </div>
+</div>
 
 <script src="/creer_fournisseur.js"></script>
 

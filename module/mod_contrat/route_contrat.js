@@ -55,6 +55,7 @@ router.get("/statistiques-data", isAdmin, controller.getStatistiques);
 router.get("/statistiques-utilisateur-data", isAuthenticated, controller.getStatistiquesUtilisateur);
 router.get("/alertes-expiration", isAdmin, controller.getAlertes);
 router.get("/alertes-expiration-utilisateur", isAuthenticated, controller.getAlertesUtilisateur);
+router.delete("/fournisseurs/:id", isAdmin, controller.supprimerFournisseur);
 
 
 

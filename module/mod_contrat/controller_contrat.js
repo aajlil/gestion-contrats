@@ -28,6 +28,17 @@ exports.createFournisseur = async (req, res) => {
     }
 };
 
+exports.supprimerFournisseur = async (req, res) => {
+    const {id} = req.params;
+    try {
+        await modele.supprimerFournisseur(id);
+        return res.json({message:"Fournisseur supprimé avec succès"});
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur suppression fournisseur"});
+    }
+};
+
 exports.createType = async (req, res) => {
     const {nom} = req.body;
     try {

@@ -13,6 +13,10 @@ exports.createFournisseur = async (nom, email, telephone) => {
     await pool.query("INSERT INTO fournisseur (nom) VALUES ($1)", [nom]);
 };
 
+exports.supprimerFournisseur = async (id) => {
+    await pool.query("DELETE FROM fournisseur WHERE id_fournisseur = $1", [id]);
+};
+
 exports.createType = async (nom) => {
     await pool.query("INSERT INTO type_contrat (nom) VALUES ($1)", [nom]);
 };

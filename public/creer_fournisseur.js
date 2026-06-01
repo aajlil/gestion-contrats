@@ -1,19 +1,37 @@
-const btnAjouterFournisseur = document.getElementById("btnAjouterFournisseur");
+let fournisseurASupprimer = null;
 
-async function verifierAdmin() {
-    const res = await fetch("http://localhost:3000/me");
-    const user = await res.json();
+document.getElementById("btnAjouterFournisseur").addEventListener("click", ajouterFournisseur);
+document.getElementById("btnOui").addEventListener("click", confirmerSuppression);
+document.getElementById("btnNon").addEventListener("click", fermerConfirmation);
 
-    if (!user) {
-        window.location.href = "/connexion.html";
-    } else if (user.role !== 1) {
-        window.location.href = "/dashboard_utilisateur.html";
-    }
+async function chargerFournisseurs() {
+    const res = await fetch("http://localhost:3000/fournisseurs");
+    const fournisseurs = await res.json();
+    const div = document.getElementById("listeFournisseurs");
+    div.innerHTML = "";
+
+    fournisseurs.forEach(function(f) {
+        const ligne = document.createElement("div");
+        ligne.className = "fournisseur-ligne";
+        const nom = document.createElement("span");
+        nom.className = "fournisseur-nom";
+        nom.textContent = f.nom;
+        const btnSupprimer = document.createElement("button");
+        btnSupprimer.className = "btn-danger";
+        btnSupprimer.textContent = "Supprimer";
+        btnSupprimer.addEventListener("click", function() {
+            fournisseurASupprimer = f.id_fournisseur;
+            document.getElementById("confirmationBox").hidden = false;
+        });
+
+        ligne.appendChild(nom);
+        ligne.appendChild(btnSupprimer);
+        div.appendChild(ligne);
+    });
 }
 
 async function ajouterFournisseur() {
     const nom = document.getElementById("nom").value;
-
     const res = await fetch("http://localhost:3000/fournisseurs", {
         method: "POST",
         headers: {
@@ -24,10 +42,25 @@ async function ajouterFournisseur() {
 
     const data = await res.json();
     document.getElementById("message").textContent = data.message;
+    document.getElementById("nom").value = "";
+
+    chargerFournisseurs();
 }
 
-if (btnAjouterFournisseur) {
-    btnAjouterFournisseur.addEventListener("click", ajouterFournisseur);
+function fermerConfirmation() {
+    fournisseurASupprimer = null;
+    document.getElementById("confirmationBox").hidden = true;
 }
 
-verifierAdmin();
+async function confirmerSuppression() {
+    const res = await fetch("http://localhost:3000/fournisseurs/" + fournisseurASupprimer, {
+        method: "DELETE"
+    });
+    const data = await res.json();
+    document.getElementById("message").textContent = data.message;
+
+    fermerConfirmation();
+    chargerFournisseurs();
+}
+
+chargerFournisseurs();
