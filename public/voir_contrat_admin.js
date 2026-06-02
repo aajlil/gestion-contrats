@@ -48,11 +48,16 @@ function afficherListe(contrats) {
         checkbox.type = "checkbox";
         checkbox.value = c.id_contrat;
         const texte = document.createElement("span");
+        var responsable = "";
+        if (c.responsable_nom) {
+            responsable = c.responsable_nom + " " + c.responsable_prenom;
+        } else {
+            responsable = "Non assigné";
+        }
         texte.textContent =
             c.nom + " | " + c.fournisseur + " | " + c.type_contrat + " | " + (c.description || "Sans description") + " | " +
             formaterDate(c.date_debut) + " | " + formaterDate(c.date_fin) + " | " +
-            c.montant + " EUR | " + c.responsable_nom + " " + c.responsable_prenom + " | " +
-            afficherStatut(c.statut);
+            c.montant + " EUR | " + responsable + " | " + afficherStatut(c.statut);
         ligne.appendChild(checkbox);
         ligne.appendChild(texte);
         div.appendChild(ligne);

@@ -61,6 +61,23 @@
             <button id="btnRetour" class="btn-secondary">Retour</button>
         </div>
     </section>
+
+    <section class="bloc-section">
+        <h2>Supprimer mon compte</h2>
+        <p>Cette action est irréversible. Toutes vos données seront supprimées.</p>
+        <button id="btnSupprimerCompte" class="btn-danger">Supprimer mon compte</button>
+    </section>
+
+    <div id="overlay-confirmation" class="overlay-confirmation" style="display:none;">
+        <div class="confirmation-panel">
+            <h2>Confirmer la suppression</h2>
+            <p>Êtes-vous sûr de vouloir supprimer votre compte ?</p>
+            <div class="confirmation-actions">
+                <button id="btnConfirmerSuppression" class="btn-danger">Oui</button>
+                <button id="btnAnnulerSuppression" class="btn-secondary">Non</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="/parametres.js"></script>

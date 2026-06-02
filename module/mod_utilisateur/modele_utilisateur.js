@@ -49,3 +49,8 @@ exports.getUtilisateurByEmail = async (email) => {
         "SELECT * FROM utilisateur WHERE email = $1", [email]);
     return result.rows[0];
 };
+
+
+exports.supprimerCompte = async (id) => {
+    await pool.query("DELETE FROM utilisateur WHERE id_utilisateur = $1", [id]);
+};

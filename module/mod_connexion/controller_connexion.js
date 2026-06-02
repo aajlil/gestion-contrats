@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
 const modele = require("./modele_connexion");
+const crypto = require("crypto");
+const mailService = require("../mod_notification/service_mail");
 
 exports.inscription = async (req, res) => {
     const {nom, prenom, identifiant, email, mdp} = req.body;
@@ -12,8 +14,16 @@ exports.inscription = async (req, res) => {
             return res.json({message:"Identifiant déjà utilisé"});
         } else {
             const hash = await bcrypt.hash(mdp, 10);
-            await modele.creerUtilisateur(nom, prenom, identifiant, email, hash);
-            return res.json({message:"Inscription réussie !"});
+            const token = crypto.randomBytes(32).toString("hex");
+            await modele.creerUtilisateur(nom, prenom, identifiant, email, hash, token);
+            const lien = process.env.APP_URL + "/confirmer-inscription?token=" + token;
+            await mailService.envoyerMail(email,
+                "Confirmation de votre inscription",
+                "Bonjour " + prenom + ",\n\n" +
+                "Cliquez sur le lien suivant pour confirmer la création de votre compte :\n\n" + lien + "\n\n" +
+                "Ce lien expire dans 30 minutes."
+            );
+            return res.json({message: "Un email de confirmation vous a été envoyé"});
         }
     } catch (err) {
         console.error(err);
@@ -29,6 +39,9 @@ exports.login = async (req, res) => {
         if (!user) {
             return res.json({message:"Utilisateur introuvable"});
         } else {
+            if (!user.compte_actif) {
+                return res.json({message: "Veuillez confirmer votre adresse email avant de vous connecter"});
+            }
             const match = await bcrypt.compare(mdp, user.mdp);
             if (!match) {
                 return res.json({message: "Mot de passe incorrect"});
@@ -52,3 +65,20 @@ exports.login = async (req, res) => {
         return res.status(500).json({message:"Erreur connexion"});
     }
 };
+
+exports.confirmerInscription = async (req, res) => {
+    const {token} = req.query;
+    try {
+        const user = await modele.getUserByConfirmationToken(token);
+        if (!user) {
+            return res.send("<h1>Lien invalide ou expiré</h1>");
+        }
+        await modele.activerCompte(user.id_utilisateur);
+        return res.sendFile(require("path").join(__dirname, "../../public/confirmation_inscription.html"));
+    }
+    catch (err) {
+        console.error(err);
+        return res.status(500).send("Erreur confirmation");
+    }
+};
+

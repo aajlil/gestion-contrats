@@ -75,4 +75,26 @@ async function modifierMotDePasse() {
     }
 }
 
+
+document.getElementById("btnSupprimerCompte").addEventListener("click", function() {
+    document.getElementById("overlay-confirmation").style.display = "flex";
+});
+
+document.getElementById("btnAnnulerSuppression").addEventListener("click", function() {
+    document.getElementById("overlay-confirmation").style.display = "none";
+});
+
+document.getElementById("btnConfirmerSuppression").addEventListener("click", async function() {
+    const res = await fetch("http://localhost:3000/supprimer-compte", {
+        method: "DELETE"
+    });
+    const data = await res.json();
+    if (res.ok) {
+        window.location.href = "/connexion.html";
+    } else {
+        document.getElementById("overlay-confirmation").style.display = "none";
+        document.getElementById("message").textContent = data.message;
+    }
+});
+
 verifierConnexion();

@@ -7,5 +7,6 @@ router.get("/utilisateurs", isAdmin, controller.getUtilisateurs);
 router.put("/utilisateurs/role", isAdmin, controller.modifierRole);
 router.put("/modifier-mot-de-passe", isAuthenticated, controller.modifierMotDePasse);
 router.put("/modifier-profil", isAuthenticated, controller.modifierProfil);
+router.delete("/supprimer-compte", isAuthenticated, controller.supprimerCompte);
 
 module.exports = router;

@@ -145,6 +145,7 @@ button:hover {
 
 .btn-secondary {
     border-color: var(--line);
+    font: inherit;
     background: var(--surface-soft);
     color: var(--text);
 }
@@ -172,4 +173,59 @@ button:hover {
     button {
         width: 100%;
     }
+}
+
+
+.btn-danger {
+    background: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+}
+
+.overlay-confirmation {
+    position: fixed;
+    inset: 0;
+    background: rgba(23, 32, 42, 0.45);
+    z-index: 9000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 70px;
+}
+
+.confirmation-panel {
+    background: #fff;
+    border-radius: 14px;
+    width: 420px;
+    max-width: 92vw;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.confirmation-panel h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #1a1a2e;
+}
+
+.confirmation-panel p {
+    color: #555;
+    font-size: 0.95rem;
+}
+
+.confirmation-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    justify-content: flex-end;
 }

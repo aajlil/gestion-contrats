@@ -89,3 +89,15 @@ exports.modifierProfil = async (req, res) => {
         return res.status(500).json({message:"Erreur modification profil"});
     }
 };
+
+
+exports.supprimerCompte = async (req, res) => {
+    try {
+        await modele.supprimerCompte(req.session.user.id);
+        req.session.destroy();
+        return res.json({message:"Compte supprimé"});
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({message:"Erreur suppression compte"});
+    }
+};
