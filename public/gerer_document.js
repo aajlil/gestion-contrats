@@ -11,6 +11,7 @@ async function verifierAdmin() {
     }
 }
 
+
 async function chargerContrats() {
     const res = await fetch("http://localhost:3000/contrats");
     const contrats = await res.json();
@@ -24,6 +25,7 @@ async function chargerContrats() {
         select.appendChild(option);
     });
 }
+
 
 async function uploadDocument() {
     const contrat_id = document.getElementById("contrat_id").value;
@@ -67,7 +69,6 @@ async function chargerDocuments() {
             const res = await fetch("http://localhost:3000/documents/" + d.id_document, {
                 method: "DELETE"
             });
-
             const data = await res.json();
             document.getElementById("message").textContent = data.message;
             chargerDocuments();

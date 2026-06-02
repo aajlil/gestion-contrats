@@ -14,9 +14,11 @@ function formaterStatut(statut) {
     }
 }
 
+
 function formaterDate(date) {
     return new Date(date).toLocaleDateString("fr-FR");
 }
+
 
 function getValeurDate(date) {
     if (date) {
@@ -26,6 +28,7 @@ function getValeurDate(date) {
     }
 }
 
+
 function getValeurTexte(valeur) {
     if (valeur) {
         return valeur;
@@ -34,9 +37,11 @@ function getValeurTexte(valeur) {
     }
 }
 
+
 function getResponsable(nom, prenom) {
     return getValeurTexte(nom) + " " + getValeurTexte(prenom);
 }
+
 
 exports.exportExcel = async (req, res) => {
     const {ids} = req.body;
@@ -90,6 +95,7 @@ exports.exportExcel = async (req, res) => {
         return res.status(500).json({message:"Erreur export Excel"});
     }
 };
+
 
 exports.exportPdf = async (req, res) => {
     const {ids} = req.body;

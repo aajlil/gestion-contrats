@@ -9,9 +9,11 @@ function calculerJoursRestants(date_fin) {
     return differenceJours;
 }
 
+
 function formaterDate(date) {
     return new Date(date).toLocaleDateString("fr-FR");
 }
+
 
 exports.verifierNotifications = async () => {
     try {
@@ -71,6 +73,7 @@ exports.verifierNotifications = async () => {
         console.error("Erreur notifications email :", err);
     }
 };
+
 
 exports.testerNotifications = async (req, res) => {
     try {

@@ -4,7 +4,6 @@ const multer = require("multer");
 const path = require("path");
 const controller = require("./controller_document");
 const {isAuthenticated, isAdmin} = require("../../auth");
-
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
         cb(null, "uploads/");
@@ -14,10 +13,10 @@ const storage = multer.diskStorage({
     }
 });
 
+
 function fileFilter(req, file, cb) {
     const extensionsAutorisees = [".pdf", ".doc", ".docx", ".jpg", ".jpeg", ".png"];
     const extension = path.extname(file.originalname).toLowerCase();
-
     if (extensionsAutorisees.includes(extension)) {
         cb(null, true);
     } else {
@@ -25,10 +24,12 @@ function fileFilter(req, file, cb) {
     }
 }
 
+
 const upload = multer({
     storage: storage,
     fileFilter: fileFilter
 });
+
 
 router.post("/documents", isAdmin, function(req, res) {
     upload.single("document")(req, res, async function(err) {
@@ -39,6 +40,7 @@ router.post("/documents", isAdmin, function(req, res) {
         }
     });
 });
+
 
 router.get("/documents/telecharger/:id", isAuthenticated, controller.telecharger);
 router.get("/documents/:id", isAuthenticated, controller.getByContrat);

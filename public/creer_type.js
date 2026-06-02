@@ -30,6 +30,7 @@ async function chargerTypes() {
     });
 }
 
+
 async function ajouterType() {
     const nom = document.getElementById("nom").value;
     const res = await fetch("http://localhost:3000/types", {
@@ -43,23 +44,22 @@ async function ajouterType() {
     const data = await res.json();
     document.getElementById("message").textContent = data.message;
     document.getElementById("nom").value = "";
-
     chargerTypes();
 }
+
 
 function fermerConfirmation() {
     typeASupprimer = null;
     document.getElementById("confirmationBox").hidden = true;
 }
 
+
 async function confirmerSuppression() {
     const res = await fetch("http://localhost:3000/types/" + typeASupprimer, {
         method: "DELETE"
     });
-
     const data = await res.json();
     document.getElementById("message").textContent = data.message;
-
     fermerConfirmation();
     chargerTypes();
 }

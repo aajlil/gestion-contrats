@@ -1,9 +1,7 @@
 async function chargerListe() {
     const res = await fetch("http://localhost:3000/contrats");
     const contrats = await res.json();
-
     const select = document.getElementById("contrat_select");
-
     contrats.forEach(function(c) {
         const option = document.createElement("option");
         option.value = c.id_contrat;
@@ -12,12 +10,11 @@ async function chargerListe() {
     });
 }
 
+
 async function chargerContrat() {
     const id = document.getElementById("contrat_select").value;
-
     const res = await fetch("http://localhost:3000/contrats");
     const contrats = await res.json();
-
     const contrat = contrats.find(c => c.id_contrat == id);
 
     document.getElementById("nom").value = contrat.nom;
@@ -27,6 +24,7 @@ async function chargerContrat() {
     document.getElementById("description").value = contrat.description;
 }
 
+
 async function modifier() {
     const id = document.getElementById("contrat_select").value;
     const nom = document.getElementById("nom").value;
@@ -34,7 +32,6 @@ async function modifier() {
     const date_fin = document.getElementById("date_fin").value;
     const montant = document.getElementById("montant").value;
     const description = document.getElementById("description").value;
-
     const res = await fetch("http://localhost:3000/contrats", {
         method: "PUT",
         headers: {
@@ -44,7 +41,6 @@ async function modifier() {
             id, nom, date_debut, date_fin, montant, description
         })
     });
-
     const data = await res.json();
     document.getElementById("message").textContent = data.message;
 }

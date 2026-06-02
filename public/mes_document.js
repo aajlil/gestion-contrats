@@ -8,6 +8,7 @@ async function verifierConnexion() {
     }
 }
 
+
 async function chargerDocuments() {
     const res = await fetch("http://localhost:3000/mes-documents");
     const documents = await res.json();

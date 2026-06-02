@@ -6,11 +6,13 @@ exports.getUserByEmail = async (email) => {
     return result.rows[0];
 };
 
+
 exports.getUserByIdentifiant = async (identifiant) => {
     const result = await pool.query(
         "SELECT * FROM utilisateur WHERE identifiant = $1", [identifiant]);
     return result.rows[0];
 };
+
 
 exports.creerUtilisateur = async (nom, prenom, identifiant, email, mdp) => {
     await pool.query(

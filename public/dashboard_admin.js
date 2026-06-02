@@ -3,7 +3,6 @@ const btnLogout = document.getElementById("btnLogout");
 async function chargerUser() {
     const res = await fetch("http://localhost:3000/me");
     const user = await res.json();
-
     if (!user) {
         window.location.href = "/connexion.html";
     } else if (user.role !== 1) {
@@ -12,6 +11,7 @@ async function chargerUser() {
         document.getElementById("welcome").textContent = "Bienvenue " + user.identifiant;
     }
 }
+
 
 function logout() {
     sessionStorage.removeItem("alertes_deja_affichees");
@@ -50,6 +50,7 @@ async function chargerDashboard() {
         }
     });
 }
+
 
 async function chargerStatistiques() {
     const res = await fetch("http://localhost:3000/statistiques-data");
@@ -115,26 +116,32 @@ function ouvrirMenu() {
     menuOverlay.classList.add("ouvert");
 }
 
+
 function fermerMenu() {
     menuLateral.classList.remove("ouvert");
     menuOverlay.classList.remove("ouvert");
 }
 
+
 if (btnMenu) {
     btnMenu.addEventListener("click", ouvrirMenu);
 }
+
 
 if (btnFermerMenu) {
     btnFermerMenu.addEventListener("click", fermerMenu);
 }
 
+
 if (menuOverlay) {
     menuOverlay.addEventListener("click", fermerMenu);
 }
 
+
 if (btnLogoutMenu) {
     btnLogoutMenu.addEventListener("click", logout);
 }
+
 
 if (btnLogout) {
     btnLogout.addEventListener("click", logout);

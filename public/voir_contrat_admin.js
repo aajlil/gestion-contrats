@@ -15,6 +15,7 @@ async function verifierAdmin() {
     }
 }
 
+
 function afficherStatut(statut) {
     if (statut === "actif") {
         return "Actif";
@@ -27,9 +28,11 @@ function afficherStatut(statut) {
     }
 }
 
+
 function formaterDate(date) {
     return new Date(date).toLocaleDateString("fr-FR");
 }
+
 
 function afficherListe(contrats) {
     const div = document.getElementById("liste");
@@ -44,7 +47,6 @@ function afficherListe(contrats) {
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
         checkbox.value = c.id_contrat;
-
         const texte = document.createElement("span");
         texte.textContent =
             c.nom + " | " + c.fournisseur + " | " + c.type_contrat + " | " + (c.description || "Sans description") + " | " +
@@ -58,6 +60,7 @@ function afficherListe(contrats) {
     });
 }
 
+
 async function chargerContrats() {
     document.getElementById("recherche").value = "";
     document.getElementById("message").textContent = "";
@@ -65,6 +68,7 @@ async function chargerContrats() {
     const contrats = await res.json();
     afficherListe(contrats);
 }
+
 
 async function rechercherContrats() {
     const recherche = document.getElementById("recherche").value;
@@ -83,6 +87,7 @@ async function rechercherContrats() {
     }
 }
 
+
 async function filtrerContrats() {
     const fournisseur = document.getElementById("filtre_fournisseur").value;
     const type = document.getElementById("filtre_type").value;
@@ -92,7 +97,6 @@ async function filtrerContrats() {
         "http://localhost:3000/filtres-contrats?fournisseur=" + encodeURIComponent(fournisseur) +
         "&type=" + encodeURIComponent(type) + "&statut=" + encodeURIComponent(statut) +
         "&date_fin=" + encodeURIComponent(date_fin);
-
     const res = await fetch(url);
     const contrats = await res.json();
     if (contrats.length === 0) {
@@ -104,6 +108,7 @@ async function filtrerContrats() {
     }
 }
 
+
 function reinitialiserFiltres() {
     document.getElementById("filtre_fournisseur").value = "";
     document.getElementById("filtre_type").value = "";
@@ -112,6 +117,7 @@ function reinitialiserFiltres() {
     document.getElementById("message").textContent = "";
     chargerContrats();
 }
+
 
 function recupererIdsSelectionnes() {
     const checkboxes = document.querySelectorAll("input[type='checkbox']");
@@ -123,6 +129,7 @@ function recupererIdsSelectionnes() {
     });
     return ids;
 }
+
 
 async function exporterExcel() {
     const ids = recupererIdsSelectionnes();
@@ -144,6 +151,7 @@ async function exporterExcel() {
         a.click();
     }
 }
+
 
 async function exporterPdf() {
     const ids = recupererIdsSelectionnes();

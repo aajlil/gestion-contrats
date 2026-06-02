@@ -10,7 +10,6 @@ document.getElementById("btnNon").addEventListener("click", fermerConfirmation);
 async function verifierAdmin() {
     const res = await fetch("http://localhost:3000/me");
     const user = await res.json();
-
     if (!user) {
         window.location.href = "/connexion.html";
     } else if (user.role !== 1) {
@@ -18,12 +17,14 @@ async function verifierAdmin() {
     }
 }
 
+
 async function chargerContrats() {
     const res = await fetch("http://localhost:3000/contrats");
     contrats = await res.json();
     afficherListe(contrats);
     afficherSelection();
 }
+
 
 function afficherListe(listeContrats) {
     const div = document.getElementById("liste");
@@ -58,6 +59,7 @@ function afficherListe(listeContrats) {
     });
 }
 
+
 function afficherSelection() {
     const div = document.getElementById("selection");
     div.innerHTML = "";
@@ -78,6 +80,7 @@ function afficherSelection() {
         });
     }
 }
+
 
 function rechercherContrats() {
     const recherche = document.getElementById("recherche").value.toLowerCase();
@@ -101,11 +104,13 @@ function rechercherContrats() {
     }
 }
 
+
 function reinitialiserRecherche() {
     document.getElementById("recherche").value = "";
     document.getElementById("message").textContent = "";
     afficherListe(contrats);
 }
+
 
 function ouvrirConfirmation() {
     if (idsSelectionnes.length === 0) {
@@ -116,9 +121,11 @@ function ouvrirConfirmation() {
     }
 }
 
+
 function fermerConfirmation() {
     document.getElementById("confirmationBox").hidden = true;
 }
+
 
 async function confirmerSuppression() {
     const res = await fetch("http://localhost:3000/contrats", {
@@ -128,7 +135,6 @@ async function confirmerSuppression() {
         },
         body: JSON.stringify({ ids: idsSelectionnes })
     });
-
     const data = await res.json();
     document.getElementById("message").textContent = data.message;
     idsSelectionnes = [];

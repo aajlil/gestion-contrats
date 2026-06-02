@@ -1,7 +1,6 @@
 async function chargerProfil() {
     const res = await fetch("http://localhost:3000/me");
     const user = await res.json();
-
     if (!user) {
         window.location.href = "/connexion.html";
     } else {
@@ -14,7 +13,6 @@ async function chargerProfil() {
         } else {
             document.getElementById("role").textContent = "Utilisateur";
         }
-
         document.getElementById("btnRetour").addEventListener("click", function() {
             if (user.role === 1) {
                 window.location.href = "/dashboard_admin.html";

@@ -2,7 +2,6 @@ document.getElementById("btnModifierMdp").addEventListener("click", modifierMotD
 document.getElementById("btnModifierProfil").addEventListener("click", modifierProfil);
 
 let roleUtilisateur = null;
-
 async function verifierConnexion() {
     const res = await fetch("http://localhost:3000/me");
     const user = await res.json();
@@ -14,11 +13,11 @@ async function verifierConnexion() {
     }
 }
 
+
 async function chargerProfil() {
     const res = await fetch("http://localhost:3000/me");
     const user = await res.json();
     document.getElementById("identifiant").value = user.identifiant;
-
     if (user.nom) {
         document.getElementById("nom").value = user.nom;
     }
@@ -30,6 +29,7 @@ async function chargerProfil() {
     }
 }
 
+
 document.getElementById("btnRetour").addEventListener("click", function() {
     if (roleUtilisateur === 1) {
         window.location.href = "/dashboard_admin.html";
@@ -37,6 +37,7 @@ document.getElementById("btnRetour").addEventListener("click", function() {
         window.location.href = "/dashboard_utilisateur.html";
     }
 });
+
 
 async function modifierProfil() {
     const nom = document.getElementById("nom").value;
@@ -53,6 +54,7 @@ async function modifierProfil() {
     const data = await res.json();
     document.getElementById("message").textContent = data.message;
 }
+
 
 async function modifierMotDePasse() {
     const ancien_mdp = document.getElementById("ancien_mdp").value;

@@ -16,10 +16,7 @@ exports.upload = async (req, res) => {
             const type = req.file.mimetype;
             await modele.ajouterDocument(nom_fichier, chemin, type, contrat_id);
             await historiqueModele.ajouterHistorique(
-                "upload",
-                "Document ajouté : " + nom_fichier,
-                contrat_id,
-                req.session.user.id
+                "upload", "Document ajouté : " + nom_fichier, contrat_id, req.session.user.id
             );
             return res.json({message:"Document ajouté avec succès"});
         }
@@ -28,6 +25,7 @@ exports.upload = async (req, res) => {
         return res.status(500).json({message:"Erreur upload document"});
     }
 };
+
 
 exports.getByContrat = async (req, res) => {
     const {id} = req.params;
@@ -40,11 +38,11 @@ exports.getByContrat = async (req, res) => {
     }
 };
 
+
 exports.telecharger = async (req, res) => {
     const {id} = req.params;
     try {
         const document = await modele.getDocumentById(id);
-
         if (!document) {
             return res.json({message:"Document introuvable"});
         } else {
@@ -55,6 +53,7 @@ exports.telecharger = async (req, res) => {
         return res.status(500).json({message:"Erreur téléchargement document"});
     }
 };
+
 
 exports.supprimer = async (req, res) => {
     const {id} = req.params;
@@ -81,6 +80,7 @@ exports.supprimer = async (req, res) => {
     }
 };
 
+
 exports.getMesDocuments = async (req, res) => {
     try {
         const documents = await modele.getDocumentsUtilisateur(req.session.user.id);
@@ -90,6 +90,7 @@ exports.getMesDocuments = async (req, res) => {
         return res.status(500).json({message:"Erreur récupération documents utilisateur"});
     }
 };
+
 
 exports.telechargerUtilisateur = async (req, res) => {
     const {id} = req.params;

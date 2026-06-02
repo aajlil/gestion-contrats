@@ -9,21 +9,25 @@ exports.createContrat = async (
 };
 
 
-exports.createFournisseur = async (nom, email, telephone) => {
+exports.createFournisseur = async (nom) => {
     await pool.query("INSERT INTO fournisseur (nom) VALUES ($1)", [nom]);
 };
+
 
 exports.supprimerFournisseur = async (id) => {
     await pool.query("DELETE FROM fournisseur WHERE id_fournisseur = $1", [id]);
 };
 
+
 exports.createType = async (nom) => {
     await pool.query("INSERT INTO type_contrat (nom) VALUES ($1)", [nom]);
 };
 
+
 exports.supprimerType = async (id) => {
     await pool.query("DELETE FROM type_contrat WHERE id_type_contrat = $1", [id]);
 };
+
 
 exports.updateContrat = async (
     id, nom, date_debut, date_fin, montant, description, statut) => {
@@ -37,48 +41,31 @@ exports.updateContrat = async (
 exports.getAllContrats = async () => {
     const result = await pool.query(`
         SELECT
-            c.id_contrat,
-            c.nom,
-            c.date_debut,
-            c.date_fin,
-            c.montant,
-            c.description,
-            c.statut,
-            f.nom AS fournisseur,
-            t.nom AS type_contrat,
-            u.nom AS responsable_nom,
-            u.prenom AS responsable_prenom
+            c.id_contrat, c.nom, c.date_debut, c.date_fin, c.montant, c.description, c.statut,
+            f.nom AS fournisseur, t.nom AS type_contrat, u.nom AS responsable_nom, u.prenom AS responsable_prenom
         FROM contrat c
         LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
         LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat
         LEFT JOIN utilisateur u ON c.responsable_id = u.id_utilisateur
         ORDER BY c.id_contrat DESC
     `);
-
     return result.rows;
 };
+
 
 exports.getMesContrats = async (responsable_id) => {
     const result = await pool.query(`
         SELECT
-            c.id_contrat,
-            c.nom,
-            c.date_debut,
-            c.date_fin,
-            c.montant,
-            c.description,
-            c.statut,
-            f.nom AS fournisseur,
-            t.nom AS type_contrat
+            c.id_contrat, c.nom, c.date_debut, c.date_fin, c.montant, c.description, c.statut,
+            f.nom AS fournisseur, t.nom AS type_contrat
         FROM contrat c
         LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
         LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat
         WHERE c.responsable_id = $1
-        ORDER BY c.id_contrat DESC
-    `, [responsable_id]);
-
+        ORDER BY c.id_contrat DESC`, [responsable_id]);
     return result.rows;
 };
+
 
 exports.getContratById = async (id) => {
     const result = await pool.query("SELECT * FROM contrat WHERE id_contrat = $1", [id]);
@@ -87,72 +74,72 @@ exports.getContratById = async (id) => {
 
 
 exports.getContratsCalendrier = async () => {
-    const result = await pool.query(
-        "SELECT c.id_contrat, c.nom, c.date_fin, c.statut, f.nom AS fournisseur " +
-        "FROM contrat c " +
-        "LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur " +
-        "WHERE c.date_fin IS NOT NULL " +
-        "ORDER BY c.date_fin ASC"
-    );
-
+    const result = await pool.query(`
+        SELECT
+            c.id_contrat, c.nom, c.date_fin, c.statut, f.nom AS fournisseur
+        FROM contrat c
+        LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
+        WHERE c.date_fin IS NOT NULL
+        ORDER BY c.date_fin ASC
+    `);
     return result.rows;
 };
+
 
 exports.getMesContratsCalendrier = async (responsable_id) => {
-    const result = await pool.query(
-        "SELECT c.id_contrat, c.nom, c.date_fin, c.statut, f.nom AS fournisseur " +
-        "FROM contrat c " +
-        "LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur " +
-        "WHERE c.date_fin IS NOT NULL AND c.responsable_id = $1 " +
-        "ORDER BY c.date_fin ASC",
-        [responsable_id]
-    );
+    const result = await pool.query(`
+        SELECT
+            c.id_contrat, c.nom, c.date_fin, c.statut, f.nom AS fournisseur
+        FROM contrat c
+        LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
+        WHERE c.date_fin IS NOT NULL AND c.responsable_id = $1
+        ORDER BY c.date_fin ASC`, [responsable_id]);
     return result.rows;
 };
+
 
 exports.rechercherContrats = async (recherche) => {
-    const result = await pool.query(
-        "SELECT c.id_contrat, c.nom, c.date_debut, c.date_fin, c.montant, c.description, c.statut, " +
-        "f.nom AS fournisseur, t.nom AS type_contrat, u.nom AS responsable_nom, u.prenom AS responsable_prenom " +
-        "FROM contrat c " +
-        "LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur " +
-        "LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat " +
-        "LEFT JOIN utilisateur u ON c.responsable_id = u.id_utilisateur " +
-        "WHERE c.nom ILIKE $1 OR f.nom ILIKE $1 OR c.description ILIKE $1 " +
-        "ORDER BY c.id_contrat DESC",
-        ["%" + recherche + "%"]
-    );
+    const result = await pool.query(`
+        SELECT
+            c.id_contrat, c.nom, c.date_debut, c.date_fin, c.montant, c.description, c.statut,
+            f.nom AS fournisseur, t.nom AS type_contrat, u.nom AS responsable_nom, u.prenom AS responsable_prenom
+        FROM contrat c
+        LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
+        LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat
+        LEFT JOIN utilisateur u ON c.responsable_id = u.id_utilisateur
+        WHERE c.nom ILIKE $1 OR f.nom ILIKE $1 OR c.description ILIKE $1
+        ORDER BY c.id_contrat DESC`, ["%" + recherche + "%"]);
     return result.rows;
 };
 
+
 exports.rechercherMesContrats = async (recherche, utilisateur_id) => {
-    const result = await pool.query(
-        "SELECT c.id_contrat, c.nom, c.date_debut, c.date_fin, c.montant, c.description, c.statut, " +
-        "f.nom AS fournisseur, t.nom AS type_contrat, u.nom AS responsable_nom, u.prenom AS responsable_prenom " +
-        "FROM contrat c " +
-        "LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur " +
-        "LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat " +
-        "LEFT JOIN utilisateur u ON c.responsable_id = u.id_utilisateur " +
-        "WHERE c.responsable_id = $2 AND (c.nom ILIKE $1 OR f.nom ILIKE $1 OR c.description ILIKE $1) " +
-        "ORDER BY c.id_contrat DESC",
-        ["%" + recherche + "%", utilisateur_id]
-    );
+    const result = await pool.query(`
+        SELECT
+            c.id_contrat, c.nom, c.date_debut, c.date_fin, c.montant, c.description, c.statut,
+            f.nom AS fournisseur, t.nom AS type_contrat, u.nom AS responsable_nom, u.prenom AS responsable_prenom
+        FROM contrat c
+        LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
+        LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat
+        LEFT JOIN utilisateur u ON c.responsable_id = u.id_utilisateur
+        WHERE c.responsable_id = $2
+          AND (c.nom ILIKE $1 OR f.nom ILIKE $1 OR c.description ILIKE $1)
+        ORDER BY c.id_contrat DESC`, ["%" + recherche + "%", utilisateur_id]);
     return result.rows;
 };
 
 exports.filtrerContrats = async (fournisseur, type, statut, date_fin) => {
     const result = await pool.query(
         `SELECT
-             c.id_contrat, c.nom, c.date_debut, c.date_fin, c.montant, c.description, c.statut,
-             f.nom AS fournisseur, t.nom AS type_contrat, u.nom AS responsable_nom, u.prenom AS responsable_prenom
-         FROM contrat c
-                  LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
-                  LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat
+            c.id_contrat, c.nom, c.date_debut, c.date_fin, c.montant, c.description, c.statut,
+            f.nom AS fournisseur, t.nom AS type_contrat, u.nom AS responsable_nom, u.prenom AS responsable_prenom
+        FROM contrat c
+        LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
+        LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat
                   LEFT JOIN utilisateur u ON c.responsable_id = u.id_utilisateur
          WHERE ($1 = '' OR f.nom ILIKE $1)
            AND ($2 = '' OR t.nom ILIKE $2) AND ($3 = '' OR c.statut = $3) AND ($4 = '' OR c.date_fin = $4::date)
-         ORDER BY c.id_contrat DESC`, [`%${fournisseur}%`, `%${type}%`, statut, date_fin]
-    );
+         ORDER BY c.id_contrat DESC`, [`%${fournisseur}%`, `%${type}%`, statut, date_fin]);
     return result.rows;
 };
 
@@ -163,16 +150,16 @@ exports.filtrerMesContrats = async (utilisateur_id, fournisseur, type, statut, d
              c.id_contrat, c.nom, c.date_debut, c.date_fin, c.montant, c.description, c.statut,
              f.nom AS fournisseur, t.nom AS type_contrat, u.nom AS responsable_nom, u.prenom AS responsable_prenom
          FROM contrat c
-                  LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
-                  LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat
-                  LEFT JOIN utilisateur u ON c.responsable_id = u.id_utilisateur
+                LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur
+                LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat
+                LEFT JOIN utilisateur u ON c.responsable_id = u.id_utilisateur
          WHERE c.responsable_id = $1
            AND ($2 = '' OR f.nom ILIKE $2) AND ($3 = '' OR t.nom ILIKE $3)
            AND ($4 = '' OR c.statut = $4) AND ($5 = '' OR c.date_fin = $5::date)
-         ORDER BY c.id_contrat DESC`, [utilisateur_id, `%${fournisseur}%`, `%${type}%`, statut, date_fin]
-    );
+         ORDER BY c.id_contrat DESC`, [utilisateur_id, `%${fournisseur}%`, `%${type}%`, statut, date_fin]);
     return result.rows;
 };
+
 
 exports.getDashboardData = async () => {
     const totalResult = await pool.query(
@@ -195,6 +182,7 @@ exports.getDashboardData = async () => {
     };
 };
 
+
 exports.getDashboardUtilisateurData = async (utilisateur_id) => {
     const totalResult = await pool.query(
         "SELECT COUNT(*) AS total FROM contrat WHERE responsable_id = $1", [utilisateur_id]
@@ -216,6 +204,7 @@ exports.getDashboardUtilisateurData = async (utilisateur_id) => {
     };
 };
 
+
 exports.getMontantTotalContrats = async () => {
     const result = await pool.query(
         "SELECT COALESCE(SUM(montant), 0) AS total FROM contrat"
@@ -223,21 +212,26 @@ exports.getMontantTotalContrats = async () => {
     return Number(result.rows[0].total);
 };
 
+
 exports.getContratsParFournisseur = async () => {
     const result = await pool.query(
         `SELECT f.nom AS fournisseur, COUNT(c.id_contrat) AS total FROM contrat c
-        LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur GROUP BY f.nom ORDER BY total DESC`
+        LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur 
+        GROUP BY f.nom ORDER BY total DESC`
     );
     return result.rows;
 };
 
+
 exports.getContratsParType = async () => {
     const result = await pool.query(
         `SELECT t.nom AS type_contrat, COUNT(c.id_contrat) AS total
-        FROM contrat c LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat GROUP BY t.nom ORDER BY total DESC`
+        FROM contrat c LEFT JOIN type_contrat t ON c.type_id = t.id_type_contrat 
+        GROUP BY t.nom ORDER BY total DESC`
     );
     return result.rows;
 };
+
 
 exports.getMontantTotalMesContrats = async (utilisateur_id) => {
     const result = await pool.query(
@@ -245,6 +239,7 @@ exports.getMontantTotalMesContrats = async (utilisateur_id) => {
     );
     return Number(result.rows[0].total);
 };
+
 
 exports.getMesContratsParFournisseur = async (utilisateur_id) => {
     const result = await pool.query(
@@ -255,6 +250,7 @@ exports.getMesContratsParFournisseur = async (utilisateur_id) => {
     return result.rows;
 };
 
+
 exports.getMesContratsParType = async (utilisateur_id) => {
     const result = await pool.query(
         `SELECT t.nom AS type_contrat, COUNT(c.id_contrat) AS total
@@ -263,6 +259,7 @@ exports.getMesContratsParType = async (utilisateur_id) => {
     );
     return result.rows;
 };
+
 
 exports.getContratsByIds = async (ids) => {
     const result = await pool.query(
@@ -278,6 +275,7 @@ exports.getContratsByIds = async (ids) => {
     return result.rows;
 };
 
+
 exports.getMesContratsByIds = async (ids, utilisateur_id) => {
     const result = await pool.query(
         `SELECT
@@ -292,6 +290,7 @@ exports.getMesContratsByIds = async (ids, utilisateur_id) => {
     return result.rows;
 };
 
+
 exports.getAlertesExpiration = async () => {
     const result = await pool.query(`
         SELECT
@@ -300,10 +299,10 @@ exports.getAlertesExpiration = async () => {
         FROM contrat c
         LEFT JOIN fournisseur f ON c.fournisseur_id = f.id_fournisseur 
         WHERE c.statut IN ('expire', 'bientot_expire')
-        ORDER BY c.date_fin ASC
-    `);
+        ORDER BY c.date_fin ASC`);
     return result.rows;
 };
+
 
 exports.getAlertesExpirationUtilisateur = async (utilisateur_id) => {
     const result = await pool.query(`

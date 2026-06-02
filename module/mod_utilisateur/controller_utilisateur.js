@@ -11,6 +11,7 @@ exports.getUtilisateurs = async (req, res) => {
     }
 };
 
+
 exports.modifierRole = async (req, res) => {
     const {id, role_id} = req.body;
     try {
@@ -29,12 +30,12 @@ exports.modifierRole = async (req, res) => {
         }
         await modele.modifierRole(id, role_id);
         res.json({message: "Rôle modifié avec succès"});
-
     } catch (err) {
         console.error(err);
         res.status(500).json({message:"Erreur modification rôle"});
     }
 };
+
 
 exports.modifierMotDePasse = async (req, res) => {
     const {ancien_mdp, nouveau_mdp} = req.body;
@@ -57,6 +58,7 @@ exports.modifierMotDePasse = async (req, res) => {
         return res.status(500).json({message:"Erreur modification mot de passe"});
     }
 };
+
 
 exports.modifierProfil = async (req, res) => {
     const {nom, prenom, identifiant, email} = req.body;

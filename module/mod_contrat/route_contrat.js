@@ -40,10 +40,8 @@ router.get("/utilisateurs", isAdmin, async (req, res) => {
 
 // contrats admin
 router.get("/contrats", isAdmin, controller.getAll);
-
 // contrats utilisateur
 router.get("/mes-contrats", isAuthenticated, controller.getMesContrats);
-
 router.get("/calendrier-contrats", isAuthenticated, controller.getCalendrier);
 router.get("/recherche-contrats", isAdmin, controller.rechercher);
 router.get("/recherche-mes-contrats", isAuthenticated, controller.rechercherMesContrats);
@@ -59,13 +57,10 @@ router.delete("/fournisseurs/:id", isAdmin, controller.supprimerFournisseur);
 router.delete("/types/:id", isAdmin, controller.supprimerType);
 
 
-
-
 // supprimer plusieurs contrats
 router.delete("/contrats", isAdmin, async (req, res) => {
     try {
         const {ids} = req.body;
-
         if (!ids || ids.length === 0) {
             return res.json({message:"Aucun contrat sélectionné"});
         } else {

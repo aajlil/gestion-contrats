@@ -3,7 +3,6 @@ const btnCreerContrat = document.getElementById("btnCreerContrat");
 async function verifierAdmin() {
     const res = await fetch("http://localhost:3000/me");
     const user = await res.json();
-
     if (!user) {
         window.location.href = "/connexion.html";
     } else if (user.role !== 1) {
@@ -11,11 +10,11 @@ async function verifierAdmin() {
     }
 }
 
+
 async function chargerFournisseurs() {
     const res = await fetch("http://localhost:3000/fournisseurs");
     const data = await res.json();
     const select = document.getElementById("fournisseur_id");
-
     data.forEach(function(f) {
         const option = document.createElement("option");
         option.value = f.id_fournisseur;
@@ -24,11 +23,11 @@ async function chargerFournisseurs() {
     });
 }
 
+
 async function chargerTypes() {
     const res = await fetch("http://localhost:3000/types");
     const data = await res.json();
     const select = document.getElementById("type_id");
-
     data.forEach(function(t) {
         const option = document.createElement("option");
         option.value = t.id_type_contrat;
@@ -37,11 +36,11 @@ async function chargerTypes() {
     });
 }
 
+
 async function chargerUtilisateurs() {
     const res = await fetch("http://localhost:3000/utilisateurs");
     const data = await res.json();
     const select = document.getElementById("responsable_id");
-
     data.forEach(function(u) {
         const option = document.createElement("option");
         option.value = u.id_utilisateur;
@@ -49,6 +48,7 @@ async function chargerUtilisateurs() {
         select.appendChild(option);
     });
 }
+
 
 async function creerContrat() {
     const nom = document.getElementById("nom").value;
@@ -59,27 +59,19 @@ async function creerContrat() {
     const fournisseur_id = document.getElementById("fournisseur_id").value;
     const type_id = document.getElementById("type_id").value;
     const responsable_id = document.getElementById("responsable_id").value;
-
     const res = await fetch("http://localhost:3000/contrats", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            nom,
-            date_debut,
-            date_fin,
-            montant,
-            description,
-            fournisseur_id,
-            type_id,
-            responsable_id
+            nom, date_debut, date_fin, montant, description, fournisseur_id, type_id, responsable_id
         })
     });
-
     const data = await res.json();
     document.getElementById("message").textContent = data.message;
 }
+
 
 if (btnCreerContrat) {
     btnCreerContrat.addEventListener("click", creerContrat);

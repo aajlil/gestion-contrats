@@ -6,7 +6,6 @@ resetForm.addEventListener("submit", async function(e) {
     const token = params.get("token");
     const mdp = document.getElementById("mdp").value;
     const confirmation = document.getElementById("confirmation").value;
-
     if (!token) {
         document.getElementById("message").textContent = "Lien invalide";
     } else if (mdp !== confirmation) {

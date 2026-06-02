@@ -30,6 +30,7 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "connexion.html"));
 });
 
+
 // session
 app.get("/me", (req, res) => {
     if (!req.session.user) {
@@ -38,11 +39,13 @@ app.get("/me", (req, res) => {
     res.json(req.session.user);
 });
 
+
 // deconnexion
 app.get("/logout", (req, res) => {
     req.session.destroy();
     res.json({message: "Déconnecté"});
 });
+
 
 // import module connexion
 const connexionRoutes = require("./module/mod_connexion/route_connexion");
@@ -54,6 +57,7 @@ cron.schedule("0 8 * * *", async function() {
 }, {
     timezone: "Europe/Paris"
 });
+
 
 app.listen(3000, () => {
     console.log("Serveur lancé sur http://localhost:3000");

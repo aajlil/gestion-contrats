@@ -3,13 +3,13 @@ const btnLogoutUtilisateur = document.getElementById("btnLogout");
 async function chargerUser() {
     const res = await fetch("http://localhost:3000/me");
     const user = await res.json();
-
     if (!user) {
         window.location.href = "/connexion.html";
     } else {
         document.getElementById("welcome").textContent = "Bienvenue " + user.identifiant;
     }
 }
+
 
 function logout() {
     sessionStorage.removeItem("alertes_deja_affichees");
@@ -18,6 +18,7 @@ function logout() {
             window.location.href = "/connexion.html";
         });
 }
+
 
 async function chargerDashboardUtilisateur() {
     const res = await fetch("http://localhost:3000/dashboard-utilisateur-data");
@@ -48,6 +49,7 @@ async function chargerDashboardUtilisateur() {
         }
     });
 }
+
 
 async function chargerStatistiquesUtilisateur() {
     const res = await fetch("http://localhost:3000/statistiques-utilisateur-data");
@@ -102,6 +104,7 @@ async function chargerStatistiquesUtilisateur() {
     });
 }
 
+
 const btnMenu = document.getElementById("btnMenu");
 const btnFermerMenu = document.getElementById("btnFermerMenu");
 const menuLateral = document.getElementById("menuLateral");
@@ -113,30 +116,37 @@ function ouvrirMenu() {
     menuOverlay.classList.add("ouvert");
 }
 
+
 function fermerMenu() {
     menuLateral.classList.remove("ouvert");
     menuOverlay.classList.remove("ouvert");
 }
 
+
 if (btnMenu) {
     btnMenu.addEventListener("click", ouvrirMenu);
 }
+
 
 if (btnFermerMenu) {
     btnFermerMenu.addEventListener("click", fermerMenu);
 }
 
+
 if (menuOverlay) {
     menuOverlay.addEventListener("click", fermerMenu);
 }
+
 
 if (btnLogoutMenu) {
     btnLogoutMenu.addEventListener("click", logout);
 }
 
+
 if (btnLogoutUtilisateur) {
     btnLogoutUtilisateur.addEventListener("click", logout);
 }
+
 
 chargerUser();
 chargerDashboardUtilisateur();

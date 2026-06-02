@@ -36,6 +36,7 @@
         return {classe: classe, badge: badge, label: label};
     }
 
+
     function remplirListe(contrats) {
         var liste = document.getElementById("alertes-liste");
         liste.innerHTML = "";
@@ -78,6 +79,7 @@
             }
         }
     }
+
 
     function afficherAlertes(contrats) {
         remplirListe(contrats);
@@ -126,7 +128,6 @@
                 sessionStorage.setItem("alertes_deja_affichees", "1");
             }, 1000);
         }
-
     });
 
 })();

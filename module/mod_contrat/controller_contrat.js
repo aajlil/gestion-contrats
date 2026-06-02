@@ -1,15 +1,12 @@
 const modele = require("./modele_contrat");
 const historiqueModele = require("../mod_historique/modele_historique");
 
-
 exports.create = async (req, res) => {
     const {nom, date_debut, date_fin, montant, description, fournisseur_id, type_id, responsable_id} = req.body;
-
     try {
         const statut = calculerStatut(date_fin);
         await modele.createContrat(nom, date_debut, date_fin, montant, description, statut, fournisseur_id, type_id, responsable_id);
         res.json({message:"Contrat créé avec succès"});
-
     } catch (err) {
         console.error(err);
         res.status(500).json({message:"Erreur création contrat"});
@@ -28,6 +25,7 @@ exports.createFournisseur = async (req, res) => {
     }
 };
 
+
 exports.supprimerFournisseur = async (req, res) => {
     const {id} = req.params;
     try {
@@ -39,6 +37,7 @@ exports.supprimerFournisseur = async (req, res) => {
     }
 };
 
+
 exports.createType = async (req, res) => {
     const {nom} = req.body;
     try {
@@ -49,6 +48,7 @@ exports.createType = async (req, res) => {
         res.status(500).json({message:"Erreur ajout type"});
     }
 };
+
 
 exports.supprimerType = async (req, res) => {
     const {id} = req.params;
@@ -64,22 +64,16 @@ exports.supprimerType = async (req, res) => {
 
 exports.update = async (req, res) => {
     const {id, nom, date_debut, date_fin, montant, description} = req.body;
-
     try {
         const ancienContrat = await modele.getContratById(id);
-
         if (!ancienContrat) {
             return res.json({message:"Contrat introuvable"});
         } else {
             const statut = calculerStatut(date_fin);
-            await modele.updateContrat(
-                id, nom, date_debut, date_fin, montant, description, statut
-            );
-
+            await modele.updateContrat(id, nom, date_debut, date_fin, montant, description, statut);
             const texteHistorique = construireDescription(ancienContrat, {
                 nom, date_debut, date_fin, montant, description, statut
             });
-
             if (texteHistorique !== "") {
                 await historiqueModele.ajouterHistorique(
                     "modification", texteHistorique, id, req.session.user.id
@@ -94,9 +88,6 @@ exports.update = async (req, res) => {
 };
 
 
-
-
-
 exports.getAll = async (req, res) => {
     try {
         const contrats = await modele.getAllContrats();
@@ -107,20 +98,21 @@ exports.getAll = async (req, res) => {
     }
 };
 
+
 exports.getMesContrats = async (req, res) => {
     try {
         const contrats = await modele.getMesContrats(req.session.user.id);
         res.json(contrats);
     } catch (err) {
         console.error(err);
-        res.status(500).json({message: "Erreur récupération de vos contrats"});
+        res.status(500).json({message:"Erreur récupération de vos contrats"});
     }
 };
+
 
 function calculerStatut(date_fin) {
     const aujourdHui = new Date();
     const dateFin = new Date(date_fin);
-
     const differenceTemps = dateFin.getTime() - aujourdHui.getTime();
     const differenceJours = differenceTemps / (1000 * 60 * 60 * 24);
 
@@ -135,33 +127,27 @@ function calculerStatut(date_fin) {
 
 function construireDescription(ancienContrat, nouveauContrat) {
     let description = "";
-
     if (ancienContrat.nom != nouveauContrat.nom) {
         description += "Nom modifié : " + ancienContrat.nom + " -> " + nouveauContrat.nom + ". ";
     }
-
     if (formaterDate(ancienContrat.date_debut) != nouveauContrat.date_debut) {
         description += "Date de début modifiée : " + formaterDate(ancienContrat.date_debut) + " -> " + nouveauContrat.date_debut + ". ";
     }
-
     if (formaterDate(ancienContrat.date_fin) != nouveauContrat.date_fin) {
         description += "Date de fin modifiée : " + formaterDate(ancienContrat.date_fin) + " -> " + nouveauContrat.date_fin + ". ";
     }
-
     if (ancienContrat.montant != nouveauContrat.montant) {
         description += "Montant modifié : " + ancienContrat.montant + " -> " + nouveauContrat.montant + ". ";
     }
-
     if (ancienContrat.description != nouveauContrat.description) {
         description += "Description modifiée. ";
     }
-
     if (ancienContrat.statut != nouveauContrat.statut) {
         description += "Statut modifié : " + ancienContrat.statut + " -> " + nouveauContrat.statut + ". ";
     }
-
     return description;
 }
+
 
 function formaterDate(date) {
     return new Date(date).toISOString().split("T")[0];
@@ -171,7 +157,6 @@ function formaterDate(date) {
 exports.getCalendrier = async (req, res) => {
     try {
         let contrats;
-
         if (!req.session.user) {
             return res.status(401).json({message:"Non authentifié"});
         } else if (req.session.user.role === 1) {
@@ -179,13 +164,13 @@ exports.getCalendrier = async (req, res) => {
         } else {
             contrats = await modele.getMesContratsCalendrier(req.session.user.id);
         }
-
         return res.json(contrats);
     } catch (err) {
         console.error(err);
         return res.status(500).json({message:"Erreur récupération calendrier"});
     }
 };
+
 
 exports.rechercher = async (req, res) => {
     const {recherche} = req.query;
@@ -202,6 +187,7 @@ exports.rechercher = async (req, res) => {
     }
 };
 
+
 exports.rechercherMesContrats = async (req, res) => {
     const {recherche} = req.query;
     try {
@@ -216,6 +202,7 @@ exports.rechercherMesContrats = async (req, res) => {
         return res.status(500).json({message:"Erreur recherche mes contrats"});
     }
 };
+
 
 exports.filtrer = async (req, res) => {
     const fournisseur = req.query.fournisseur || "";
@@ -248,6 +235,7 @@ exports.filtrerMesContrats = async (req, res) => {
     }
 };
 
+
 exports.getDashboard = async (req, res) => {
     try {
         const dashboard = await modele.getDashboardData();
@@ -258,6 +246,7 @@ exports.getDashboard = async (req, res) => {
     }
 };
 
+
 exports.getDashboardUtilisateur = async (req, res) => {
     try {
         const dashboard = await modele.getDashboardUtilisateurData(req.session.user.id);
@@ -267,6 +256,7 @@ exports.getDashboardUtilisateur = async (req, res) => {
         return res.status(500).json({message:"Erreur récupération dashboard utilisateur"});
     }
 };
+
 
 exports.getStatistiques = async (req, res) => {
     try {
@@ -284,6 +274,7 @@ exports.getStatistiques = async (req, res) => {
     }
 };
 
+
 exports.getStatistiquesUtilisateur = async (req, res) => {
     try {
         const montantTotal = await modele.getMontantTotalMesContrats(req.session.user.id);
@@ -300,6 +291,7 @@ exports.getStatistiquesUtilisateur = async (req, res) => {
     }
 };
 
+
 exports.getAlertes = async (req, res) => {
     try {
         const contrats = await modele.getAlertesExpiration();
@@ -309,6 +301,7 @@ exports.getAlertes = async (req, res) => {
         return res.status(500).json({message:"Erreur récupération alertes"});
     }
 };
+
 
 exports.getAlertesUtilisateur = async (req, res) => {
     try {

@@ -5,6 +5,7 @@ exports.getUserByEmail = async (email) => {
     return result.rows[0];
 };
 
+
 exports.enregistrerToken = async (id_utilisateur, token) => {
     await pool.query(
         "UPDATE utilisateur SET reset_token = $1, reset_expire = NOW() + INTERVAL '15 minutes' WHERE id_utilisateur = $2",
@@ -12,11 +13,13 @@ exports.enregistrerToken = async (id_utilisateur, token) => {
     );
 };
 
+
 exports.getUserByResetToken = async (token) => {
     const result = await pool.query(
         "SELECT * FROM utilisateur WHERE reset_token = $1 AND reset_expire > NOW()", [token]);
     return result.rows[0];
 };
+
 
 exports.modifierMotDePasse = async (id_utilisateur, mdp) => {
     await pool.query(

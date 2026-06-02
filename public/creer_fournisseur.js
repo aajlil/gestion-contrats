@@ -30,6 +30,7 @@ async function chargerFournisseurs() {
     });
 }
 
+
 async function ajouterFournisseur() {
     const nom = document.getElementById("nom").value;
     const res = await fetch("http://localhost:3000/fournisseurs", {
@@ -43,14 +44,15 @@ async function ajouterFournisseur() {
     const data = await res.json();
     document.getElementById("message").textContent = data.message;
     document.getElementById("nom").value = "";
-
     chargerFournisseurs();
 }
+
 
 function fermerConfirmation() {
     fournisseurASupprimer = null;
     document.getElementById("confirmationBox").hidden = true;
 }
+
 
 async function confirmerSuppression() {
     const res = await fetch("http://localhost:3000/fournisseurs/" + fournisseurASupprimer, {

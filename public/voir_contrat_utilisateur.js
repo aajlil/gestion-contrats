@@ -13,6 +13,7 @@ async function verifierConnexion() {
     }
 }
 
+
 function afficherStatut(statut) {
     if (statut === "actif") {
         return "Actif";
@@ -25,9 +26,11 @@ function afficherStatut(statut) {
     }
 }
 
+
 function formaterDate(date) {
     return new Date(date).toLocaleDateString("fr-FR");
 }
+
 
 function afficherListe(contrats) {
     const div = document.getElementById("liste");
@@ -54,6 +57,7 @@ function afficherListe(contrats) {
     });
 }
 
+
 async function chargerMesContrats() {
     document.getElementById("recherche").value = "";
     document.getElementById("message").textContent = "";
@@ -62,13 +66,13 @@ async function chargerMesContrats() {
     afficherListe(contrats);
 }
 
+
 async function rechercherMesContrats() {
     const recherche = document.getElementById("recherche").value;
     if (!recherche) {
         document.getElementById("message").textContent = "Saisis un mot de recherche";
     } else {
         document.getElementById("message").textContent = "";
-
         const res = await fetch("http://localhost:3000/recherche-mes-contrats?recherche=" + encodeURIComponent(recherche));
         const contrats = await res.json();
         if (contrats.length === 0) {
@@ -79,6 +83,7 @@ async function rechercherMesContrats() {
         }
     }
 }
+
 
 async function filtrerMesContrats() {
     const fournisseur = document.getElementById("filtre_fournisseur").value;
@@ -101,6 +106,7 @@ async function filtrerMesContrats() {
     }
 }
 
+
 function reinitialiserFiltres() {
     document.getElementById("filtre_fournisseur").value = "";
     document.getElementById("filtre_type").value = "";
@@ -109,6 +115,7 @@ function reinitialiserFiltres() {
     document.getElementById("message").textContent = "";
     chargerMesContrats();
 }
+
 
 function recupererIdsSelectionnes() {
     const checkboxes = document.querySelectorAll("input[type='checkbox']");
@@ -120,6 +127,7 @@ function recupererIdsSelectionnes() {
     });
     return ids;
 }
+
 
 async function exporterExcel() {
     const ids = recupererIdsSelectionnes();
@@ -141,6 +149,7 @@ async function exporterExcel() {
         a.click();
     }
 }
+
 
 async function exporterPdf() {
     const ids = recupererIdsSelectionnes();
