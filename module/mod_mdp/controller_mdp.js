@@ -13,15 +13,14 @@ exports.demandeReset = async (req, res) => {
             const token = crypto.randomBytes(32).toString("hex");
             await modele.enregistrerToken(user.id_utilisateur, token);
             const lien = process.env.APP_URL + "/reset_mdp.html?token=" + token;
-            await mailService.envoyerMail(
+            res.json({message:"Si cet email existe, un lien de réinitialisation a été envoyé"});
+            mailService.envoyerMail(
                 user.email,
                 "Réinitialisation du mot de passe",
                 "Bonjour " + user.identifiant + ",\n\n" +
-                "Cliquez sur ce lien pour modifier votre mot de passe :\n" +
-                lien + "\n\n" +
+                "Cliquez sur ce lien pour modifier votre mot de passe :\n" + lien + "\n\n" +
                 "Ce lien expire dans 15 minutes."
-            );
-            return res.json({message:"Si cet email existe, un lien de réinitialisation a été envoyé"});
+            ).catch(err => console.error("Erreur mail reset :", err));
         }
     } catch (err) {
         console.error(err);

@@ -17,13 +17,14 @@ exports.inscription = async (req, res) => {
             const token = crypto.randomBytes(32).toString("hex");
             await modele.creerUtilisateur(nom, prenom, identifiant, email, hash, token);
             const lien = process.env.APP_URL + "/confirmer-inscription?token=" + token;
-            await mailService.envoyerMail(email,
+            res.json({message: "Un email de confirmation vous a été envoyé"});
+            mailService.envoyerMail(
+                email,
                 "Confirmation de votre inscription",
                 "Bonjour " + prenom + ",\n\n" +
                 "Cliquez sur le lien suivant pour confirmer la création de votre compte :\n\n" + lien + "\n\n" +
                 "Ce lien expire dans 30 minutes."
-            );
-            return res.json({message: "Un email de confirmation vous a été envoyé"});
+            ).catch(err => console.error("Erreur envoi mail :", err));
         }
     } catch (err) {
         console.error(err);

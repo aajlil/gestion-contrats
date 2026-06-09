@@ -64,6 +64,6 @@ cron.schedule("0 8 * * *", async function() {
 
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-    console.log(`Serveur lancé sur http://localhost:${PORT}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Serveur lancé sur http://vm-srvdsi:${process.env.PORT}`);
 });
