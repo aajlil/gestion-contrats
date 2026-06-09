@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Fiche contrat</title>
+    <link rel="stylesheet" href="/fiche_contrat.css">
+</head>
+<body>
+
+<div class="page-container">
+    <div class="page-header">
+        <p class="page-label">Gestion des contrats</p>
+        <h1 id="titreContrat">Fiche contrat</h1>
+    </div>
+
+    <p id="message"></p>
+
+    <section class="bloc-section">
+        <h2>Informations générales</h2>
+        <div class="fiche-grid">
+            <div class="fiche-champ">
+                <span class="fiche-label">Nom</span>
+                <span id="ficheNom" class="fiche-valeur"></span>
+            </div>
+            <div class="fiche-champ">
+                <span class="fiche-label">Fournisseur</span>
+                <span id="ficheFournisseur" class="fiche-valeur"></span>
+            </div>
+            <div class="fiche-champ">
+                <span class="fiche-label">Type de contrat</span>
+                <span id="ficheType" class="fiche-valeur"></span>
+            </div>
+            <div class="fiche-champ">
+                <span class="fiche-label">Responsable</span>
+                <span id="ficheResponsable" class="fiche-valeur"></span>
+            </div>
+            <div class="fiche-champ">
+                <span class="fiche-label">Statut</span>
+                <span id="ficheStatut" class="fiche-valeur"></span>
+            </div>
+            <div class="fiche-champ">
+                <span class="fiche-label">Montant</span>
+                <span id="ficheMontant" class="fiche-valeur"></span>
+            </div>
+            <div class="fiche-champ">
+                <span class="fiche-label">Date de début</span>
+                <span id="ficheDateDebut" class="fiche-valeur"></span>
+            </div>
+            <div class="fiche-champ">
+                <span class="fiche-label">Date de fin</span>
+                <span id="ficheDateFin" class="fiche-valeur"></span>
+            </div>
+            <div class="fiche-champ fiche-champ-large">
+                <span class="fiche-label">Description</span>
+                <span id="ficheDescription" class="fiche-valeur"></span>
+            </div>
+        </div>
+    </section>
+
+    <section class="bloc-section">
+        <h2>Actions</h2>
+        <div class="actions-ligne">
+            <button id="btnModifier">Modifier</button>
+            <button id="btnDocuments">Documents</button>
+            <button id="btnHistorique">Historique</button>
+            <button id="btnExportExcel">Exporter Excel</button>
+            <button id="btnExportPdf">Exporter PDF</button>
+            <button id="btnSupprimer" class="btn-danger">Supprimer</button>
+        </div>
+    </section>
+
+    <button class="btn-retour" onclick="window.history.back()">Retour</button>
+</div>
+
+<div id="confirmationOverlay" class="confirmation-overlay">
+    <div class="confirmation-panel">
+        <div class="confirmation-header">
+            <h2>Confirmation</h2>
+        </div>
+        <div class="confirmation-content">
+            Confirmer la suppression de ce contrat ?
+        </div>
+        <div class="confirmation-actions">
+            <button id="btnOuiSuppression" class="btn-danger">Oui</button>
+            <button id="btnNonSuppression">Non</button>
+
+        </div>
+    </div>
+</div>
+
+<script src="/fiche_contrat_admin.js"></script>
+
+</body>
+</html>

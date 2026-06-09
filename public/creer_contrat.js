@@ -1,7 +1,7 @@
 const btnCreerContrat = document.getElementById("btnCreerContrat");
 
 async function verifierAdmin() {
-    const res = await fetch("http://localhost:3000/me");
+    const res = await fetch("/me");
     const user = await res.json();
     if (!user) {
         window.location.href = "/connexion.html";
@@ -12,7 +12,7 @@ async function verifierAdmin() {
 
 
 async function chargerFournisseurs() {
-    const res = await fetch("http://localhost:3000/fournisseurs");
+    const res = await fetch("/fournisseurs");
     const data = await res.json();
     const select = document.getElementById("fournisseur_id");
     data.forEach(function(f) {
@@ -25,7 +25,7 @@ async function chargerFournisseurs() {
 
 
 async function chargerTypes() {
-    const res = await fetch("http://localhost:3000/types");
+    const res = await fetch("/types");
     const data = await res.json();
     const select = document.getElementById("type_id");
     data.forEach(function(t) {
@@ -38,7 +38,7 @@ async function chargerTypes() {
 
 
 async function chargerUtilisateurs() {
-    const res = await fetch("http://localhost:3000/utilisateurs");
+    const res = await fetch("/utilisateurs");
     const data = await res.json();
     const select = document.getElementById("responsable_id");
     data.forEach(function(u) {
@@ -59,7 +59,7 @@ async function creerContrat() {
     const fournisseur_id = document.getElementById("fournisseur_id").value;
     const type_id = document.getElementById("type_id").value;
     const responsable_id = document.getElementById("responsable_id").value;
-    const res = await fetch("http://localhost:3000/contrats", {
+    const res = await fetch("/contrats", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

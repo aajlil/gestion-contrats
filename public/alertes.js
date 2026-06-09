@@ -102,13 +102,12 @@
     };
 
     async function chargerAlertes() {
-        var resUser = await fetch("http://localhost:3000/me");
+        var resUser = await fetch("/me");
         var user = await resUser.json();
-        var route = "http://localhost:3000/alertes-expiration-utilisateur";
+        var route = "/alertes-expiration-utilisateur";
         if (user.role === 1) {
-            route = "http://localhost:3000/alertes-expiration";
+            route = "/alertes-expiration";
         }
-
         var resAlertes = await fetch(route);
         var contrats = await resAlertes.json();
         afficherAlertes(contrats);

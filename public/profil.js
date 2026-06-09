@@ -1,5 +1,5 @@
 async function chargerProfil() {
-    const res = await fetch("http://localhost:3000/me");
+    const res = await fetch("/me");
     const user = await res.json();
     if (!user) {
         window.location.href = "/connexion.html";

@@ -27,7 +27,7 @@
     <img src="/images/cloche.png" alt="Notifications">
 </div>
 
-<div id="alertes-overlay" class="alertes-overlay" style="display:none;">
+<div id="alertes-overlay" class="alertes-overlay">
     <div id="alertes-panel" class="alertes-panel">
         <div class="alertes-header">
             <span class="alertes-icon">
@@ -100,20 +100,68 @@
 
     <section class="dashboard-section">
         <h2>Actions</h2>
+        <div class="contrats-toolbar">
+            <input type="text" id="rechercheContrat" placeholder="Rechercher par nom, fournisseur, mot clé...">
+            <input type="text" id="filtreType" placeholder="Type de contrat">
+            <select id="filtreStatut">
+                <option value="">Tous les statuts</option>
+                <option value="actif">Actif</option>
+                <option value="expire">Expiré</option>
+                <option value="bientot_expire">Bientôt expiré</option>
+            </select>
+            <input type="date" id="filtreDateFin">
+            <button id="btnFiltrer">Filtrer</button>
+            <button id="btnReset" class="btn-secondary">Réinitialiser</button>
+        </div>
+
+        <div id="panneau-contrat" class="panneau-contrat">
+            <div class="panneau-contrat-header">
+                <span id="panneau-nom-contrat"></span>
+                <button class="panneau-close" id="btnFermerPanneau">✕</button>
+            </div>
+            <div class="panneau-contrat-actions">
+                <button id="btnPanneauVoir">Voir</button>
+                <button id="btnPanneauModifier">Modifier</button>
+                <button id="btnPanneauSupprimer" class="btn-danger">Supprimer</button>
+                <button id="btnPanneauDocuments">Documents</button>
+                <button id="btnPanneauHistorique">Historique</button>
+                <button id="btnPanneauExportExcel">Exporter Excel</button>
+                <button id="btnPanneauExportPdf">Exporter PDF</button>
+            </div>
+        </div>
+
+        <div id="listeContratsActions" class="liste-contrats-actions"></div>
+        <div id="export-multi" class="export-multi">
+            <button id="btnExportMultiExcel">Exporter en Excel</button>
+            <button id="btnExportMultiPdf">Exporter en PDF</button>
+            <button id="btnSupprimerMulti" class="btn-danger">Supprimer</button>
+        </div>
+
         <div class="dashboard-actions">
             <button onclick="window.location.href='/creer_contrat.html'">Créer un contrat</button>
-            <button onclick="window.location.href='/voir_contrat_admin.html'">Voir tous les contrats</button>
-            <button onclick="window.location.href='/modifier_contrat.html'">Modifier un contrat</button>
-            <button onclick="window.location.href='/supprimer_contrat.html'">Supprimer un contrat</button>
             <button onclick="window.location.href='/creer_fournisseur.html'">Gérer les fournisseurs</button>
             <button onclick="window.location.href='/creer_type.html'">Gérer les types de contrat</button>
             <button onclick="window.location.href='/gerer_utilisateur.html'">Gérer les utilisateurs</button>
-            <button onclick="window.location.href='/historique_contrat.html'">Voir l'historique</button>
-            <button onclick="window.location.href='/gerer_document.html'">Gérer les documents</button>
             <button onclick="window.location.href='/calendrier_contrat.html'">Voir le calendrier des échéances</button>
         </div>
     </section>
-    <button id="btnLogout" class="btn-logout">Se déconnecter</button>
+</div>
+
+<div id="confirmationBox" class="confirmation-overlay">
+    <div class="confirmation-panel">
+        <div class="confirmation-header">
+            <h2>Confirmation</h2>
+        </div>
+
+        <div class="confirmation-content">
+            <p id="confirmationTexte">Confirmer ?</p>
+        </div>
+
+        <div class="confirmation-actions">
+            <button id="btnOuiSuppression" class="btn-danger">Oui</button>
+            <button id="btnNonSuppression" class="btn-secondary">Non</button>
+        </div>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

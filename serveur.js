@@ -16,7 +16,11 @@ const app = express();
 
 app.use(express.json());
 app.use(express.static("public"));
-app.use(session({secret: "mon_secret", resave: false, saveUninitialized: false}));
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
 app.use("/", contratRoutes);
 app.use("/", utilisateurRoutes);
 app.use("/", historiqueRoutes);
@@ -59,6 +63,7 @@ cron.schedule("0 8 * * *", async function() {
 });
 
 
-app.listen(3000, () => {
-    console.log("Serveur lancé sur http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Serveur lancé sur http://localhost:${PORT}`);
 });

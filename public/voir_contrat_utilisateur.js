@@ -6,7 +6,7 @@ document.getElementById("btnExportExcel").addEventListener("click", exporterExce
 document.getElementById("btnExportPdf").addEventListener("click", exporterPdf);
 
 async function verifierConnexion() {
-    const res = await fetch("http://localhost:3000/me");
+    const res = await fetch("/me");
     const user = await res.json();
     if (!user) {
         window.location.href = "/connexion.html";
@@ -61,7 +61,7 @@ function afficherListe(contrats) {
 async function chargerMesContrats() {
     document.getElementById("recherche").value = "";
     document.getElementById("message").textContent = "";
-    const res = await fetch("http://localhost:3000/mes-contrats");
+    const res = await fetch("/mes-contrats");
     const contrats = await res.json();
     afficherListe(contrats);
 }
@@ -73,7 +73,7 @@ async function rechercherMesContrats() {
         document.getElementById("message").textContent = "Saisis un mot de recherche";
     } else {
         document.getElementById("message").textContent = "";
-        const res = await fetch("http://localhost:3000/recherche-mes-contrats?recherche=" + encodeURIComponent(recherche));
+        const res = await fetch("/recherche-mes-contrats?recherche=" + encodeURIComponent(recherche));
         const contrats = await res.json();
         if (contrats.length === 0) {
             document.getElementById("liste").innerHTML = "";
@@ -91,9 +91,8 @@ async function filtrerMesContrats() {
     const statut = document.getElementById("filtre_statut").value;
     const date_fin = document.getElementById("filtre_date_fin").value;
     const url =
-        "http://localhost:3000/filtres-mes-contrats?fournisseur=" + encodeURIComponent(fournisseur) +
-        "&type=" + encodeURIComponent(type) + "&statut=" + encodeURIComponent(statut) +
-        "&date_fin=" + encodeURIComponent(date_fin);
+        "/filtres-mes-contrats?fournisseur=" + encodeURIComponent(fournisseur) + "&type=" + encodeURIComponent(type) +
+        "&statut=" + encodeURIComponent(statut) + "&date_fin=" + encodeURIComponent(date_fin);
 
     const res = await fetch(url);
     const contrats = await res.json();
@@ -134,7 +133,7 @@ async function exporterExcel() {
     if (ids.length === 0) {
         document.getElementById("message").textContent = "Sélectionne au moins un contrat";
     } else {
-        const res = await fetch("http://localhost:3000/export/excel", {
+        const res = await fetch("/export/excel", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -156,7 +155,7 @@ async function exporterPdf() {
     if (ids.length === 0) {
         document.getElementById("message").textContent = "Sélectionne au moins un contrat";
     } else {
-        const res = await fetch("http://localhost:3000/export/pdf", {
+        const res = await fetch("/export/pdf", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -172,5 +171,24 @@ async function exporterPdf() {
     }
 }
 
+async function chargerContratDepuisUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    if (id) {
+        const res = await fetch("/mes-contrats");
+        const contrats = await res.json();
+        var contratTrouve = null;
+        for (var i = 0; i < contrats.length; i++) {
+            if (String(contrats[i].id_contrat) === String(id)) {
+                contratTrouve = contrats[i];
+            }
+        }
+        if (contratTrouve) {
+            afficherListe([contratTrouve]);
+        }
+    }
+}
+
 verifierConnexion();
+chargerContratDepuisUrl();
 chargerMesContrats();

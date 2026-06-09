@@ -1,5 +1,8 @@
+let contratId = null;
+
+
 async function verifierAdmin() {
-    const res = await fetch("http://localhost:3000/me");
+    const res = await fetch("/me");
     const user = await res.json();
     if (!user) {
         window.location.href = "/connexion.html";
@@ -14,23 +17,11 @@ function formaterDate(date) {
 }
 
 
-async function chargerListeContrats() {
-    const res = await fetch("http://localhost:3000/contrats");
-    const contrats = await res.json();
-    const select = document.getElementById("contrat_select");
-    select.innerHTML = "";
-    contrats.forEach(function(c) {
-        const option = document.createElement("option");
-        option.value = c.id_contrat;
-        option.textContent = c.nom;
-        select.appendChild(option);
-    });
-}
-
-
 async function chargerHistorique() {
-    const id = document.getElementById("contrat_select").value;
-    const res = await fetch("http://localhost:3000/historique/" + id);
+    const params = new URLSearchParams(window.location.search);
+    contratId = params.get("id");
+    await chargerNomContrat();
+    const res = await fetch("/historique/" + contratId);
     const historique = await res.json();
     const div = document.getElementById("liste");
     div.innerHTML = "";
@@ -46,5 +37,16 @@ async function chargerHistorique() {
     });
 }
 
+async function chargerNomContrat() {
+    const res = await fetch("/contrats");
+    const contrats = await res.json();
+    const contrat = contrats.find(function(c) {
+        return c.id_contrat == contratId;
+    });
+    if (contrat) {
+        document.getElementById("contratTitre").textContent = "Contrat : " + contrat.nom;
+    }
+}
+
 verifierAdmin();
-chargerListeContrats();
+chargerHistorique()

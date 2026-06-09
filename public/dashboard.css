@@ -419,3 +419,227 @@ button:active {
 .graphique-box.graphique-fournisseurs canvas {
     max-height: 520px;
 }
+
+/* TOOLBAR RECHERCHE FILTRES */
+.contrats-toolbar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+/*INPUTS ET SELECT DE LA TOOLBAR*/
+.contrats-toolbar input,
+.contrats-toolbar select {
+    min-height: 44px;
+    padding: 11px 16px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface-soft);
+    color: var(--text);
+    font: inherit;
+    font-weight: 700;
+}
+
+/*BARRE DE RECHERCHE PRINCIPALE*/
+#rechercheContrat {
+    flex: 2;
+    min-width: 220px;
+}
+
+/*CHAMP TYPE DE CONTRAT*/
+#filtreType {
+    flex: 1;
+    min-width: 120px;
+}
+
+/*DATE DE FIN*/
+#filtreDateFin {
+    flex: 0 0 160px;
+}
+
+/*STATUT*/
+#filtreStatut {
+    flex: 0 0 160px;
+}
+
+
+/* LISTE CONTRATS */
+.liste-contrats-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-height: 208px;
+    overflow-y: auto;
+    margin-bottom: 16px;
+}
+
+/* LIGNE CONTRAT */
+.contrat-ligne-action {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.contrat-ligne-action:hover {
+    background: #e2edf5;
+}
+
+.contrat-ligne-nom {
+    font-weight: 700;
+    flex: 1;
+}
+
+.contrat-ligne-info {
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+/* STATUTS */
+.contrat-ligne-statut {
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.statut-actif {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.statut-expire {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.statut-bientot_expire {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+/* PANNEAU CONTRAT */
+.panneau-contrat {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 24px rgba(23, 32, 42, 0.10);
+    display: none;
+}
+
+.panneau-contrat-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.panneau-close {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    min-height: 30px;
+    padding: 0;
+    border-radius: 50%;
+    background: var(--surface-soft);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.panneau-close:hover {
+    background: var(--line);
+}
+
+.panneau-contrat-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.panneau-contrat-actions button {
+    min-height: 38px;
+    padding: 8px 16px;
+    font-size: 0.88rem;
+}
+
+/*EXPORT MULTI*/
+.export-multi {
+    display: none;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+/* FOND DE CONFIRMATION */
+.confirmation-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(23, 32, 42, 0.45);
+    z-index: 9000;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 70px;
+}
+
+/* PANNEAU */
+.confirmation-panel {
+    width: min(420px, calc(100% - 32px));
+    background: var(--surface);
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(23, 32, 42, 0.30);
+    overflow: hidden;
+    animation: panelDescend 0.35s ease forwards;
+}
+
+/* HEADER */
+.confirmation-header {
+    padding: 18px 22px;
+    background: linear-gradient(135deg, var(--danger), var(--danger-dark));
+    color: #ffffff;
+}
+
+.confirmation-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+/* CONTENT */
+.confirmation-content {
+    padding: 22px;
+    font-weight: 700;
+}
+
+/* ACTIONS */
+.confirmation-actions {
+    display: flex;
+    gap: 12px;
+    padding: 0 22px 22px;
+}
+
+/* ANIMATION */
+@keyframes panelDescend {
+    from {
+        opacity: 0;
+        transform: translateY(-40px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

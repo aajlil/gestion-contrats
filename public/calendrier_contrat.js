@@ -2,7 +2,7 @@ let dateCourante = new Date();
 let contratsCalendrier = [];
 
 async function verifierConnexion() {
-    const res = await fetch("http://localhost:3000/me");
+    const res = await fetch("/me");
     const user = await res.json();
     if (!user) {
         window.location.href = "/connexion.html";
@@ -39,7 +39,7 @@ function getNomMois(mois) {
 
 
 async function chargerContratsCalendrier() {
-    const res = await fetch("http://localhost:3000/calendrier-contrats");
+    const res = await fetch("/calendrier-contrats");
     contratsCalendrier = await res.json();
     afficherCalendrier();
 }
@@ -124,7 +124,7 @@ document.getElementById("btnSuivant").addEventListener("click", function() {
 
 
 document.getElementById("btnRetour").addEventListener("click", async function() {
-    const res = await fetch("http://localhost:3000/me");
+    const res = await fetch("/me");
     const user = await res.json();
     if (user.role === 1) {
         window.location.href = "/dashboard_admin.html";

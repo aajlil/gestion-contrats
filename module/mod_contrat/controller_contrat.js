@@ -91,7 +91,7 @@ exports.update = async (req, res) => {
 exports.getAll = async (req, res) => {
     try {
         const contrats = await modele.getAllContrats();
-        res.json(contrats);
+        res.json(contrats.map(recalculerStatut));
     } catch (err) {
         console.error(err);
         res.status(500).json({message:"Erreur récupération contrats"});
@@ -102,27 +102,57 @@ exports.getAll = async (req, res) => {
 exports.getMesContrats = async (req, res) => {
     try {
         const contrats = await modele.getMesContrats(req.session.user.id);
-        res.json(contrats);
+        res.json(contrats.map(recalculerStatut));
     } catch (err) {
         console.error(err);
         res.status(500).json({message:"Erreur récupération de vos contrats"});
     }
 };
 
-
 function calculerStatut(date_fin) {
     const aujourdHui = new Date();
+    aujourdHui.setHours(0, 0, 0, 0);
     const dateFin = new Date(date_fin);
-    const differenceTemps = dateFin.getTime() - aujourdHui.getTime();
-    const differenceJours = differenceTemps / (1000 * 60 * 60 * 24);
-
+    dateFin.setHours(0, 0, 0, 0);
+    const differenceJours = (dateFin - aujourdHui) / (1000 * 60 * 60 * 24);
     if (differenceJours < 0) {
         return "expire";
-    } else if (differenceJours <= 90) {
-        return "bientot_expire";
-    } else {
-        return "actif";
     }
+    if (differenceJours <= 90) {
+        return "bientot_expire";
+    }
+    return "actif";
+}
+
+function recalculerStatut(contrat) {
+    const aujourdHui = new Date();
+    aujourdHui.setHours(0, 0, 0, 0);
+    const dateFin = new Date(contrat.date_fin);
+    dateFin.setHours(0, 0, 0, 0);
+    const diff = (dateFin - aujourdHui) / (1000 * 60 * 60 * 24);
+    let statutCalcule;
+    if (diff < 0) {
+        statutCalcule = "expire";
+    } else if (diff <= 90) {
+        statutCalcule = "bientot_expire";
+    } else {
+        statutCalcule = "actif";
+    }
+
+    const nouveauContrat = {
+        id_contrat: contrat.id_contrat,
+        nom: contrat.nom,
+        date_debut: contrat.date_debut,
+        date_fin: contrat.date_fin,
+        montant: contrat.montant,
+        description: contrat.description,
+        fournisseur: contrat.fournisseur,
+        type_contrat: contrat.type_contrat,
+        responsable_nom: contrat.responsable_nom,
+        responsable_prenom: contrat.responsable_prenom,
+        statut: statutCalcule
+    };
+    return nouveauContrat;
 }
 
 function construireDescription(ancienContrat, nouveauContrat) {
@@ -310,6 +340,19 @@ exports.getAlertesUtilisateur = async (req, res) => {
     } catch (err) {
         console.error(err);
         return res.status(500).json({message:"Erreur récupération alertes utilisateur"});
+    }
+};
+
+exports.getContratById = async (req, res) => {
+    try {
+        const contrat = await modele.getContratById(req.params.id);
+        if (!contrat) {
+            return res.status(404).json({message:"Contrat introuvable"});
+        }
+        res.json(recalculerStatut(contrat));
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({message:"Erreur serveur"});
     }
 };
 

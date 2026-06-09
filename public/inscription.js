@@ -8,7 +8,7 @@ if (registerForm) {
         const prenom = document.getElementById("prenom").value;
         const email = document.getElementById("email_inscription").value;
         const mdp = document.getElementById("mdp").value;
-        const res = await fetch("http://localhost:3000/inscription", {
+        const res = await fetch("/inscription", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

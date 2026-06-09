@@ -39,7 +39,11 @@ function getValeurTexte(valeur) {
 
 
 function getResponsable(nom, prenom) {
-    return getValeurTexte(nom) + " " + getValeurTexte(prenom);
+    if (!nom && !prenom) {
+        return "Non assigné";
+    } else {
+        return getValeurTexte(nom) + " " + getValeurTexte(prenom);
+    }
 }
 
 

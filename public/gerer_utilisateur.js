@@ -1,5 +1,5 @@
 async function verifierAdmin() {
-    const res = await fetch("http://localhost:3000/me");
+    const res = await fetch("/me");
     const user = await res.json();
     if (!user) {
         window.location.href = "/connexion.html";
@@ -10,7 +10,7 @@ async function verifierAdmin() {
 
 
 async function chargerUtilisateurs() {
-    const res = await fetch("http://localhost:3000/utilisateurs");
+    const res = await fetch("/utilisateurs");
     const utilisateurs = await res.json();
     const div = document.getElementById("liste");
     div.innerHTML = "";
@@ -34,7 +34,7 @@ async function chargerUtilisateurs() {
         button.textContent = "Modifier";
         button.addEventListener("click", async function() {
             const role_id = Number(select.value);
-            const res = await fetch("http://localhost:3000/utilisateurs/role", {
+            const res = await fetch("/utilisateurs/role", {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"

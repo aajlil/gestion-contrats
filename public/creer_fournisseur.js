@@ -5,7 +5,7 @@ document.getElementById("btnOui").addEventListener("click", confirmerSuppression
 document.getElementById("btnNon").addEventListener("click", fermerConfirmation);
 
 async function chargerFournisseurs() {
-    const res = await fetch("http://localhost:3000/fournisseurs");
+    const res = await fetch("/fournisseurs");
     const fournisseurs = await res.json();
     const div = document.getElementById("listeFournisseurs");
     div.innerHTML = "";
@@ -33,7 +33,7 @@ async function chargerFournisseurs() {
 
 async function ajouterFournisseur() {
     const nom = document.getElementById("nom").value;
-    const res = await fetch("http://localhost:3000/fournisseurs", {
+    const res = await fetch("/fournisseurs", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -55,7 +55,7 @@ function fermerConfirmation() {
 
 
 async function confirmerSuppression() {
-    const res = await fetch("http://localhost:3000/fournisseurs/" + fournisseurASupprimer, {
+    const res = await fetch("/fournisseurs/" + fournisseurASupprimer, {
         method: "DELETE"
     });
     const data = await res.json();

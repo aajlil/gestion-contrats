@@ -8,7 +8,7 @@ document.getElementById("btnOui").addEventListener("click", confirmerSuppression
 document.getElementById("btnNon").addEventListener("click", fermerConfirmation);
 
 async function verifierAdmin() {
-    const res = await fetch("http://localhost:3000/me");
+    const res = await fetch("/me");
     const user = await res.json();
     if (!user) {
         window.location.href = "/connexion.html";
@@ -18,13 +18,12 @@ async function verifierAdmin() {
 }
 
 
-async function chargerContrats() {
-    const res = await fetch("http://localhost:3000/contrats");
+async function chargerContratsSelectionnes() {
+    idsSelectionnes = JSON.parse(sessionStorage.getItem("idsSuppression")) || [];
+    const res = await fetch("/contrats");
     contrats = await res.json();
-    afficherListe(contrats);
     afficherSelection();
 }
-
 
 function afficherListe(listeContrats) {
     const div = document.getElementById("liste");
@@ -128,7 +127,7 @@ function fermerConfirmation() {
 
 
 async function confirmerSuppression() {
-    const res = await fetch("http://localhost:3000/contrats", {
+    const res = await fetch("/contrats", {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json"
@@ -139,9 +138,10 @@ async function confirmerSuppression() {
     document.getElementById("message").textContent = data.message;
     idsSelectionnes = [];
     fermerConfirmation();
-    await chargerContrats();
-    reinitialiserRecherche();
+    sessionStorage.removeItem("idsSuppression");
+    document.getElementById("selection").innerHTML = "";
+    document.getElementById("liste").innerHTML = "";
 }
 
 verifierAdmin();
-chargerContrats();
+chargerContratsSelectionnes();

@@ -177,3 +177,13 @@ button:active {
         width: 100%;
     }
 }
+
+.export-multi {
+    display: none;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.export-multi.active {
+    display: flex;
+}

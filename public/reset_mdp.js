@@ -11,7 +11,7 @@ resetForm.addEventListener("submit", async function(e) {
     } else if (mdp !== confirmation) {
         document.getElementById("message").textContent = "Les mots de passe ne correspondent pas";
     } else {
-        const res = await fetch("http://localhost:3000/reset-mot-de-passe", {
+        const res = await fetch("/reset-mot-de-passe", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

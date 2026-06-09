@@ -5,7 +5,7 @@ if (loginForm) {
         e.preventDefault();
         const login = document.getElementById("login").value;
         const mdp = document.getElementById("mdp").value;
-        const res = await fetch("http://localhost:3000/login", {
+        const res = await fetch("/login", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

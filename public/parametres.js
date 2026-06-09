@@ -3,7 +3,7 @@ document.getElementById("btnModifierProfil").addEventListener("click", modifierP
 
 let roleUtilisateur = null;
 async function verifierConnexion() {
-    const res = await fetch("http://localhost:3000/me");
+    const res = await fetch("/me");
     const user = await res.json();
     if (!user) {
         window.location.href = "/connexion.html";
@@ -15,7 +15,7 @@ async function verifierConnexion() {
 
 
 async function chargerProfil() {
-    const res = await fetch("http://localhost:3000/me");
+    const res = await fetch("/me");
     const user = await res.json();
     document.getElementById("identifiant").value = user.identifiant;
     if (user.nom) {
@@ -44,7 +44,7 @@ async function modifierProfil() {
     const prenom = document.getElementById("prenom").value;
     const identifiant = document.getElementById("identifiant").value;
     const email = document.getElementById("email").value;
-    const res = await fetch("http://localhost:3000/modifier-profil", {
+    const res = await fetch("/modifier-profil", {
         method: "PUT",
         headers: {
             "Content-Type": "application/json"
@@ -63,7 +63,7 @@ async function modifierMotDePasse() {
     if (nouveau_mdp !== confirmation_mdp) {
         document.getElementById("message").textContent = "Les mots de passe ne correspondent pas";
     } else {
-        const res = await fetch("http://localhost:3000/modifier-mot-de-passe", {
+        const res = await fetch("/modifier-mot-de-passe", {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -85,7 +85,7 @@ document.getElementById("btnAnnulerSuppression").addEventListener("click", funct
 });
 
 document.getElementById("btnConfirmerSuppression").addEventListener("click", async function() {
-    const res = await fetch("http://localhost:3000/supprimer-compte", {
+    const res = await fetch("/supprimer-compte", {
         method: "DELETE"
     });
     const data = await res.json();

@@ -5,7 +5,7 @@ document.getElementById("btnOui").addEventListener("click", confirmerSuppression
 document.getElementById("btnNon").addEventListener("click", fermerConfirmation);
 
 async function chargerTypes() {
-    const res = await fetch("http://localhost:3000/types");
+    const res = await fetch("/types");
     const types = await res.json();
     const div = document.getElementById("listeTypes");
     div.innerHTML = "";
@@ -33,7 +33,7 @@ async function chargerTypes() {
 
 async function ajouterType() {
     const nom = document.getElementById("nom").value;
-    const res = await fetch("http://localhost:3000/types", {
+    const res = await fetch("/types", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -55,7 +55,7 @@ function fermerConfirmation() {
 
 
 async function confirmerSuppression() {
-    const res = await fetch("http://localhost:3000/types/" + typeASupprimer, {
+    const res = await fetch("/types/" + typeASupprimer, {
         method: "DELETE"
     });
     const data = await res.json();
